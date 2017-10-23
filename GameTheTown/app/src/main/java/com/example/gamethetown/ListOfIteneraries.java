@@ -1,7 +1,15 @@
 package com.example.gamethetown;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 /**
@@ -9,27 +17,36 @@ import android.widget.Spinner;
  */
 
 public class ListOfIteneraries extends App_Menu {
+
+    private PopupWindow popwindow;
+    private LayoutInflater layoutInflater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_itenerary);
 
-        Spinner spinnerDif = (Spinner) findViewById(R.id.spinner_dif);
+    }
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.iten_dif, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerDif.setAdapter(adapter);
 
-        Spinner spinnerProx = (Spinner) findViewById(R.id.spinner_prox);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.iten_prox, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinnerProx.setAdapter(adapter);
+    public void onFilterPress(View view) {
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        layoutInflater = (LayoutInflater) getApplicationContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.activity_filter,null);
+        //size
+        popwindow = new PopupWindow(container,width,height/2,true);
+        //position
+
+        popwindow.showAtLocation((LinearLayout)findViewById(R.id.list_itenerary),
+                Gravity.NO_GRAVITY,0,0);
+
 
     }
+
 }
