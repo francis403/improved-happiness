@@ -48,7 +48,7 @@
         android:clickable="true"
         android:elevation="4dp"
         android:padding="20dp"
-        android:text="Uma Pequena Discricao Aqui"
+        android:text="Perto do local onde o Infante D. Henrique, em meados do séc. XV, mandou edificar uma igreja sobre a invocação de Sta. Maria de Belém, quis o rei D. Manuel I construir um grande Mosteiro."
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,8 +83,8 @@
     <LinearLayout
         android:layout_width="361dp"
         android:layout_height="173dp"
-        android:layout_marginBottom="238dp"
-        android:background="@color/white"
+        android:layout_marginBottom="246dp"
+        android:background="@drawable/monteirodojeronimo"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
@@ -102,7 +102,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="10dp"></LinearLayout>
-
+            <!--
             <ImageButton
                 android:id="@+id/itenerary_id"
                 android:layout_width="match_parent"
@@ -116,7 +116,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 tools:layout_constraintBottom_creator="1"
                 tools:layout_constraintLeft_creator="1" />
-
+            -->
         </LinearLayout>
 
         <LinearLayout
@@ -150,7 +150,7 @@
                 android:elevation="4dp"
                 android:padding="20dp"
                 android:text="Created By"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 

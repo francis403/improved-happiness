@@ -34,6 +34,7 @@
 
     <!-- Dificuldades De Itenerarios -->
     <string-array name="iten_dif">
+        <item>All</item>
         <item>Just Travel</item>
         <item>Easy</item>
         <item>Medium</item>
@@ -43,6 +44,7 @@
 
     <!-- Prox De Itenerarios -->
     <string-array name="iten_prox">
+        <item>All</item>
         <item>Max 1km</item>
         <item>1-5km</item>
         <item>5-10km</item>
