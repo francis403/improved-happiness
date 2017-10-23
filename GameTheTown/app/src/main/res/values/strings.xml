@@ -27,9 +27,26 @@
 
     <!-- Teste Dos Arrays, Isto provavelmente vai sair daqui -->
     <string-array name="itenerarios">
-        <item>"Aventura pelo Monteiro Dos Jeronimos"</item>
+        <item>Aventura pelo Monteiro Dos Jeronimos</item>
         <item>Um Pequeno Passeio Pela Fcul</item>
         <item>Um Passeio para a minha filha</item>
+    </string-array>
+
+    <!-- Dificuldades De Itenerarios -->
+    <string-array name="iten_dif">
+        <item>Just Travel</item>
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+        <item>Break My Bones Hard</item>
+    </string-array>
+
+    <!-- Prox De Itenerarios -->
+    <string-array name="iten_prox">
+        <item>Max 1km</item>
+        <item>1-5km</item>
+        <item>5-10km</item>
+        <item>10+km</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
