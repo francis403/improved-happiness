@@ -1,22 +1,23 @@
 package com.example.gamethetown;
 
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.ActionBar.LayoutParams;
 import android.view.View;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
-import android.widget.ViewSwitcher.ViewFactory;
+
+import fragment.Map_Current_Iten;
 
 public class Itenerary extends App_Menu {
-
-    private ImageSwitcher sw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_itenerary_new);
+    }
 
+
+    public void goToMap(View view){
+        Intent intent = new Intent(this, Map_Current_Iten.class);
+        startActivity(intent);
     }
 }

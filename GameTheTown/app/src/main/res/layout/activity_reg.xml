@@ -17,7 +17,7 @@
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="334dp"
+        android:layout_marginTop="351dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -116,7 +116,8 @@
         app:layout_constraintTop_toBottomOf="@+id/input_email"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/input_email"
-        app:layout_constraintHorizontal_bias="0.0">
+        app:layout_constraintHorizontal_bias="0.0"
+        android:id="@+id/textInputLayout">
 
         <EditText
             android:id="@+id/input_confirm_password"
@@ -142,6 +143,38 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="@+id/textInputLayout2" />
+
+    <RadioButton
+        android:id="@+id/creator"
+        android:layout_width="95dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/even_lighter_sand"
+        android:text="Creator"
+        app:layout_constraintBottom_toTopOf="@+id/button_reg"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginLeft="49dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <RadioButton
+        android:id="@+id/explorer"
+        android:layout_width="95dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:checked="false"
+        android:text="Explorer"
+        android:textColor="@color/even_lighter_sand"
+        app:layout_constraintBottom_toTopOf="@+id/button_reg"
+        app:layout_constraintLeft_toRightOf="@+id/creator"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.702" />
 
 
 </android.support.constraint.ConstraintLayout>
