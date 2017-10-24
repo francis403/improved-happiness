@@ -11,7 +11,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import fragment.AddPhotoFragment;
 import fragment.DescriptionFragment;
+import fragment.DifficultyFragment;
 
 
 public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
@@ -42,6 +44,24 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
     public void setDescription(View view){
         DescriptionFragment dFrag = new DescriptionFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.map,dFrag);
+
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void setDifficulty(View view){
+        DifficultyFragment dFrag = new DifficultyFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.map,dFrag);
+
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void setPhoto(View view){
+        AddPhotoFragment dFrag = new AddPhotoFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.map,dFrag);
 

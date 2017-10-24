@@ -41,7 +41,6 @@
 
     <!-- Dificuldades De Itenerarios -->
     <string-array name="iten_dif">
-        <item>All</item>
         <item>Just Travel</item>
         <item>Easy</item>
         <item>Medium</item>
