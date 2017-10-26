@@ -10,7 +10,7 @@
     <fragment
         android:layout_weight="1"
         android:id="@+id/fragment1"
-        android:name="fragment.IteneraryListFragment"
+        android:name="com.example.gamethetown.fragment.IteneraryListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

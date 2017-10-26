@@ -11,9 +11,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import fragment.AddPhotoFragment;
-import fragment.DescriptionFragment;
-import fragment.DifficultyFragment;
+import com.example.gamethetown.fragment.AddPhotoFragment;
+import com.example.gamethetown.fragment.DescriptionFragment;
+import com.example.gamethetown.fragment.DifficultyFragment;
 
 
 public class CreateItenerary extends App_Menu implements OnMapReadyCallback {

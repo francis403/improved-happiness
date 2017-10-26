@@ -8,6 +8,11 @@
     android:orientation="vertical"
     android:id="@+id/list_fragment_view">
 
+    <!--
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
+    -->
     <ListView
         android:background="@color/white"
         android:id="@android:id/list"

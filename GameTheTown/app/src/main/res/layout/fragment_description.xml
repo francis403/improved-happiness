@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fragment.DescriptionFragment"
+    tools:context=".fragment.DescriptionFragment"
     android:background="@color/even_lighter_sand"
     android:id="@+id/frag_desc">
    <LinearLayout

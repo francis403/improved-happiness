@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import fragment.Map_Current_Iten;
+import com.example.gamethetown.fragment.Map_Current_Iten;
 
 public class Itenerary extends App_Menu {
 

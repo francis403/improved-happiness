@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gamethetown.Fragment.MapFragment"
-    android:background="@drawable/map_temp"
+    tools:context="com.example.gamethetown.fragment.Map_Current_Iten"
     android:id="@+id/fragment_map">
 
 

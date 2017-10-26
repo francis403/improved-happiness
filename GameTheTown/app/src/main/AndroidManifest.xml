@@ -48,10 +48,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC09ipTvgER5cFUMvyFukAFvwS3kamxy70" />
+            android:value="AIzaSyCeNYa6YBbyFxVhNe_Ix7mWg-uGPZSHpUM" />
 
         <activity
-            android:name="fragment.Map_Current_Iten"
+            android:name=".fragment.Map_Current_Iten"
             android:label="@string/title_activity_map__current__iten"></activity>
 
     </application>

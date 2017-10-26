@@ -90,12 +90,26 @@
         android:orientation="vertical">
 
         <TextView
+            android:background="@color/super_light_sand"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:padding="20dp"
-            android:text="Name: \nLevel: "
+            android:text="Name: "
+            />
+        <TextView
+            android:background="@color/super_light_sand"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:id="@+id/Level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:padding="20dp"
+            android:text="Level: "
             />
 
         <LinearLayout
