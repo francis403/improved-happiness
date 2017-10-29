@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,32 +11,9 @@
 
     <fragment
         android:layout_weight="1"
-        android:id="@+id/fragment1"
-        android:name="com.example.gamethetown.fragment.IteneraryListFragment"
+        android:id="@+id/list_frag"
+        android:name="com.example.gamethetown.fragment.List_Test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-
-    <LinearLayout
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
-        <Space
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="45dp" />
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:text="Filter"
-            android:onClick="onFilterPress"/>
-        <Space
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="45dp" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

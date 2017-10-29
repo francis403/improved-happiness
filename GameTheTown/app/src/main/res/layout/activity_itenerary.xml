@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gamethetown.Itenerary"
+    tools:context="com.example.gamethetown.CurrentItenerary"
     android:id="@+id/current_iten"
     android:background="@drawable/background2">
 

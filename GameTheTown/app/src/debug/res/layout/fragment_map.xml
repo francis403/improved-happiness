@@ -3,6 +3,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="bottom"
     >
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -11,6 +12,30 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.gamethetown.fragment.Map_Current_Iten" />
+        tools:context="com.example.gamethetown.fragment.Map_Current_Iten"
+        android:layout_gravity="end"
+        >
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:paddingTop="500dp"
+            >
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"/>
+            <ImageView
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/plus"
+                android:onClick="setDescription"
+                />
+        </LinearLayout>
+    </fragment>
+
+
 
 </FrameLayout>

@@ -1,9 +1,7 @@
 package com.example.gamethetown;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -70,7 +68,7 @@ public class App_Menu extends AppCompatActivity {
 
     public void currentIten(View view){
         if(findViewById(R.id.current_iten) == null) {
-            Intent intent = new Intent(this, Itenerary.class);
+            Intent intent = new Intent(this, CurrentItenerary.class);
             startActivity(intent);
         }
     }
