@@ -6,112 +6,18 @@
     android:orientation="vertical"
     android:background="@drawable/background2"
     >
-
-    <!--
-    <LinearLayout
-        android:id="@+id/Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight=".1"
-        android:orientation="vertical">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Name of Itinerary"
-            android:textColorHint="@color/even_lighter_sand"
-            android:textColor="@color/even_lighter_sand"
-            />
-    </LinearLayout>
-    -->
     <LinearLayout
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         >
-
         <fragment
             android:name="com.example.gamethetown.fragment.MapFragment"
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-
-
-
     </LinearLayout>
-    <!---
-    <LinearLayout
-        android:id="@+id/bot_panel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/right_panel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/add_point"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/add_point" />
-
-            <Button
-                android:id="@+id/add_game"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/add_game" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/left_panel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="setPhoto"
-                android:text="@string/button1" />
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="setDescription"
-                android:text="@string/button2" />
-
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="setDifficulty"
-                android:text="@string/button3" />
-
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/button4" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-     -->
 </LinearLayout>

@@ -12,30 +12,25 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.gamethetown.fragment.Map_Current_Iten"
         android:layout_gravity="end"
         >
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:paddingTop="500dp"
-            >
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"/>
-            <ImageView
-                android:clickable="true"
-                android:layout_weight="1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/plus"
-                android:onClick="setDescription"
-                />
-        </LinearLayout>
+
     </fragment>
 
-
-
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Space
+            android:layout_weight="10"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+        <fragment
+            android:layout_weight=".1"
+            android:id="@+id/add_func"
+            android:name="com.example.gamethetown.fragment.Search_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_search_fragment" />
+    </LinearLayout>
 </FrameLayout>

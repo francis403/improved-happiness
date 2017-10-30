@@ -124,8 +124,6 @@ public class ListOfIteneraries extends App_Menu {
 
     private void prepareItenData() {
 
-
-
         Itinerary iten = new Itinerary("Um passeio por Lisboa", new Date(2017,9,10));
         itenList.add(iten);
 

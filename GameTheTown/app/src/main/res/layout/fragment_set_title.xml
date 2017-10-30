@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.SetTitle"
+    android:background="@color/even_lighter_sand"
+    android:id="@+id/frag_desc">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <EditText
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="Set Title"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"/>
+        <Button
+            android:text="Set"
+            android:id="@+id/set"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </LinearLayout>
+</FrameLayout>

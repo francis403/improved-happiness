@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.example.gamethetown.fragment.SetTitle;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,10 +43,20 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         }
     }
 
+    //set title
+    public void setTitle(View view){
+        SetTitle st = new SetTitle();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.add_func,st);
+
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     public void setDescription(View view){
         DescriptionFragment dFrag = new DescriptionFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.map,dFrag);
+        transaction.replace(R.id.add_func,dFrag);
 
         transaction.addToBackStack(null);
         transaction.commit();

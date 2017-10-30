@@ -128,6 +128,7 @@
                 android:layout_marginLeft="7dp"
                 android:layout_centerHorizontal="true"
                 android:background="@color/even_lighter_sand"
+                android:onClick="checkCreatedIten"
                 android:text="Created Itineraries" />
 
             <Button
@@ -139,6 +140,7 @@
                 android:layout_marginRight="7dp"
                 android:layout_marginLeft="5dp"
                 android:background="@color/even_lighter_sand"
+                android:onClick="checkCompletedIten"
                 android:text="Completed Itineraries" />
 
         </LinearLayout>

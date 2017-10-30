@@ -6,8 +6,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -33,10 +33,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile" />
+        <activity
+            android:name=".Profile"
+            android:label="Profile" />
         <activity android:name=".Reg" />
-        <activity android:name=".CreateItenerary" />
-        <activity android:name=".ListOfIteneraries" />
+        <activity
+            android:name=".CreateItenerary"
+            android:label="Create Itinerary" />
+        <activity
+            android:name=".ListOfIteneraries"
+            android:label="All Itineraries" />
         <activity android:name=".CurrentItenerary" />
         <activity android:name=".Filter" />
         <!--
@@ -53,7 +59,11 @@
 
         <activity
             android:name=".fragment.Map_Current_Iten"
-            android:label="@string/title_activity_map__current__iten"></activity>
-
+            android:label="@string/title_activity_map__current__iten" />
+        <activity
+            android:name=".ListOfCreatedItineraries"
+            android:label="@string/title_activity_list_of_created_itineraries" />
+        <activity android:name=".ListOfCompletedItineraries"></activity>
     </application>
+
 </manifest>
