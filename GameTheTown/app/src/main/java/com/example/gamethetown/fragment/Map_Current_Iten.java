@@ -3,34 +3,49 @@ package com.example.gamethetown.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
+import android.location.Location;
+import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.Button;
 
 import com.example.gamethetown.R;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.Geofence;
 
-public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+import java.util.Map;
 
+
+public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener {
+
+
+    private static final float DISTANCE_TO_TARGET = 100 ; //100 metros
     private GoogleMap mMap;
+    private Location target;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map__current__iten);
 
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
     }
 
@@ -50,7 +65,10 @@ public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCall
 
         // Temos de adicionar isto ao Itenerario em si
         //Isto vai ser o mosteiro dos geronimos
-        LatLng sydney = new LatLng(38.6978115, -9.2068506);
+        target = new Location("target");
+        target.setLatitude(38.757145);
+        target.setLongitude(-9.157641);
+        LatLng sydney = new LatLng(38.757145, -9.157641);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
@@ -61,16 +79,19 @@ public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCall
             return;
         }
         mMap.setMyLocationEnabled(true);
-
+        // use com.google.android.gms.location.FusedLocationProviderApi
+        mMap.setOnMyLocationChangeListener(this);
     }
 
-    public void onMapClick(LatLng point) {
-        MarkerOptions marker = new MarkerOptions()
-                .position(new LatLng(point.latitude, point.longitude))
-                .title("New Marker");
-        mMap.addMarker(marker);
-        //System.out.println(point.latitude + "---" + point.longitude);
+    @Override
+    public void onMyLocationChange(Location location) {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        if(location.distanceTo(target) < DISTANCE_TO_TARGET) {
+            // Vibrate for 500 milliseconds
+            v.vibrate(500);
+        }
     }
+
 
 
 }

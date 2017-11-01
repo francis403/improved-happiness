@@ -68,27 +68,29 @@ public class Tab1List extends Fragment {
     }
 
     private void prepareItenData() {
+        //se for para ver todas as listas
 
-        Itinerary iten = new Itinerary("Um passeio por Lisboa", new Date(2017,9,10));
+        Itinerary iten = new Itinerary("Um passeio por Lisboa", new Date(2017, 9, 10));
         itenList.add(iten);
 
-        iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos", new Date(2017,9,11),R.drawable.monteirodojeronimo);
+        iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos", new Date(2017, 9, 11), R.drawable.monteirodojeronimo);
         itenList.add(iten);
 
-        iten = new Itinerary("Vamos conhecer a Fcul!", new Date(2017,7,12));
+        iten = new Itinerary("Vamos conhecer a Fcul!", new Date(2017, 7, 12));
         itenList.add(iten);
 
-        iten = new Itinerary("Vamos Nadar Com os Peixes - Oceanario De Lisboa", new Date(2017,9,11));
+        iten = new Itinerary("Vamos Nadar Com os Peixes - Oceanario De Lisboa", new Date(2017, 9, 11));
         itenList.add(iten);
 
-        iten = new Itinerary("Alfama? Mal a Conheco!", new Date(2017,7,12));
+        iten = new Itinerary("Alfama? Mal a Conheco!", new Date(2017, 7, 12));
         itenList.add(iten);
 
-        iten = new Itinerary("Vamos Assaltar Palacio Chiado!", new Date(2017,7,12));
+        iten = new Itinerary("Vamos Assaltar Palacio Chiado!", new Date(2017, 7, 12));
         itenList.add(iten);
 
-        iten = new Itinerary("Sera que o Rio Tejo eh mesmo um Rio?", new Date(2017,7,12));
+        iten = new Itinerary("Sera que o Rio Tejo eh mesmo um Rio?", new Date(2017, 7, 12));
         itenList.add(iten);
+
 
         mAdapter.notifyDataSetChanged();
     }

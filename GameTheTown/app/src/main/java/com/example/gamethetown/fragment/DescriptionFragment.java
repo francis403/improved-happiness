@@ -28,10 +28,11 @@ public class DescriptionFragment extends Fragment {
         return view;
     }
 
+
     public void confirmDesc(View view){
         Search_fragment mFrag = new Search_fragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.add_func,mFrag);
+        //transaction.replace(R.id.add_func,mFrag);
 
         transaction.addToBackStack(null);
         transaction.commit();

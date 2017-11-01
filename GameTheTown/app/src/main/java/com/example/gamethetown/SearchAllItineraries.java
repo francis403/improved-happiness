@@ -169,7 +169,9 @@ public class SearchAllItineraries extends App_Menu {
                 case 0:
                     //List_Test lt = new List_Test();
                     Tab1List tab1 = new Tab1List();
-
+                    Bundle args = new Bundle();
+                    args.putString("view","all");
+                    tab1.setArguments(args);
                     return tab1;
                 case 1:
                     Tab2Map tab2 = new Tab2Map();
