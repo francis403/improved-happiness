@@ -17,6 +17,10 @@ public class Itinerary {
     private Date creatDate;
     private String Description;
 
+    //TODO
+    //vai ter um LatLng para a imagem base,
+    //vai ter uma list de LatLng para todos os hotspots possiveis
+
     public Itinerary(){}
 
 
@@ -26,7 +30,6 @@ public class Itinerary {
         imageID = R.drawable.no_image;
     }
 
-    //TODO -> ADICIONAR IMAGE
     public Itinerary(String name,Date creatDate,int imageID){
         this.name = name;
         this.imageID = imageID;

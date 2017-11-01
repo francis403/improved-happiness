@@ -63,7 +63,17 @@
         <activity
             android:name=".ListOfCreatedItineraries"
             android:label="@string/title_activity_list_of_created_itineraries" />
-        <activity android:name=".ListOfCompletedItineraries"></activity>
+        <activity android:name=".ListOfCompletedItineraries" />
+        <activity
+            android:name=".SearchAllItineraries"
+            android:label="@string/title_activity_search_all_itineraries"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

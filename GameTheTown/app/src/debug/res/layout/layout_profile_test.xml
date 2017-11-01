@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gamethetown.Profile"
+    android:background="@drawable/background2"
+    android:id="@+id/profile">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/user_profile_photo"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="-6dp"
+            android:background="@drawable/profile_circular_border_imageview"
+            android:src="@drawable/profile"
+            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:paddingTop="50dp"
+        android:id="@+id/upper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <TextView
+                android:background="@color/super_light_sand"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:id="@+id/textView3"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="20dp"
+                android:text="Name: "
+                />
+            <TextView
+                android:background="@color/super_light_sand"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:id="@+id/Level"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:padding="20dp"
+                android:text="Level: "
+                />
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_weight="1"
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"></android.support.v7.widget.RecyclerView>
+
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/iten"
+                android:onClick="currentIten"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_gravity="right"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/profile_circular_border_imageview"
+                android:src="@drawable/iten"
+                tools:layout_constraintTop_creator="1"
+                tools:layout_constraintRight_creator="1"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:layout_constraintLeft_creator="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.803"
+                />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="Current Itenerary"
+                android:layout_gravity="right"
+                android:layout_marginRight="45dp"
+                android:textColor="@color/white"
+                app:layout_constraintRight_toRightOf="@+id/iten"
+                app:layout_constraintTop_toTopOf="@+id/iten"
+                tools:layout_constraintRight_creator="1"
+                tools:layout_constraintTop_creator="1" />
+
+        </LinearLayout>
+    -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <!--
+        <TextView
+            android:background="@color/super_light_sand"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:padding="20dp"
+            android:text="Name: "
+            />
+        <TextView
+            android:background="@color/super_light_sand"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:id="@+id/Level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:padding="20dp"
+            android:text="Level: "
+            />
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="5sp"
+                android:layout_marginLeft="7dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/even_lighter_sand"
+                android:onClick="checkCreatedIten"
+                android:text="Created Itineraries" />
+
+            <Button
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:background="@color/even_lighter_sand"
+                android:onClick="checkCompletedIten"
+                android:text="Completed Itineraries" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

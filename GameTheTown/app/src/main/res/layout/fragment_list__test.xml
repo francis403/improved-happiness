@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/list_itenerary"
-        android:background="@drawable/background2"
         >
 
         <android.support.v7.widget.RecyclerView

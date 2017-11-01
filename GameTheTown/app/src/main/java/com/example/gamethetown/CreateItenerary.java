@@ -56,6 +56,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     public void setDescription(View view){
         DescriptionFragment dFrag = new DescriptionFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        //ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.replace(R.id.add_func,dFrag);
 
         transaction.addToBackStack(null);

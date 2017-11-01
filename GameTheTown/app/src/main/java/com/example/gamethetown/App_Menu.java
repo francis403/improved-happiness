@@ -82,9 +82,14 @@ public class App_Menu extends AppCompatActivity {
 
     public void selectItenerary(View view){
         if(findViewById(R.id.list_itenerary) == null) {
-            Intent intent = new Intent(this, ListOfIteneraries.class);
+            Intent intent = new Intent(this, SearchAllItineraries.class);
             startActivity(intent);
         }
+    }
+
+    public void selectTest(View view){
+        Intent intent = new Intent(this,SearchAllItineraries.class);
+        startActivity(intent);
     }
 
 }
