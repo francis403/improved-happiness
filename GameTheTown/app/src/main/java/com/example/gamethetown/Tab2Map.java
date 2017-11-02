@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
+//TODO -> passar por todos os pontos e metelos no mapa
 public class Tab2Map extends Fragment{
 
     @Override

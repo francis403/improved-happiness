@@ -48,6 +48,10 @@
         <item>Break My Bones Hard</item>
     </string-array>
 
+    <string-array name="games">
+        <item>Quiz</item>
+    </string-array>
+
     <!-- Prox De Itenerarios -->
     <string-array name="iten_prox">
         <item>All</item>

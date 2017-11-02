@@ -28,7 +28,7 @@ import com.google.android.gms.location.Geofence;
 import java.util.ArrayList;
 import java.util.Map;
 
-
+//TODO -> Passar para o fuse
 public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener {
 
 
