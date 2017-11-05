@@ -69,8 +69,8 @@
             android:name=".SearchAllItineraries"
             android:label="@string/title_activity_search_all_itineraries"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".games.Hotspot_Quiz_Creator" />
-        <activity android:name=".games.HotspotQuiz"></activity>
+        <activity android:name=".gameControllers.Hotspot_Quiz_Creator" />
+        <activity android:name=".gameControllers.HotspotQuiz"></activity>
     </application>
 
 </manifest>

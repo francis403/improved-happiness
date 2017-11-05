@@ -26,7 +26,7 @@
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/questions"
+            android:id="@+id/dif"
             android:orientation="horizontal">
             <RadioButton android:id="@+id/justTravel"
                 android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="medium" />
-            <RadioButton android:id="@+id/radio_ninjas"
+            <RadioButton android:id="@+id/hard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="hard" />

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2"
-    tools:context="com.example.gamethetown.games.Hotspot_Quiz_Creator">
+    tools:context="com.example.gamethetown.gameControllers.Hotspot_Quiz_Creator">
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
@@ -54,7 +54,6 @@
                 <RadioButton android:id="@+id/quest1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
                 <RadioButton android:id="@+id/quest2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -70,24 +69,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="128dp">
                 <EditText
+                    android:id="@+id/asw1"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:hint="Question 1"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
                 <EditText
+                    android:id="@+id/asw2"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:hint="Question 2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
                 <EditText
+                    android:id="@+id/asw3"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:hint="Question 3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp" />
                 <EditText
+                    android:id="@+id/asw4"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:hint="Question 4"
@@ -119,6 +122,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:layout_weight="1"
+            android:onClick="onButtonFinish"
             android:id="@+id/fab_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

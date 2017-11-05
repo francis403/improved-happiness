@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.example.gamethetown.fragment.Map_Current_Iten;
 
+//TODO -> precisa de receber a informacao toda
 public class CurrentItenerary extends App_Menu {
 
     @Override

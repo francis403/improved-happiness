@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2"
-    tools:context="com.example.gamethetown.games.Hotspot_Quiz_Creator">
+    tools:context="com.example.gamethetown.gameControllers.Hotspot_Quiz_Creator">
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"

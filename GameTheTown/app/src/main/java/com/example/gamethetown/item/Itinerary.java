@@ -1,7 +1,9 @@
 package com.example.gamethetown.item;
 
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 
 import java.lang.reflect.Array;
@@ -23,9 +25,8 @@ public class Itinerary {
     private int imageID;
     private Date creatDate;
     private String description;
-    //Array de todos os hostpots possiveis
-    //o hotspot vai ter a posicao
-    //O primeiro hotspot vai ser o base ( o que aparece no mapa)
+    private Enum<Difficulties> dif;
+
     private List<Hotspot> hotspots;
 
     //TODO
@@ -59,6 +60,29 @@ public class Itinerary {
         hotspots = list;
     }
 
+    /**
+     * Verifica se funciona com a lista de preHotspots
+     * @param preHotspots -> hotspots ainda nao confirmados
+     * @return
+     */
+    public boolean preCompleted(Collection<Hotspot> preHotspots){
+        for(Hotspot h : preHotspots)
+            if(!h.isComplete())
+                return false;
+        Log.d("teste","todos os hotspots estao completos");
+        return preHotspots.size() >= 1 && name != null
+                && description != null && creatDate != null && dif != null;
+    }
+
+    //tem de haver pelo menos um hotspot no itinerario
+    public boolean isComplete(){
+        for(Hotspot h : hotspots)
+            if(!h.isComplete())
+                return false;
+        return name != null && !name.equals("") && creatDate != null &&
+                dif != null && description != null && !description.equals("")
+                && hotspots.size() >=1;
+    }
     public boolean hasImage(){
         return imageID != DEFAULT_IMAGE_ID;
     }
@@ -72,7 +96,13 @@ public class Itinerary {
         return Collections.unmodifiableList(hotspots);
     }
     public String getDescription(){return description;}
+    public String getDifficulty(){
+        if(dif == null)
+            return null;
+        return dif.toString();
+    }
 
+    public void setDifficulty(Difficulties dif){this.dif = dif;}
     public void setTitle(String title){this.name = title;}
     public void setDescription(String description){this.description = description;}
     public void setDate(Date date){this.creatDate = date;}
