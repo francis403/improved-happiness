@@ -17,10 +17,12 @@ import java.util.List;
 
 public class Itinerary {
 
+    private static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
+
     private String name;
     private int imageID;
     private Date creatDate;
-    private String Description;
+    private String description;
     //Array de todos os hostpots possiveis
     //o hotspot vai ter a posicao
     //O primeiro hotspot vai ser o base ( o que aparece no mapa)
@@ -30,14 +32,16 @@ public class Itinerary {
     //vai ter um LatLng para a imagem base,
     //vai ter uma list de LatLng para todos os hotspots possiveis
 
-    public Itinerary(){}
+    public Itinerary(){
+        imageID = DEFAULT_IMAGE_ID;
+    }
 
 
     public Itinerary(String name,Date creatDate){
         hotspots = new ArrayList<>();
         this.name = name;
         this.creatDate = creatDate;
-        imageID = R.drawable.no_image;
+        imageID = DEFAULT_IMAGE_ID;
     }
 
     public Itinerary(String name,Date creatDate,int imageID){
@@ -47,19 +51,32 @@ public class Itinerary {
         this.creatDate = creatDate;
     }
 
+    public Itinerary(String name,Date creatDate,int imageID,List<Hotspot> list){
+        hotspots = new ArrayList<>();
+        this.name = name;
+        this.imageID = imageID;
+        this.creatDate = creatDate;
+        hotspots = list;
+    }
+
     public boolean hasImage(){
-        return imageID != R.drawable.no_image;
+        return imageID != DEFAULT_IMAGE_ID;
     }
 
     public String getTitle(){return name;}
     public Date getCreationDate(){return creatDate;}
     public int getImageID(){return imageID;}
     public int getNumberOfHotspots(){return hotspots.size();}
-
-    //TODO
-    private List<Hotspot> getHotSpotList(){
+    public Hotspot getFirstHotspot(){return hotspots.get(0);}
+    public List<Hotspot> getHotSpotList(){
         return Collections.unmodifiableList(hotspots);
     }
+    public String getDescription(){return description;}
+
+    public void setTitle(String title){this.name = title;}
+    public void setDescription(String description){this.description = description;}
+    public void setDate(Date date){this.creatDate = date;}
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
+
 
 }

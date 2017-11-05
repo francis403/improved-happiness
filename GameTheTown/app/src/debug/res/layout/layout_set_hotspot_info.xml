@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name of Hotspot"/>
@@ -30,16 +30,39 @@
             android:src = "@android:drawable/ic_menu_camera"/>
         <Space
             android:layout_width="wrap_content"
-            android:layout_height="17dp" />
+            android:layout_height="75dp" />
 
 
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/checkbox_on_background" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/marker_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/fab_margin"
+            android:onClick="fabInform"
+            app:srcCompat="@android:drawable/ic_dialog_info" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_delete" />
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

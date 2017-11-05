@@ -9,10 +9,12 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="title"/>
         <EditText
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"/>
@@ -70,11 +72,12 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
     -->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/checkbox_on_background" />
+
 
 </android.support.design.widget.CoordinatorLayout>

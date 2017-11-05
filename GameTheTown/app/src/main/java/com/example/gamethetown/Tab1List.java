@@ -49,7 +49,7 @@ public class Tab1List extends Fragment {
             recyclerView.setAdapter(mAdapter);
             recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
 
-
+            //TODO -> mandar para o mapa
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(),
                     recyclerView, new ListOfIteneraries.ClickListener() {
                 //@Override
