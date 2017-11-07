@@ -9,9 +9,26 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:text="Information is not complete! "/>
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Missing following componets:"/>
+        android:text="Check if basic info is set"/>
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Must have at least 1 hotspot (click on the map to create one)"/>
+    <android.support.v4.widget.Space
+        android:layout_width="wrap_content"
+        android:layout_height="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All Hotspots must be green (completed)"/>
 
 </LinearLayout>

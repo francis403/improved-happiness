@@ -1,9 +1,12 @@
 package com.example.gamethetown;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.gamethetown.item.User;
 
 /**
  * Created by franc on 21/10/2017.
@@ -11,6 +14,18 @@ import android.view.View;
  */
 
 public class App_Menu extends AppCompatActivity {
+
+    //ja fizemos o login por isso precisamos do user
+    protected User user;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        //TODO -> get logined user
+        //find user
+    }
+
+    public User getUser(){return user;}
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {

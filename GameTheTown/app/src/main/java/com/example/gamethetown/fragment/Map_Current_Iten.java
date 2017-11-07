@@ -35,7 +35,6 @@ public class Map_Current_Iten extends FragmentActivity implements OnMapReadyCall
     private static final float DISTANCE_TO_TARGET = 100 ; //100 metros
     private GoogleMap mMap;
     private Location target;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

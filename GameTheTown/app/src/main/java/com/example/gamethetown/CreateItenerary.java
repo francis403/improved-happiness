@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -36,13 +37,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Date;
 import java.util.HashMap;
 
-//TODO -> implemt fuse
 public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
     private static final int GET_GAME_CODE = 1;
 
     private Itinerary createdIten;
-
+    private Bundle extras;
     //os hotspots antes de serem confirmados
     private HashMap<String,Hotspot> preHotspots = new HashMap<>();
     private GoogleMap mMap;
@@ -57,6 +57,11 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         createdIten = new Itinerary();
         createdIten.setDate(new Date());
         bsd = new BottomSheetDialog(this);
+
+        extras = getIntent().getExtras();
+        if(extras != null && !extras.isEmpty()){
+            //get data from arleady existing itinerary and list of preHotspots
+        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -124,11 +129,13 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                     @Override
                     public void onClick(View v) {
                         //do something //TODO
-                        //verificar se esta tubo bem
-                        //temos de fazer contar com os pre
-
                         if(createdIten.preCompleted(preHotspots.values())){
                             //se ja estiver tudo bem e completo
+                            Intent intent = new Intent(v.getContext(),
+                                    ConfirmHotspots.class);
+                            intent.putExtra("itinerary",createdIten);
+                            intent.putExtra("preList",preHotspots);
+                            startActivity(intent);
                         }
                         else{
                             bottomSheetUp(R.layout.layout_error_creating_itinerary);
@@ -150,7 +157,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         return sView;
     }
 
-    //TODO
     public void OnMarkerAddition(final Marker marker){
         Hotspot hot = new Hotspot();
         View sView = bottomSheetUp(R.layout.layout_set_hotspot_info);
@@ -159,7 +165,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         setHotspotInfoWindow(marker,sView);
     }
 
-    //TODO
+    //TODO -> falta meter a foto
     private void setHotspotInfoWindow(final Marker marker, View sView){
         fab_rem = (FloatingActionButton) sView.findViewById(R.id.remove);
         //haver se mudo isto de sitio so para fazer isto uma vez TODO
@@ -260,7 +266,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
             @Override
             public void onMapClick(LatLng point) {
-                //TODO -> verificar se o ponto nao esta a mais de uma distancia pre-defenida
 
                 MarkerOptions marker = new MarkerOptions()
                         .position(new LatLng(point.latitude, point.longitude))
@@ -290,7 +295,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         mMap.setMyLocationEnabled(true);
     }
 
-    //TODO -> Only do if valid input
     //ERRO -> esta a receber o titule em branco
     public void closeBottomView(View v){
         String title = ((EditText) v.findViewById(R.id.title)).getText()

@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by franc on 29/10/2017.
  */
 
-public class Itinerary {
+public class Itinerary implements Serializable{
 
     private static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
 
@@ -101,6 +102,7 @@ public class Itinerary {
             return null;
         return dif.toString();
     }
+    public int numberOfHotspot(){return hotspots.size();}
 
     public void setDifficulty(Difficulties dif){this.dif = dif;}
     public void setTitle(String title){this.name = title;}

@@ -14,6 +14,7 @@ public class CurrentItenerary extends App_Menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_itenerary_new);
+
     }
 
 
