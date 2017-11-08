@@ -29,29 +29,19 @@ import java.util.Random;
 import static android.content.Context.SENSOR_SERVICE;
 
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
-
 public class SingleTouchEventView extends View implements SensorEventListener{
 
     private Paint paint = new Paint();
     private Path path = new Path();
     private ArrayList<Pair<Path,Paint>> paths = new ArrayList<>();
     private GestureDetectorCompat mDetector;
-
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast;
-
-
+    private boolean touched;
+    int previousColor;
     //constant for defining the time duration between the click that can be considered as double-tap
     static final int MAX_DURATION = 500;
 
@@ -161,8 +151,15 @@ public class SingleTouchEventView extends View implements SensorEventListener{
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         if(mSensor!= null){
             float dist = se.values[0];
-            if(dist == 0)
+            if(dist == 0) {
+                touched = true;
+                previousColor = getDrawingCacheBackgroundColor();
                 setBackgroundColor(Color.BLACK);
+            }
+            if(touched && dist > 3){
+                setBackgroundColor(previousColor);
+                touched = false;
+            }
         }
     }
 
