@@ -86,8 +86,6 @@ public class ConfirmHotspots extends App_Menu {
 
                 }
             }));
-
-
             //prepareItenData();
         }
     }

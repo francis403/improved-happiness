@@ -1,5 +1,9 @@
 package com.example.gamethetown.item;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by franc on 07/11/2017.
  */
@@ -10,12 +14,17 @@ public class User {
     private String password;
     private int imageID;
     private int level;
-
     private Itinerary currentItinerary;
     private int currentHotspotIndice;
 
+    private List<Itinerary> completedItineraries;
+    private List<Itinerary> createdItineraries;
+
     public User(){
         currentHotspotIndice = -1; //porque nao temos nenhum ainda
+        completedItineraries = new ArrayList<>(); //empty
+        createdItineraries = new ArrayList<>();
+        level = 1;
     }
 
     public User(String name,String password){
@@ -29,7 +38,17 @@ public class User {
     public String getPassword(){return password;}
     public int getLevel(){return level;}
     public Itinerary getCurrentItinerary(){return currentItinerary;}
+    public List<Itinerary> getCompletedItineraries(){
+        return Collections.unmodifiableList(completedItineraries);
+    }
+    public List<Itinerary> getCreatedItineraries(){
+        return Collections.unmodifiableList(createdItineraries);
+    }
 
+
+
+    public void addCompletedItinerary(Itinerary i){completedItineraries.add(i);}
+    public void addCreatedItinerary(Itinerary i){createdItineraries.add(i);}
     public void setCurrentItinerary(Itinerary itinerary){
         currentItinerary = itinerary;
         currentHotspotIndice = 0;
@@ -38,10 +57,16 @@ public class User {
     public void setName(String name){this.name = name;}
     public void setPassword(String password){this.password = password;}
     public void setLevel(int level){this.level = level;}
+    public Hotspot getCurrentHotspot(){
+        if(currentHotspotIndice< currentItinerary.getNumberOfHotspots())
+            return currentItinerary.getHotSpotList().get(currentHotspotIndice);
+        return null;
+    }
 
     //TODO
     public boolean levelUp(double experience){
         return false;
     }
+
 
 }

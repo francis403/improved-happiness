@@ -6,7 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.gamethetown.games.Quiz;
+import com.example.gamethetown.item.Hotspot;
+import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.User;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Date;
 
 /**
  * Created by franc on 21/10/2017.
@@ -23,6 +29,7 @@ public class App_Menu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //TODO -> get logined user
         //find user
+        setDefaultUser();
     }
 
     public User getUser(){return user;}
@@ -105,6 +112,37 @@ public class App_Menu extends AppCompatActivity {
     public void selectTest(View view){
         Intent intent = new Intent(this,SearchAllItineraries.class);
         startActivity(intent);
+    }
+
+
+    //TODO -> delete after database is made
+    public void setDefaultUser(){
+        user = new User("Francis", "password1234");
+        Itinerary iten = new Itinerary("Teste hyper teste",new Date());
+        Hotspot hot = new Hotspot();
+        LatLng position = new LatLng(38.7561689,-9.1556714);
+        Quiz quiz = new Quiz();
+        setQuiz(quiz,1);
+        hot.setPosition(position);
+        hot.setName("Teste do fazer");
+        hot.setGame(quiz);
+        iten.addHotspot(hot);
+        hot.setName("100 Montaditos");
+        hot.setPosition(new LatLng(38.7524403,-9.134773));
+        setQuiz(quiz,2);
+        hot.setGame(quiz);
+        iten.addHotspot(hot);
+        user.setCurrentItinerary(iten);
+    }
+
+    private void setQuiz(Quiz quiz,int n){
+        quiz.setName("Quiz" + n);
+        quiz.setQuestion("Teste do quiz numero " + n);
+        quiz.setAsw1("Respota 1");
+        quiz.setAsw2("Respota 2");
+        quiz.setAsw3("Resposta 3");
+        quiz.setAsw4("Resposta 4");
+        quiz.setCorrectAsw(2);
     }
 
 }

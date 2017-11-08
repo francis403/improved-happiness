@@ -1,6 +1,11 @@
 package com.example.gamethetown.games;
 
+import android.content.Intent;
+import android.view.View;
+
+import com.example.gamethetown.gameControllers.HotspotQuiz;
 import com.example.gamethetown.interfaces.Game;
+import com.example.gamethetown.item.Hotspot;
 
 import java.io.Serializable;
 
@@ -15,12 +20,16 @@ public class Quiz extends CurrentGame {
     private String question;
     private String[] aws;
     private int correctAsw = -1;
+    private int imageID;
 
     public Quiz(){
         super("Quiz");
         aws = new String[NUMBER_OF_QUESTIONS];
+        imageID = DEFAULT_IMAGE_ID;
     }
 
+    @Override
+    public Class getGameClass(){return HotspotQuiz.class;}
 
     @Override
     public boolean isFinished() {
@@ -38,7 +47,9 @@ public class Quiz extends CurrentGame {
                 return false;
         return question != null && !question.equals("") && correctAsw != -1;
     }
+    public int getImageID(){return imageID;}
 
+    public void setImageID(int imageID){this.imageID = imageID;}
     public void setQuestion(String question){this.question = question;}
     public void setAsw1(String asw1){aws[0] = asw1;}
     public void setAsw2(String asw2){aws[1] = asw2;}
