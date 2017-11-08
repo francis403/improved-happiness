@@ -12,28 +12,22 @@ import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.util.Pair;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.VelocityTracker;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.content.Context.SENSOR_SERVICE;
-
 
 public class SingleTouchEventView extends View implements SensorEventListener{
 
-    private Paint paint = new Paint();
-    private Path path = new Path();
     private ArrayList<Pair<Path,Paint>> paths = new ArrayList<>();
+
     private GestureDetectorCompat mDetector;
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -41,7 +35,8 @@ public class SingleTouchEventView extends View implements SensorEventListener{
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast;
     private boolean touched;
-    int previousColor;
+    private int previousColor;
+    private int lineColor = Color.BLACK;
     //constant for defining the time duration between the click that can be considered as double-tap
     static final int MAX_DURATION = 500;
 
@@ -56,28 +51,24 @@ public class SingleTouchEventView extends View implements SensorEventListener{
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
         mDetector = new GestureDetectorCompat(context, new MyGestureListener());
-        setPaintSettings(paint);
     }
 
     public void setPaintSettings(Paint paint){
         paint.setAntiAlias(true);
         paint.setStrokeWidth(6f);
-        paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(lineColor);
         paint.setStrokeJoin(Paint.Join.ROUND);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        /*
-        Paint paint2 = paint;
-        Path path2 = path;
-        paths.add(new Pair<Path, Paint>(path2,paint2));
+
         for(Pair<Path, Paint> pair : paths){
             canvas.drawPath(pair.first,pair.second);
         }
-           */
-        canvas.drawPath(path, paint);
+
+        //canvas.drawPath(path, paint);
     }
 
     @Override
@@ -86,14 +77,22 @@ public class SingleTouchEventView extends View implements SensorEventListener{
         float eventY = event.getY();
 
         this.mDetector.onTouchEvent(event);
-        boolean result = super.onTouchEvent(event);
+        super.onTouchEvent(event);
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                path.moveTo(eventX, eventY);
+
+                Path path2 = new Path();
+                Paint paint2 = new Paint();
+                setPaintSettings(paint2);
+                path2.moveTo(eventX,eventY);
+                paths.add(new Pair<Path,Paint>(path2,paint2));
+
+
                 return true;
             case MotionEvent.ACTION_MOVE:
-                path.lineTo(eventX, eventY);
+
+                paths.get(paths.size()-1).first.lineTo(eventX,eventY);
                 //super.onTouchEvent(event);
                 break;
             default:
@@ -138,14 +137,18 @@ public class SingleTouchEventView extends View implements SensorEventListener{
             mAccelLast = mAccelCurrent;
             mAccelCurrent = (float) Math.sqrt((double) (x * x + y * y + z * z));
             float delta = mAccelCurrent - mAccelLast;
-            mAccel = mAccel * 0.9f + delta; // perform low-cut filter
-            if (mAccel >= 20) {
+            mAccel = mAccel * 0.9f + delta;
+            if (mAccel >= 35) {
                 //clear everything
-                path.reset();
+
+                paths.clear();
                 invalidate();
             }
-            else if(mAccel >= 12){
+            else if(mAccel >= 20){
                 //apagar apenas a ultima linha
+                if(!paths.isEmpty())
+                    paths.remove(paths.size() - 1);
+                invalidate();
             }
         }
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -153,7 +156,7 @@ public class SingleTouchEventView extends View implements SensorEventListener{
             float dist = se.values[0];
             if(dist == 0) {
                 touched = true;
-                previousColor = getDrawingCacheBackgroundColor();
+                //previousColor = getDrawingCacheBackgroundColor();
                 setBackgroundColor(Color.BLACK);
             }
             if(touched && dist > 3){
@@ -169,17 +172,20 @@ public class SingleTouchEventView extends View implements SensorEventListener{
     }
 
     class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private static final String DEBUG_TAG = "Gestures";
 
         @Override
         public boolean onDoubleTapEvent(MotionEvent event) {
-            paint.setColor(switchColor());
+            lineColor = switchColor();
+
+            paths.get(paths.size()-1).second.setColor(lineColor);
+
             return true;
         }
 
         @Override
         public void onLongPress(MotionEvent event) {
-            setBackgroundColor(switchColor());
+            previousColor = switchColor();
+            setBackgroundColor(previousColor);
         }
     }
 
