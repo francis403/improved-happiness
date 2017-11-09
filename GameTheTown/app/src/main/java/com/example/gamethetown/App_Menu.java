@@ -2,7 +2,10 @@ package com.example.gamethetown;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -23,10 +26,11 @@ public class App_Menu extends AppCompatActivity {
 
     //ja fizemos o login por isso precisamos do user
     protected User user;
-
+    protected BottomSheetDialog bsd;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        bsd = new BottomSheetDialog(this);
         //TODO -> get logined user
         //find user
         setDefaultUser();
@@ -119,19 +123,24 @@ public class App_Menu extends AppCompatActivity {
     public void setDefaultUser(){
         user = new User("Francis", "password1234");
         Itinerary iten = new Itinerary("Teste hyper teste",new Date());
+
         Hotspot hot = new Hotspot();
         LatLng position = new LatLng(38.7561689,-9.1556714);
         Quiz quiz = new Quiz();
+        Quiz quiz2 = new Quiz();
         setQuiz(quiz,1);
         hot.setPosition(position);
         hot.setName("Teste do fazer");
         hot.setGame(quiz);
         iten.addHotspot(hot);
-        hot.setName("100 Montaditos");
-        hot.setPosition(new LatLng(38.7524403,-9.134773));
-        setQuiz(quiz,2);
-        hot.setGame(quiz);
-        iten.addHotspot(hot);
+
+        Hotspot hot2 = new Hotspot();
+        hot2.setName("100 Montaditos");
+        hot2.setPosition(new LatLng(38.7524403,-9.134773));
+        setQuiz(quiz2,2);
+        hot2.setGame(quiz2);
+        iten.addHotspot(hot2);
+
         user.setCurrentItinerary(iten);
     }
 
@@ -143,6 +152,21 @@ public class App_Menu extends AppCompatActivity {
         quiz.setAsw3("Resposta 3");
         quiz.setAsw4("Resposta 4");
         quiz.setCorrectAsw(2);
+    }
+
+    //copia de um metodo que ja tinhamos antes, a ver se mudamos de sitio
+    public View bottomSheetUp(int layoutID){
+        View sView = getLayoutInflater().inflate(layoutID,null);
+        bsd.setContentView(sView);
+        BottomSheetBehavior bsb = BottomSheetBehavior.from((View) sView.getParent());
+        bsb.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics()));
+        bsd.show();
+        return sView;
+    }
+
+    //retorna simplesmente a view daquele id
+    public View getView(int layoutID){
+        return getLayoutInflater().inflate(layoutID,null);
     }
 
 }

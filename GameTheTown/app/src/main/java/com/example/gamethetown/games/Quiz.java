@@ -1,6 +1,7 @@
 package com.example.gamethetown.games;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gamethetown.gameControllers.HotspotQuiz;
@@ -63,4 +64,5 @@ public class Quiz extends CurrentGame {
     public String getAsw2(){return aws[1];}
     public String getAsw3(){return aws[2];}
     public String getAsw4(){return aws[3];}
+
 }

@@ -1,9 +1,14 @@
 package com.example.gamethetown.gameControllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -22,6 +27,7 @@ public class HotspotQuiz extends App_Menu {
     private int correct_question;
     private Quiz quiz;
     private Bundle extras;
+    private boolean isCorrect = false,answeared = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,14 +74,28 @@ public class HotspotQuiz extends App_Menu {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(500);
                     //TODO -> Do Something
-                    return;
+
+                    isCorrect = true;
                 }
-                //tODO -> DO SOMETHING ELSE
+                else
+                    isCorrect = false; //nao deve ser necessario mas ja agora copy pasta
+                answeared = true;
+                finish();
+                return;
             }
 
         });
 
     }
 
+    @Override
+    public void finish(){
+        Intent data = new Intent();
+        data.putExtra("answeared",answeared);
+        data.putExtra("passed",isCorrect);
+
+        setResult(RESULT_OK,data);
+        super.finish();
+    }
 
 }

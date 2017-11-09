@@ -47,7 +47,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     private HashMap<String,Hotspot> preHotspots = new HashMap<>();
     private GoogleMap mMap;
     private FloatingActionButton fab_rem; //prov posso tirar isto daqui nao?
-    private BottomSheetDialog bsd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
         createdIten = new Itinerary();
         createdIten.setDate(new Date());
-        bsd = new BottomSheetDialog(this);
 
         extras = getIntent().getExtras();
         if(extras != null && !extras.isEmpty()){
@@ -146,15 +144,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
             }
         });
 
-    }
-
-    public View bottomSheetUp(int layoutID){
-        View sView = getLayoutInflater().inflate(layoutID,null);
-        bsd.setContentView(sView);
-        BottomSheetBehavior bsb = BottomSheetBehavior.from((View) sView.getParent());
-        bsb.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400, getResources().getDisplayMetrics()));
-        bsd.show();
-        return sView;
     }
 
     public void OnMarkerAddition(final Marker marker){

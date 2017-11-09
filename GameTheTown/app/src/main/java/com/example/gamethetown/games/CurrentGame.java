@@ -2,6 +2,7 @@ package com.example.gamethetown.games;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gamethetown.R;
@@ -14,7 +15,7 @@ import java.io.Serializable;
  * Created by franc on 05/11/2017.
  */
 //TODO -> mudar o nome, nao sei se necessario
-public abstract class CurrentGame implements Game,Serializable {
+public abstract class CurrentGame extends Activity implements Game,Serializable {
 
     protected static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
 

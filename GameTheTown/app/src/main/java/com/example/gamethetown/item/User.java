@@ -53,14 +53,17 @@ public class User {
         currentItinerary = itinerary;
         currentHotspotIndice = 0;
     }
-    public void incrementIndice(){currentHotspotIndice++;}
     public void setName(String name){this.name = name;}
     public void setPassword(String password){this.password = password;}
     public void setLevel(int level){this.level = level;}
     public Hotspot getCurrentHotspot(){
-        if(currentHotspotIndice< currentItinerary.getNumberOfHotspots())
+        return currentItinerary.getHotSpotList().get(currentHotspotIndice);
+    }
+    public Hotspot nextHotspot(){
+        currentHotspotIndice++;
+        if(currentHotspotIndice < currentItinerary.getNumberOfHotspots())
             return currentItinerary.getHotSpotList().get(currentHotspotIndice);
-        return null;
+        return null; //caso ja tenha terminado
     }
 
     //TODO
