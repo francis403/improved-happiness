@@ -11,93 +11,72 @@
     tools:context="com.example.gamethetown.Login">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_constraintTop_creator="1"
-        android:textColorHint="@color/black"
         android:background="@color/super_light_sand"
-        android:hint="Password"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/input_email"/>
-
-    <EditText
-        android:id="@+id/input_email"
-        android:textColor="@color/white"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:hint="Email"
-        android:textColorHint="@color/black"
-        android:background="@color/super_light_sand"
-        android:inputType="textEmailAddress"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="104dp"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.55" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="140dp">
 
->
-    <!--Password -->
+        <EditText
+            android:id="@+id/input_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"/>
+    </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/text_input_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:layout_constraintTop_creator="1"
-        android:textColorHint="@color/black"
         android:background="@color/super_light_sand"
-        android:hint="Password"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/input_email">
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_email"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <EditText
             android:id="@+id/input_password"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/button_login"
-        android:layout_width="286dp"
-        android:layout_height="48dp"
-        android:text="Login"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:text="@string/action_log_in"
         android:onClick="onLoginPress"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="319dp"
-        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/text_input_password"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        app:layout_constraintHorizontal_bias="0.0" />
 
-    <TextView android:id="@+id/link_signup"
+    <TextView
+        android:id="@+id/link_signup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="No account yet? Create one"
+        android:text="@string/create_account"
         android:onClick="GoToRegister"
         android:gravity="center"
-        android:textSize="16dip"
+        android:textSize="16sp"
         android:textColor="@color/white"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="86dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
