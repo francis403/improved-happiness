@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.gamethetown.fragment.Map_Current_Iten;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 
 //TODO -> precisa de receber a informacao toda
 public class CurrentItenerary extends App_Menu {

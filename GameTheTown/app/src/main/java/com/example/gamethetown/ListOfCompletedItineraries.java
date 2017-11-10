@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ListOfCompletedItineraries extends AppCompatActivity {
+public class ListOfCompletedItineraries extends App_Menu {
 
     private List<Itinerary> itenList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -25,6 +26,8 @@ public class ListOfCompletedItineraries extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e("LISTS","Size of completed: " + user.getCompletedItineraries().size());
+        itenList = user.getCompletedItineraries();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_completed_itineraries);
 
@@ -54,7 +57,7 @@ public class ListOfCompletedItineraries extends AppCompatActivity {
                 }
             }));
 
-            prepareItenData();
+            //prepareItenData();
         }
     }
 

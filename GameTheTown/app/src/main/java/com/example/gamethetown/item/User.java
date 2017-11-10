@@ -14,16 +14,12 @@ public class User {
     private String password;
     private int imageID;
     private int level;
-    private Itinerary currentItinerary;
-    private int currentHotspotIndice;
+    private CurrentItinerary currentItinerary;
 
-    private List<Itinerary> completedItineraries;
-    private List<Itinerary> createdItineraries;
+    private List<Itinerary> completedItineraries =  new ArrayList<>();
+    private List<Itinerary> createdItineraries =  new ArrayList<>();
 
     public User(){
-        currentHotspotIndice = -1; //porque nao temos nenhum ainda
-        completedItineraries = new ArrayList<>(); //empty
-        createdItineraries = new ArrayList<>();
         level = 1;
     }
 
@@ -31,13 +27,12 @@ public class User {
         this.name = name;
         this.password = password;
         level = 1; //nivel inicial
-        currentHotspotIndice = -1;
     }
 
     public String getName(){return name;}
     public String getPassword(){return password;}
     public int getLevel(){return level;}
-    public Itinerary getCurrentItinerary(){return currentItinerary;}
+    public CurrentItinerary getCurrentItinerary(){return currentItinerary;}
     public List<Itinerary> getCompletedItineraries(){
         return Collections.unmodifiableList(completedItineraries);
     }
@@ -45,31 +40,38 @@ public class User {
         return Collections.unmodifiableList(createdItineraries);
     }
 
-
-
+    //TODO
+    /**
+     * Quando completamos um itinerario
+     * @param score -> Score a adicionar ao exp do utilizador
+     * @results currentItinerary = null && currentHotspotIndice = -1
+     * CurrentItinerary passa a null e eh adicionado a score ao utilizador
+     */
+    public void completeItinerary(Double score){
+        addCompletedItinerary(getCurrentItinerary().getItinerary());
+        currentItinerary = null;
+    }
     public void addCompletedItinerary(Itinerary i){completedItineraries.add(i);}
     public void addCreatedItinerary(Itinerary i){createdItineraries.add(i);}
     public void setCurrentItinerary(Itinerary itinerary){
-        currentItinerary = itinerary;
-        currentHotspotIndice = 0;
+        currentItinerary = new CurrentItinerary(itinerary);
     }
     public void setName(String name){this.name = name;}
     public void setPassword(String password){this.password = password;}
     public void setLevel(int level){this.level = level;}
     public Hotspot getCurrentHotspot(){
-        return currentItinerary.getHotSpotList().get(currentHotspotIndice);
+        if(currentItinerary != null)
+            return currentItinerary.getCurrentHotspot();
+        return null;
     }
     public Hotspot nextHotspot(){
-        currentHotspotIndice++;
-        if(currentHotspotIndice < currentItinerary.getNumberOfHotspots())
-            return currentItinerary.getHotSpotList().get(currentHotspotIndice);
-        return null; //caso ja tenha terminado
+        return currentItinerary.nextHotspot();
     }
+
+    public void addScoreToItinerary(double score){currentItinerary.addScore(score);}
 
     //TODO
     public boolean levelUp(double experience){
         return false;
     }
-
-
 }

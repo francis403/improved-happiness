@@ -16,6 +16,7 @@ import java.io.Serializable;
 //TODO -> ainda a pensar como implementar
 public class Quiz extends CurrentGame {
 
+    private static final double CORRECT_SCORE = 50;
     private static final int NUMBER_OF_QUESTIONS = 4;
 
     private String question;
@@ -48,6 +49,12 @@ public class Quiz extends CurrentGame {
                 return false;
         return question != null && !question.equals("") && correctAsw != -1;
     }
+
+    @Override
+    public Double getScore() {
+        return CORRECT_SCORE;
+    }
+
     public int getImageID(){return imageID;}
 
     public void setImageID(int imageID){this.imageID = imageID;}

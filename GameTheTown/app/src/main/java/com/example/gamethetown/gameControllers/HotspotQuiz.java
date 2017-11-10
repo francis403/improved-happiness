@@ -10,8 +10,10 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
@@ -69,18 +71,23 @@ public class HotspotQuiz extends App_Menu {
 
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+                if(answeared)
+                    return;
                 if(checkedId == correct_question){
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(500);
                     //TODO -> Do Something
-
+                    Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT).show();
                     isCorrect = true;
                 }
-                else
+                else {
+                    Toast.makeText(getApplicationContext(), "Wrong!\n " +
+                            ((RadioButton)findViewById(correct_question)).getText()
+                            + "is correct ", Toast.LENGTH_SHORT).show();
                     isCorrect = false; //nao deve ser necessario mas ja agora copy pasta
+                }
                 answeared = true;
-                finish();
+                //finish();
                 return;
             }
 

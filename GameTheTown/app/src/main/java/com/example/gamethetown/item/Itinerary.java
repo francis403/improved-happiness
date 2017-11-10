@@ -27,7 +27,7 @@ public class Itinerary implements Serializable{
     private Date creatDate;
     private String description;
     private Enum<Difficulties> dif;
-
+    private User creator;
     private List<Hotspot> hotspots;
 
     //TODO
@@ -53,6 +53,7 @@ public class Itinerary implements Serializable{
         this.creatDate = creatDate;
     }
 
+    //facilita os testes
     public Itinerary(String name,Date creatDate,int imageID,List<Hotspot> list){
         hotspots = new ArrayList<>();
         this.name = name;
@@ -87,7 +88,7 @@ public class Itinerary implements Serializable{
     public boolean hasImage(){
         return imageID != DEFAULT_IMAGE_ID;
     }
-
+    public User getCreator(){return creator;}
     public String getTitle(){return name;}
     public Date getCreationDate(){return creatDate;}
     public int getImageID(){return imageID;}
@@ -104,6 +105,7 @@ public class Itinerary implements Serializable{
     }
     public int numberOfHotspot(){return hotspots.size();}
 
+    public void setCreator(User creator){this.creator = creator;}
     public void setDifficulty(Difficulties dif){this.dif = dif;}
     public void setTitle(String title){this.name = title;}
     public void setDescription(String description){this.description = description;}

@@ -15,7 +15,9 @@ import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.User;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by franc on 21/10/2017.
@@ -25,15 +27,20 @@ import java.util.Date;
 public class App_Menu extends AppCompatActivity {
 
     //ja fizemos o login por isso precisamos do user
-    protected User user;
+    // O user vai ser sempre o mesmo para a aplicacao toda
+    protected static User user = new User("Francis", "password1234");
     protected BottomSheetDialog bsd;
+
+    //DEFAULT VALUES (TODO -> REMOVE WHEN DATABASE IS DONE
+    protected List<Itinerary> itineraries = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         bsd = new BottomSheetDialog(this);
         //TODO -> get logined user
         //find user
-        setDefaultUser();
+        //setDefaultUser();
     }
 
     public User getUser(){return user;}
@@ -121,8 +128,8 @@ public class App_Menu extends AppCompatActivity {
 
     //TODO -> delete after database is made
     public void setDefaultUser(){
-        user = new User("Francis", "password1234");
         Itinerary iten = new Itinerary("Teste hyper teste",new Date());
+        User creator = new User("Joao","Nao sabe escrever boas passwords");
 
         Hotspot hot = new Hotspot();
         LatLng position = new LatLng(38.7561689,-9.1556714);
@@ -140,7 +147,7 @@ public class App_Menu extends AppCompatActivity {
         setQuiz(quiz2,2);
         hot2.setGame(quiz2);
         iten.addHotspot(hot2);
-
+        iten.setCreator(creator);
         user.setCurrentItinerary(iten);
     }
 

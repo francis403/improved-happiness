@@ -35,4 +35,5 @@ public abstract class CurrentGame extends Activity implements Game,Serializable 
     public abstract boolean isCorrect();
     @Override
     public abstract boolean isComplete();
+    public abstract Double getScore();
 }

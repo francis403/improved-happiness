@@ -66,6 +66,7 @@ public class ListOfIteneraries extends App_Menu {
                     recyclerView, new ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
+
                     Itinerary iten = itenList.get(position);
                     Toast.makeText(getApplicationContext(), iten.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
                 }
