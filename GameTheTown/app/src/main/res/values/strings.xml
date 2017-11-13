@@ -50,6 +50,7 @@
 
     <string-array name="games">
         <item>Quiz</item>
+        <item>Race</item>
     </string-array>
 
     <!-- Prox De Itenerarios -->

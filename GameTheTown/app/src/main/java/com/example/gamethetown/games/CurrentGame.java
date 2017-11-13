@@ -15,25 +15,21 @@ import java.io.Serializable;
  * Created by franc on 05/11/2017.
  */
 //TODO -> mudar o nome, nao sei se necessario
-public abstract class CurrentGame extends Activity implements Game,Serializable {
+public abstract class CurrentGame extends Activity implements Serializable {
 
     protected static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
 
     private String name;
 
     public CurrentGame(String name){this.name = name;}
-    @Override
+
     public String getGameName() {
         return name;
     }
     public void setName(String name){this.name = name;}
 
+    public abstract void startGame();
     public abstract Class getGameClass();
-    @Override
-    public abstract boolean isFinished();
-    @Override
-    public abstract boolean isCorrect();
-    @Override
     public abstract boolean isComplete();
     public abstract Double getScore();
 }

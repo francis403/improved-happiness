@@ -8,8 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.example.gamethetown.Activities.CreateItenerary;
+import com.example.gamethetown.Activities.CurrentItenerary;
+import com.example.gamethetown.Activities.Login;
+import com.example.gamethetown.Activities.Profile;
+import com.example.gamethetown.Activities.SearchAllItineraries;
+import com.example.gamethetown.games.ImagePuzzle;
 import com.example.gamethetown.games.Quiz;
+import com.example.gamethetown.games.Race;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.User;
@@ -134,20 +142,30 @@ public class App_Menu extends AppCompatActivity {
         Hotspot hot = new Hotspot();
         LatLng position = new LatLng(38.7561689,-9.1556714);
         Quiz quiz = new Quiz();
-        Quiz quiz2 = new Quiz();
+        Race race = new Race();
+        ImagePuzzle imgPzl = new ImagePuzzle(R.drawable.background3);
+        ImagePuzzle imgPzl2 = new ImagePuzzle(R.drawable.background2);
+
         setQuiz(quiz,1);
         hot.setPosition(position);
         hot.setName("Teste do fazer");
         hot.setGame(quiz);
-        iten.addHotspot(hot);
+        //iten.addHotspot(hot);
 
         Hotspot hot2 = new Hotspot();
         hot2.setName("100 Montaditos");
         hot2.setPosition(new LatLng(38.7524403,-9.134773));
-        setQuiz(quiz2,2);
-        hot2.setGame(quiz2);
+        hot2.setGame(imgPzl);
         iten.addHotspot(hot2);
         iten.setCreator(creator);
+
+        Hotspot hot3 = new Hotspot();
+        hot3.setName("Novo sitio qualquer");
+        hot3.setPosition(new LatLng(38.7561689,-9.1556714));
+        hot3.setGame(imgPzl2);
+        iten.addHotspot(hot3);
+        iten.setCreator(creator);
+
         user.setCurrentItinerary(iten);
     }
 

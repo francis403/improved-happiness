@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/login"
     android:background="@drawable/background2"
-    tools:context="com.example.gamethetown.Login">
+    tools:context="com.example.gamethetown.Activities.Login">
 
     <EditText
         android:id="@+id/input_email"

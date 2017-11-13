@@ -1,0 +1,108 @@
+package com.example.gamethetown.games;
+
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+//// TODO: 11/11/2017 -> class is incomplete
+public class ImagePuzzle extends CurrentGame {
+
+    private static final int ROWS = 3;
+    private static final int COLUMNS = 3;
+    private static final int DIMENSIONS = COLUMNS * COLUMNS;
+    private ImageView originalImage;
+    private static final double MAX_SCORE = 100;
+    //for score purposes
+    private int numberOfMoves;
+    private int imageID;
+    private ArrayList<Bitmap> chunkedImage;
+
+    public ImagePuzzle(){
+        super("ImagePuzzle");
+    }
+
+    public ImagePuzzle(int imageID){
+        super("ImagePuzzle");
+        this.imageID = imageID;
+    }
+
+
+    @Override
+    public void startGame() {
+        //Do nothing
+    }
+
+    @Override
+    public Class getGameClass() {
+        return HotspotImagePuzzle.class;
+    }
+
+    @Override
+    public boolean isComplete() {
+        return false;
+    }
+
+    @Override
+    public Double getScore() {
+        Double resultScore = MAX_SCORE;
+        if(numberOfMoves < 5)
+            return resultScore;
+        if(numberOfMoves < 7)
+            return MAX_SCORE * 0.75;
+        if(numberOfMoves < 11)
+            return MAX_SCORE * 0.5;
+
+        return MAX_SCORE * 0.2;
+    }
+
+    public int getImageID(){return imageID;}
+
+    /**
+     * Splits the source image and show them all into a grid in a new activity
+     *
+     * @param image
+     *            The source image to split
+     */
+    public void splitImage(ImageView image) {
+        // Getting the scaled bitmap of the source image
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+
+        // To store all the small image chunks in bitmap format in this list
+        chunkedImage = new ArrayList<Bitmap>(ROWS * COLUMNS);
+
+        int chunkSideLength =bitmap.getHeight()/ROWS;
+        int chunkWideLength = bitmap.getWidth()/COLUMNS;
+        // picture perfectly splits into square chunks
+        int yCoord = 0;
+        for (int y = 0; y < ROWS; ++y) {
+            int xCoord = 0;
+            for (int x = 0; x < COLUMNS; ++x) {
+                chunkedImage.add(Bitmap.createBitmap(bitmap, xCoord, yCoord, chunkWideLength, chunkSideLength));
+                xCoord += chunkWideLength;
+            }
+            yCoord += chunkSideLength;
+        }
+    }
+
+    public void setMoves(int numberOfMoves){this.numberOfMoves = numberOfMoves;}
+
+
+    public List<Bitmap> getChunkedImage(){return chunkedImage;}
+
+    //clase de teste
+    public Drawable getImage(){
+        Random random = new Random();
+
+        return new BitmapDrawable(chunkedImage.get(random.nextInt(9)));
+    }
+
+}

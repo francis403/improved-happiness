@@ -6,7 +6,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.gamethetown.ListOfIteneraries;
+import com.example.gamethetown.Activities.ListOfIteneraries;
 
 
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {

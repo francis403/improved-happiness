@@ -31,17 +31,12 @@ public class Quiz extends CurrentGame {
     }
 
     @Override
+    public void startGame() {
+        //Do nothing
+    }
+
+    @Override
     public Class getGameClass(){return HotspotQuiz.class;}
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
-
-    @Override
-    public boolean isCorrect() {
-        return false;
-    }
 
     public boolean isComplete(){
         for(String s : aws)

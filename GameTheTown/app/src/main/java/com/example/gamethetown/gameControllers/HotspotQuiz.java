@@ -100,7 +100,6 @@ public class HotspotQuiz extends App_Menu {
         Intent data = new Intent();
         data.putExtra("answeared",answeared);
         data.putExtra("passed",isCorrect);
-
         setResult(RESULT_OK,data);
         super.finish();
     }
