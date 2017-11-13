@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
+import com.example.gamethetown.games.CurrentGame;
 import com.example.gamethetown.games.Quiz;
 import com.example.gamethetown.interfaces.Game;
 
@@ -62,9 +63,12 @@ public class Hotspot_Quiz_Creator extends App_Menu {
         asw4 = (TextView) findViewById(R.id.asw4);
 
         extras = getIntent().getExtras();
-        game = (Quiz) extras.get("currentGame");
+        CurrentGame cg = (CurrentGame) extras.get("currentGame");
+        if(cg != null && !cg.getGameName().equals("Quiz"))
+            game = null;
+        else
+            game = (Quiz) extras.get("currentGame");
         if(game != null){
-
             int c = game.getCorrectAsw();
             if(c != -1) {
                 switch (c){

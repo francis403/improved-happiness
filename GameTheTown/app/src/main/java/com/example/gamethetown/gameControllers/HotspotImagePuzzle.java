@@ -33,7 +33,6 @@ public class HotspotImagePuzzle extends HotspotDoerController {
     private static final int COLUMNS = 3;
     private static final int DIMENSIONS = COLUMNS * COLUMNS;
     private static ImagePuzzle imgPuzzle;
-    private static int moves;
     private static TextView tx;
 
     private static List<Bitmap> seperatedImage;
@@ -69,10 +68,11 @@ public class HotspotImagePuzzle extends HotspotDoerController {
     private void init() {
         isCorrect = false;
         answeared = false;
+        score = 0;
         mGridView = (GestureDetectGridView) findViewById(R.id.grid);
         mGridView.setNumColumns(COLUMNS);
-        moves = 0;
-        tx.setText("Moves: " + moves);
+        imgPuzzle.setDefaultMoves();
+        tx.setText("Moves: " + imgPuzzle.getMoves());
 
         tileList = new String[DIMENSIONS];
         for (int i = 0; i < DIMENSIONS; i++) {
@@ -101,6 +101,7 @@ public class HotspotImagePuzzle extends HotspotDoerController {
         if (isSolved()){
             isCorrect = true;
             answeared = true;
+            score = imgPuzzle.getScore();
             Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
         }
     }
@@ -137,7 +138,7 @@ public class HotspotImagePuzzle extends HotspotDoerController {
     public static void moveTiles(Context context, String direction, int position) {
         // Upper-left-corner tile
         if(!answeared)
-            moves++;
+            imgPuzzle.incrementMoves();
         if (position == 0) {
 
             if (direction.equals(right)) swap(context, position, 1);
@@ -198,7 +199,7 @@ public class HotspotImagePuzzle extends HotspotDoerController {
             else if (direction.equals(right)) swap(context, position, 1);
             else swap(context, position, COLUMNS);
         }
-        tx.setText("Moves: " + moves);
+        tx.setText("Moves: " + imgPuzzle.getMoves());
     }
 
     private static boolean isSolved() {

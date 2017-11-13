@@ -74,7 +74,8 @@
         <activity android:name=".Activities.ConfirmHotspots" />
         <activity android:name=".Activities.onCompleteItinerary" />
         <activity android:name=".gameControllers.HotspotRace" />
-        <activity android:name=".gameControllers.HotspotImagePuzzle"></activity>
+        <activity android:name=".gameControllers.HotspotImagePuzzle" />
+        <activity android:name=".gameControllers.HotspotImagePuzzleCreator"></activity>
     </application>
 
 </manifest>

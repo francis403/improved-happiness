@@ -15,12 +15,16 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
+import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
+import com.example.gamethetown.gameControllers.HotspotImagePuzzleCreator;
 import com.example.gamethetown.gameControllers.Hotspot_Quiz_Creator;
 import com.example.gamethetown.games.CurrentGame;
+import com.example.gamethetown.games.Race;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
 import com.google.android.gms.maps.GoogleMap;
@@ -111,7 +115,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
             }
         });
-
+        //confirmed until now
         fab = (FloatingActionButton) findViewById(R.id.fab_confirm);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +127,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
                     @Override
                     public void onClick(View v) {
-                        //do something //TODO
                         if(createdIten.preCompleted(preHotspots.values())){
                             //se ja estiver tudo bem e completo
                             Intent intent = new Intent(v.getContext(),
@@ -187,23 +190,27 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                 snackbar.show();
             }
         });
-        hotspotInfoConfirm(marker,sView);
 
+        //TODO -> Vou ter de por o metodo para ele ir buscar os valores
         Spinner spinner = (Spinner) sView.findViewById(R.id.type_of_game);
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.games, android.R.layout.simple_list_item_1);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
 
+        hotspotInfoConfirm(marker,sView,spinner);
     }
 
-    private void hotspotInfoConfirm(final Marker marker,View v){
+    private void hotspotInfoConfirm(final Marker marker,View v,final Spinner spinner){
         FloatingActionButton fab = (FloatingActionButton)
                 v.findViewById(R.id.confirm);
         final Hotspot hot = preHotspots.get(marker.getId());
         final TextView title = (TextView) v.findViewById(R.id.title);
         String name = hot.getTitle();
-
+        if(hot.getGame() != null && hot.getGame().getGameName() != null) {
+            if (hot.getGame().getGameName().equals("ImagePuzzle"))
+                spinner.setSelection(2);
+        }
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -231,14 +238,30 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         //meter o butao para ir ver o jogo
         fab = (FloatingActionButton)
                 v.findViewById(R.id.marker_info);
+        //TODO -> here is where we add the game
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),Hotspot_Quiz_Creator.class);
-                //passamos o jogo para la
-                intent.putExtra("currentGame",hot.getGame());
-                intent.putExtra("markerID",marker.getId()); //de modo a conseguirmos guardar isto bem
-                startActivityForResult(intent,GET_GAME_CODE);
+
+                Intent intent;
+                if(spinner.getSelectedItem().toString().equals("Quiz")) {
+                    intent = new Intent(v.getContext(), Hotspot_Quiz_Creator.class);
+                    intent.putExtra("currentGame",hot.getGame());
+                    intent.putExtra("markerID",marker.getId());
+                    startActivityForResult(intent,GET_GAME_CODE);
+                }
+                if(spinner.getSelectedItem().toString().equals("Race")){
+                    Race game = new Race();
+                    hot.setGame(game);
+                    Toast.makeText(getBaseContext(), "Race added", Toast.LENGTH_SHORT).show();
+                }
+                if(spinner.getSelectedItem().toString().equals("ImagePuzzle")) {
+                    intent = new Intent(v.getContext(), HotspotImagePuzzleCreator.class);
+                    intent.putExtra("currentGame",hot.getGame());
+                    intent.putExtra("markerID",marker.getId());
+                    startActivityForResult(intent,GET_GAME_CODE);
+                }
+
             }
 
         });
@@ -274,14 +297,11 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         });
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-
             return;
         }
         mMap.setMyLocationEnabled(true);
     }
 
-    //ERRO -> esta a receber o titule em branco
     public void closeBottomView(View v){
         String title = ((EditText) v.findViewById(R.id.title)).getText()
                 .toString();
@@ -295,7 +315,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         bsd.hide(); //close window
     }
 
-    //TODO -> mete os dados todos para nos vermos e confirmarmos
     private void itenData(View sView){
         TextView title = (TextView) sView.findViewById(R.id.title);
         TextView description = (TextView) sView.findViewById(R.id.description);

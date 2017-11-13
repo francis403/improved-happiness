@@ -21,7 +21,7 @@ public class HotspotDoerController extends App_Menu {
 
     protected Bundle extras;
     protected static boolean isCorrect = false,answeared = false;
-
+    protected static double score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class HotspotDoerController extends App_Menu {
         Intent data = new Intent();
         data.putExtra("answeared",answeared);
         data.putExtra("passed",isCorrect);
+        data.putExtra("score",score);
         setResult(RESULT_OK,data);
         super.finish();
     }
@@ -42,12 +43,17 @@ public class HotspotDoerController extends App_Menu {
     public String getDuration(long time){
         StringBuilder sb = new StringBuilder();
         double minutes;
+        double seconds;
         if(time > MINUTE){
             minutes = time/MINUTE;
-            sb.append(Double.parseDouble(new DecimalFormat("##.##").format(minutes)) + "min");
+            sb.append(Double.parseDouble(new DecimalFormat("##.##").format(minutes)) + " min");
             time -= MINUTE*minutes; //vamos retirar todos os minutos
         }
-        return "";
+        if(time > SECOND){
+            seconds = time/ SECOND;
+            sb.append(Double.parseDouble(new DecimalFormat("##.##").format(seconds)) + " s");
+        }
+        return sb.toString();
     }
 
 }

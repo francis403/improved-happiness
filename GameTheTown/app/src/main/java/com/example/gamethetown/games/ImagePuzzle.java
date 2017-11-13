@@ -3,6 +3,7 @@ package com.example.gamethetown.games;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
@@ -20,7 +21,7 @@ public class ImagePuzzle extends CurrentGame {
     private static final int COLUMNS = 3;
     private static final int DIMENSIONS = COLUMNS * COLUMNS;
     private ImageView originalImage;
-    private static final double MAX_SCORE = 100;
+    private static final double MAX_SCORE = 200;
     //for score purposes
     private int numberOfMoves;
     private int imageID;
@@ -35,6 +36,9 @@ public class ImagePuzzle extends CurrentGame {
         this.imageID = imageID;
     }
 
+    public void incrementMoves(){numberOfMoves++;}
+    public void setDefaultMoves(){numberOfMoves = 0;}
+    public int getMoves(){return numberOfMoves;}
 
     @Override
     public void startGame() {
@@ -46,19 +50,20 @@ public class ImagePuzzle extends CurrentGame {
         return HotspotImagePuzzle.class;
     }
 
+    //TODO -> Tenho que verificar que tem uma imagem
     @Override
     public boolean isComplete() {
-        return false;
+        return true;
     }
 
     @Override
     public Double getScore() {
-        Double resultScore = MAX_SCORE;
-        if(numberOfMoves < 5)
-            return resultScore;
-        if(numberOfMoves < 7)
+        Log.e("NumberOfMoves","Num: " + numberOfMoves);
+        if(numberOfMoves < 10)
+            return MAX_SCORE;
+        if(numberOfMoves < 15)
             return MAX_SCORE * 0.75;
-        if(numberOfMoves < 11)
+        if(numberOfMoves < 19)
             return MAX_SCORE * 0.5;
 
         return MAX_SCORE * 0.2;

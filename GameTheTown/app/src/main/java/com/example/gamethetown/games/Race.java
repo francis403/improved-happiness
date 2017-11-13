@@ -31,9 +31,10 @@ public class Race extends CurrentGame {
         return HotspotRace.class;
     }
 
+    //race is always complete
     @Override
     public boolean isComplete() {
-        return false;
+        return true;
     }
 
     public void finishGame(){

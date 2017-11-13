@@ -23,18 +23,19 @@ import com.example.gamethetown.interfaces.Game;
 import org.w3c.dom.Text;
 
 //TODO -> receber a informacao toda do MapcurrentItinerary
-public class HotspotQuiz extends App_Menu {
+public class HotspotQuiz extends HotspotDoerController {
 
     private RadioGroup rg;
     private int correct_question;
     private Quiz quiz;
     private Bundle extras;
-    private boolean isCorrect = false,answeared = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotspot_quiz);
-
+        score = 0;
+        isCorrect = false;
+        answeared = false;
         extras = getIntent().getExtras();
         if(extras != null){
             quiz = (Quiz) extras.get("game");
@@ -79,6 +80,7 @@ public class HotspotQuiz extends App_Menu {
                     //TODO -> Do Something
                     Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT).show();
                     isCorrect = true;
+                    score = quiz.getScore();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Wrong!\n " +
@@ -95,13 +97,5 @@ public class HotspotQuiz extends App_Menu {
 
     }
 
-    @Override
-    public void finish(){
-        Intent data = new Intent();
-        data.putExtra("answeared",answeared);
-        data.putExtra("passed",isCorrect);
-        setResult(RESULT_OK,data);
-        super.finish();
-    }
 
 }

@@ -145,8 +145,12 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
                 boolean passed = extras.getBoolean("passed"),answeared = extras.getBoolean("answeared");
                 buzzed = false;
                 if(answeared) {
-                    if(passed)
-                        user.addScoreToItinerary(hot.getGame().getScore());
+                    if(passed) {
+                        if(extras.containsKey("score"))
+                            user.addScoreToItinerary(extras.getDouble("score"));
+                        else
+                            user.addScoreToItinerary(hot.getGame().getScore());
+                    }
                     mMap.clear();
                     hot = user.nextHotspot();
                     if (hot != null) {

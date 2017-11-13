@@ -113,4 +113,5 @@ public class Itinerary implements Serializable{
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
 
 
+
 }

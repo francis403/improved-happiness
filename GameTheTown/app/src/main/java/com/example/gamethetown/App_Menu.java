@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.gamethetown.Activities.CreateItenerary;
@@ -34,6 +35,8 @@ import java.util.List;
 
 public class App_Menu extends AppCompatActivity {
 
+    //ALL CODES CAN GO IN HERE
+    protected static final int SELECT_PICTURE = 0;
     //ja fizemos o login por isso precisamos do user
     // O user vai ser sempre o mesmo para a aplicacao toda
     protected static User user = new User("Francis", "password1234");
@@ -136,8 +139,8 @@ public class App_Menu extends AppCompatActivity {
 
     //TODO -> delete after database is made
     public void setDefaultUser(){
-        Itinerary iten = new Itinerary("Teste hyper teste",new Date());
-        User creator = new User("Joao","Nao sabe escrever boas passwords");
+        Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos",new Date());
+        User creator = new User("Joao Leal","123321");
 
         Hotspot hot = new Hotspot();
         LatLng position = new LatLng(38.7561689,-9.1556714);
@@ -150,7 +153,7 @@ public class App_Menu extends AppCompatActivity {
         hot.setPosition(position);
         hot.setName("Teste do fazer");
         hot.setGame(quiz);
-        //iten.addHotspot(hot);
+        iten.addHotspot(hot);
 
         Hotspot hot2 = new Hotspot();
         hot2.setName("100 Montaditos");
@@ -163,9 +166,9 @@ public class App_Menu extends AppCompatActivity {
         hot3.setName("Novo sitio qualquer");
         hot3.setPosition(new LatLng(38.7561689,-9.1556714));
         hot3.setGame(imgPzl2);
-        iten.addHotspot(hot3);
-        iten.setCreator(creator);
+        //iten.addHotspot(hot3);
 
+        iten.setCreator(creator);
         user.setCurrentItinerary(iten);
     }
 
