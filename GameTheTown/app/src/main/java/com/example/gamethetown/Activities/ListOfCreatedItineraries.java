@@ -1,5 +1,6 @@
 package com.example.gamethetown.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class ListOfCreatedItineraries extends App_Menu {
 
-    private List<Itinerary> itenList = new ArrayList<>();
+    private List<Itinerary> itenList;
     private RecyclerView recyclerView;
     private ItineraryAdapter mAdapter;
 
@@ -28,6 +29,8 @@ public class ListOfCreatedItineraries extends App_Menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_created_itineraries);
+
+        itenList = user.getCreatedItineraries();
 
         setData();
     }
@@ -51,11 +54,13 @@ public class ListOfCreatedItineraries extends App_Menu {
 
                 //@Override
                 public void onLongClick(View view, int position) {
-
+                    Intent intent = new Intent(getApplicationContext(),CreateItenerary.class);
+                    intent.putExtra("hotList",itenList.get(position));
+                    startActivity(intent);
                 }
             }));
 
-            prepareItenData();
+            //prepareItenData();
         }
     }
 

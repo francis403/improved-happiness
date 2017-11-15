@@ -14,6 +14,10 @@ import android.widget.TextView;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
 
+import org.w3c.dom.Text;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyViewHolder> {
@@ -23,12 +27,14 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, date;
         public ImageView image;
-
+        public int numHospots;
+        public TextView dif;
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             date = (TextView) view.findViewById(R.id.date);
             image = (ImageView) view.findViewById(R.id.iten_image);
+            dif = (TextView) view.findViewById(R.id.dif);
         }
     }
 
@@ -49,8 +55,14 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Itinerary iten = itineraryList.get(position);
         holder.title.setText(iten.getTitle());
-        holder.date.setText(iten.getCreationDate().toString());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(iten.getCreationDate());
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        holder.date.setText("Created: " + day + "/" + month + "/" + year);
         holder.image.setImageResource(iten.getImageID());
+        holder.dif.setText("Difficulty: " + iten.getDifficulty());
 
     }
 

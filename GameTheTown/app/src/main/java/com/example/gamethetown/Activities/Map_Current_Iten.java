@@ -109,7 +109,7 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
         }
 
     }
-    //TODO -> vai ser um start activity for result
+
     public void goToGame(View v){
         Intent intent = new Intent(this, hot.getGame().getGameClass());
         intent.putExtra("game", hot.getGame());

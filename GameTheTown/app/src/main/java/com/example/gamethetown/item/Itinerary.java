@@ -14,10 +14,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by franc on 29/10/2017.
- */
-
 public class Itinerary implements Serializable{
 
     private static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
@@ -28,7 +24,7 @@ public class Itinerary implements Serializable{
     private String description;
     private Enum<Difficulties> dif;
     private User creator;
-    private List<Hotspot> hotspots;
+    private List<Hotspot> hotspots = new ArrayList<>();
 
     //TODO
     //vai ter um LatLng para a imagem base,
@@ -38,11 +34,18 @@ public class Itinerary implements Serializable{
         imageID = DEFAULT_IMAGE_ID;
     }
 
-
     public Itinerary(String name,Date creatDate){
         hotspots = new ArrayList<>();
         this.name = name;
         this.creatDate = creatDate;
+        imageID = DEFAULT_IMAGE_ID;
+    }
+
+    public Itinerary(String name,Date creatDate,List<Hotspot> list,Difficulties dif){
+        this.name = name;
+        this.creatDate = creatDate;
+        hotspots = list;
+        this.dif = dif;
         imageID = DEFAULT_IMAGE_ID;
     }
 

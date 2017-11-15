@@ -45,4 +45,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:onClick="userFinish"
+            android:layout_weight="1"
+            android:src="@android:drawable/checkbox_on_background" />
+    </android.support.design.widget.CoordinatorLayout>
+
 </LinearLayout>

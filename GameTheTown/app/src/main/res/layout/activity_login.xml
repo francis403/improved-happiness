@@ -10,18 +10,6 @@
     android:background="@drawable/background2"
     tools:context="com.example.gamethetown.Activities.Login">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        tools:layout_constraintTop_creator="1"
-        android:textColorHint="@color/black"
-        android:background="@color/super_light_sand"
-        android:hint="Password"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/input_email"/>
 
     <EditText
         android:id="@+id/input_email"

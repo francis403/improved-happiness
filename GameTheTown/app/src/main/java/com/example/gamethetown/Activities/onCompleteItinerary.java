@@ -3,9 +3,11 @@ package com.example.gamethetown.Activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
@@ -44,6 +46,14 @@ public class onCompleteItinerary extends App_Menu {
         //complete the itinerary
         user.completeItinerary(score);
     }
+
+
+    public void finishItinerary(View view){
+        user.addCompletedItinerary(completedItinerary);
+        finish();
+
+    }
+
     @Override
     public void finish(){
         Log.e("LISTS","Size of completed: " + user.getCompletedItineraries().size());

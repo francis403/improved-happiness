@@ -3,46 +3,35 @@ package com.example.gamethetown.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.example.gamethetown.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+//import butterknife.InjectView;
+
 public class Login extends AppCompatActivity {
 
-    private PopupWindow popwindow;
-    private LayoutInflater layoutInflater;
+    @InjectView(R.id.input_email) EditText _emailText;
+    @InjectView(R.id.input_password) EditText _passwordText;
+    @InjectView(R.id.button_login) Button _loginButton;
+    @InjectView(R.id.link_signup) TextView _signupLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.inject(this);
     }
 
-    /**
-     * When the register button is pressed
-     */
-    /**
-    public void onRegisterPress(View view) {
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        layoutInflater = (LayoutInflater) getApplicationContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popregister,null);
-        //size
-        popwindow = new PopupWindow(container,height/2,width/2,true);
-        //position
-        popwindow.showAtLocation((ConstraintLayout)findViewById(R.id.login),
-                Gravity.NO_GRAVITY,0,0);
-
-        //startActivity(new Intent(this,Pop.class));
-    }
-    **/
     /**
      * Start user query
      * if query is successfull login
@@ -52,14 +41,38 @@ public class Login extends AppCompatActivity {
     public void onLoginPress(View view){
 
         //Check if everything is fine
-
-        Intent intent = new Intent(this,Profile.class);
-        startActivity(intent);
+        if(validate()) {
+            Intent intent = new Intent(this, Profile.class);
+            startActivity(intent);
+        }
     }
 
     public void GoToRegister(View view){
         Intent intent = new Intent(this,Reg.class);
         startActivity(intent);
+    }
+
+    public boolean validate() {
+        boolean valid = true;
+
+        String email = _emailText.getText().toString();
+        String password = _passwordText.getText().toString();
+
+        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            _emailText.setError("enter a valid email address");
+            valid = false;
+        } else {
+            _emailText.setError(null);
+        }
+
+        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
+            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            _passwordText.setError(null);
+        }
+
+        return valid;
     }
 
 }

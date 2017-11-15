@@ -22,9 +22,15 @@ import android.widget.Spinner;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
+import com.example.gamethetown.games.ImagePuzzle;
+import com.example.gamethetown.games.Quiz;
+import com.example.gamethetown.games.Race;
+import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SearchAllItineraries extends App_Menu {
@@ -167,6 +173,7 @@ public class SearchAllItineraries extends App_Menu {
                     return null;
             }
         }
+
 
         @Override
         public int getCount() {

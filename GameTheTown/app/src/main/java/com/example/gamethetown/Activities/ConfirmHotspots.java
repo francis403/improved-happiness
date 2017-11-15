@@ -8,6 +8,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
@@ -25,7 +26,7 @@ public class ConfirmHotspots extends App_Menu {
 
     private HotspotAdapter mAdapter;
     private RecyclerView recyclerView;
-
+    private boolean isPressed;
     private Bundle extras;
     private HashMap<String,Hotspot> preHotspots;
     private Itinerary itenToCreate;
@@ -35,6 +36,7 @@ public class ConfirmHotspots extends App_Menu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_hotspots);
 
+        isPressed = false;
         mAdapter = new HotspotAdapter(hotList);
 
         extras = getIntent().getExtras();
@@ -87,7 +89,17 @@ public class ConfirmHotspots extends App_Menu {
     public void finish(){
         //TODO
         //quero enviar para traz a lista nova
-
         super.finish();
     }
+
+    public void userFinish(View view){
+        if(!isPressed) {
+            isPressed = true;
+            for(Hotspot h : preHotspots.values())
+                itenToCreate.addHotspot(h);
+            user.addCreatedItinerary(itenToCreate);
+            Toast.makeText(getBaseContext(), "Created the Itinerary", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

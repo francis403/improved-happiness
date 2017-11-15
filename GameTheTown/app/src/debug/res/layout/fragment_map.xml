@@ -16,24 +16,6 @@
         >
 
     </fragment>
-    <!--
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Space
-            android:layout_weight="10"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-        <fragment
-            android:layout_weight=".1"
-            android:id="@+id/add_func"
-            android:name="com.example.gamethetown.fragment.Search_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/fragment_search_fragment" />
-    </LinearLayout>
-    -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

@@ -139,6 +139,7 @@ public class App_Menu extends AppCompatActivity {
 
     //TODO -> delete after database is made
     public void setDefaultUser(){
+
         Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos",new Date());
         User creator = new User("Joao Leal","123321");
 

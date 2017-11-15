@@ -35,8 +35,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
@@ -44,6 +46,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
     private Itinerary createdIten;
     private Bundle extras;
+    private List<Hotspot> receivedHotspots;
     //os hotspots antes de serem confirmados
     private HashMap<String,Hotspot> preHotspots = new HashMap<>();
     private GoogleMap mMap;
@@ -60,6 +63,9 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         extras = getIntent().getExtras();
         if(extras != null && !extras.isEmpty()){
             //get data from arleady existing itinerary and list of preHotspots
+            Itinerary iten = (Itinerary) extras.get("hotList");
+            receivedHotspots = iten.getHotSpotList();
+            //tenho que meter os dados do itinerario
         }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -284,6 +290,18 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                 OnMarkerAddition(m);
             }
         });
+        if(receivedHotspots != null) {
+            for (Hotspot h : receivedHotspots) {
+                MarkerOptions marker = new MarkerOptions()
+                        .position(new LatLng(h.getLocation().getLatitude(),
+                                h.getLocation().getLongitude()))
+                        .title("New Marker");
+                Marker m = mMap.addMarker(marker);
+                m.setIcon(BitmapDescriptorFactory
+                        .defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                preHotspots.put(m.getId(),h);
+            }
+        }
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener(){
 
