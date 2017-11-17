@@ -6,6 +6,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
@@ -19,20 +22,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile extends App_Menu {
 
-    private List<Itinerary> itenList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private ItineraryAdapter mAdapter;
-
+    @InjectView(R.id.name) TextView _nameText;
+    @InjectView(R.id.level) TextView _levelText;
+    @InjectView(R.id.profilePic) CircleImageView _profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        ButterKnife.inject(this);
 
-        setData();
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(myToolbar);
+        user.setImageID(R.drawable.user_photo); //test with a user photo
+
+        _nameText.setText("Name: " + user.getName());
+        _levelText.setText("Level: " + user.getLevel());
+        _profileImage.setImageResource(user.getImageID());
     }
 
     public void checkCreatedIten(View view){
@@ -43,42 +52,6 @@ public class Profile extends App_Menu {
     public void checkCompletedIten(View view){
         Intent intent = new Intent(this,ListOfCompletedItineraries.class);
         startActivity(intent);
-    }
-
-    public void setData(){
-        if(findViewById(R.id.recycler_view) != null) {
-            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-            mAdapter = new ItineraryAdapter(itenList);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ListOfIteneraries.ClickListener() {
-                //@Override
-                public void onClick(View view, int position) {
-                    Itinerary iten = itenList.get(position);
-                    Toast.makeText(getApplicationContext(), iten.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                }
-
-                //@Override
-                public void onLongClick(View view, int position) {
-
-                }
-            }));
-
-            prepareItenData();
-        }
-    }
-
-    //aqui so pode adicionar um?
-    private void prepareItenData() {
-
-        Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos", new Date(2017,9,11),R.drawable.monteirodojeronimo);
-        itenList.add(iten);
-
-        mAdapter.notifyDataSetChanged();
     }
 
 }

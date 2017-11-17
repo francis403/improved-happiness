@@ -35,7 +35,7 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map__current__iten);
-        setDefaultUser();
+        //setDefaultUser();
         View completedItin = getView(R.layout.layout_no_itinerary);
 
         hot = user.getCurrentHotspot();
@@ -120,6 +120,7 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
     public void completeIten(){
         Intent intent = new Intent(this, onCompleteItinerary.class);
         startActivity(intent);
+        finish();
     }
 
     public void cancel(View v){

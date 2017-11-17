@@ -1,5 +1,9 @@
 package com.example.gamethetown.item;
 
+import android.util.Log;
+
+import com.example.gamethetown.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,14 +23,11 @@ public class User {
     private List<Itinerary> completedItineraries =  new ArrayList<>();
     private List<Itinerary> createdItineraries =  new ArrayList<>();
 
-    public User(){
-        level = 1;
-    }
-
     public User(String name,String password){
         this.name = name;
         this.password = password;
         level = 1; //nivel inicial
+        imageID = R.drawable.profile;
     }
 
     public String getName(){return name;}
@@ -48,8 +49,7 @@ public class User {
      * CurrentItinerary passa a null e eh adicionado a score ao utilizador
      */
     public void completeItinerary(Double score){
-        addCompletedItinerary(getCurrentItinerary().getItinerary());
-        currentItinerary = null;
+        this.currentItinerary = null;
     }
     public void addCompletedItinerary(Itinerary i){completedItineraries.add(i);}
     public void addCreatedItinerary(Itinerary i){createdItineraries.add(i);}
@@ -64,6 +64,10 @@ public class User {
             return currentItinerary.getCurrentHotspot();
         return null;
     }
+    public void setImageID(int imageID){
+        this.imageID = imageID;
+    }
+    public int getImageID(){return imageID;}
     public Hotspot nextHotspot(){
         return currentItinerary.nextHotspot();
     }

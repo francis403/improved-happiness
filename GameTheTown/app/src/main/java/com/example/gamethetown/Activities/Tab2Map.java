@@ -6,14 +6,12 @@ package com.example.gamethetown.Activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
@@ -23,9 +21,6 @@ import com.example.gamethetown.games.Race;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;

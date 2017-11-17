@@ -4,8 +4,11 @@ package com.example.gamethetown.Activities;
  * Created by franc on 31/10/2017.
  */
 
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
+import com.example.gamethetown.fragment.ConfirmDialogFragment;
 import com.example.gamethetown.games.ImagePuzzle;
 import com.example.gamethetown.games.Quiz;
 import com.example.gamethetown.games.Race;
@@ -34,6 +38,7 @@ public class Tab1List extends Fragment {
 
     private List<Itinerary> itenList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private Bundle extras;
     private ItineraryAdapter mAdapter;
 
     @Override
@@ -56,7 +61,8 @@ public class Tab1List extends Fragment {
             recyclerView.setAdapter(mAdapter);
             recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
 
-            //TODO -> mandar para o mapa
+            recyclerView.addOnItemTouchListener(new ListOfIteneraries().getTouchListener(recyclerView,this.getContext()));
+            /**
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(),
                     recyclerView, new ListOfIteneraries.ClickListener() {
                 //@Override
@@ -68,8 +74,26 @@ public class Tab1List extends Fragment {
                 //@Override
                 public void onLongClick(View view, int position) {
 
+                    AlertDialog.Builder aBuilder = new AlertDialog.Builder(getContext());
+                    aBuilder.setMessage("Do you want to set this as the current Itinerary?");
+                    aBuilder.setCancelable(false);
+                    aBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //confirm
+
+                        }
+                    });
+                    aBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    aBuilder.show();
                 }
             }));
+             **/
         }
     }
 

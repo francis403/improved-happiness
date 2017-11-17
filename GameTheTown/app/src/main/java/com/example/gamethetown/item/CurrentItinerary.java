@@ -21,7 +21,7 @@ public class CurrentItinerary {
 
     public Itinerary getCurrentItinerary(){return currentItinerary;}
     public Hotspot getCurrentHotspot(){
-        if(currentItinerary != null)
+        if(currentItinerary != null && currentHotspotIndice > -1)
             return currentItinerary.getHotSpotList().get(currentHotspotIndice);
         return null;
     }
@@ -30,6 +30,11 @@ public class CurrentItinerary {
         if(currentHotspotIndice < currentItinerary.getNumberOfHotspots())
             return currentItinerary.getHotSpotList().get(currentHotspotIndice);
         return null;
+    }
+
+    //uma ideia para o complete (mas duvido que va funcionar)
+    public void complete(){
+        currentHotspotIndice = -1;
     }
 
     public long getDuration(){return System.currentTimeMillis() - startTime;}

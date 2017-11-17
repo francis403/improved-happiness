@@ -141,8 +141,8 @@ public class App_Menu extends AppCompatActivity {
     public void setDefaultUser(){
 
         Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos",new Date());
-        User creator = new User("Joao Leal","123321");
 
+        User creator = new User("Joao Leal","123321");
         Hotspot hot = new Hotspot();
         LatLng position = new LatLng(38.7561689,-9.1556714);
         Quiz quiz = new Quiz();

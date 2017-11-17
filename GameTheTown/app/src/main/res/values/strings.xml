@@ -17,6 +17,7 @@
     <string name="button2">Set Description</string>
     <string name="button3">Set Difficulty Level</string>
     <string name="button4">Submit</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -49,9 +49,9 @@ public class onCompleteItinerary extends App_Menu {
 
 
     public void finishItinerary(View view){
+        user.completeItinerary(score);
         user.addCompletedItinerary(completedItinerary);
         finish();
-
     }
 
     @Override
