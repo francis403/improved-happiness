@@ -58,4 +58,7 @@ public class HotspotQuiz extends App_Menu implements Game {
     public boolean isCorrect() {
         return correct;
     }
+
+    @Override
+    public boolean isComplete() { return true; }
 }

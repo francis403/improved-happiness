@@ -1,12 +1,10 @@
 package com.example.gamethetown;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,8 +29,6 @@ public class Profile extends App_Menu {
         setContentView(R.layout.activity_profile);
 
         setData();
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(myToolbar);
     }
 
     public void checkCreatedIten(View view){
@@ -75,7 +71,7 @@ public class Profile extends App_Menu {
     //aqui so pode adicionar um?
     private void prepareItenData() {
 
-        Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos", new Date(2017,9,11),R.drawable.monteirodojeronimo);
+        Itinerary iten = new Itinerary("Aventura pelo Monteiro Dos Jeronimos", new Date(2017,9,11), R.drawable.monteirodojeronimo);
         itenList.add(iten);
 
         mAdapter.notifyDataSetChanged();

@@ -26,9 +26,10 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:hint="@string/email"/>
+            android:textColor="@color/black"
+            android:textColorLink="@color/colorPrimary"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -44,11 +45,12 @@
 
         <EditText
             android:id="@+id/input_password"
-            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/password"
             android:inputType="textPassword"
-            android:hint="@string/password" />
+            android:textColor="@color/black"
+            android:textColorLink="@color/colorPrimary" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
