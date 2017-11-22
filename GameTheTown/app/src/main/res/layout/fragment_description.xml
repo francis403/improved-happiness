@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".fragment.DescriptionFragment"
-    android:background="@color/even_lighter_sand"
-    android:id="@+id/frag_desc">
+    android:background="@color/even_lighter_sand">
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"

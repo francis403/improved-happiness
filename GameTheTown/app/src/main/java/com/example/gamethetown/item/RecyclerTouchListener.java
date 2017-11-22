@@ -7,15 +7,16 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.gamethetown.Catalogs.ItineraryCatalog;
+import com.example.gamethetown.interfaces.ClickListener;
 
 
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     private GestureDetector gestureDetector;
-    private ItineraryCatalog.ClickListener clickListener;
+    private ClickListener clickListener;
 
-    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ItineraryCatalog.ClickListener clickListener) {
-        this.clickListener = clickListener;
+    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {
+            this.clickListener = clickListener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {

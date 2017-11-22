@@ -10,7 +10,7 @@ import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.interfaces.Game;
 
-public class HotspotQuiz extends App_Menu implements Game {
+public class HotspotQuiz extends App_Menu {
 
     private static final String name = "Quiz";
     private boolean finished = false,correct = false;
@@ -42,20 +42,5 @@ public class HotspotQuiz extends App_Menu implements Game {
 
         });
 
-    }
-
-    @Override
-    public String getGameName() {
-        return name;
-    }
-
-    @Override
-    public boolean isFinished() {
-        return finished;
-    }
-
-    @Override
-    public boolean isCorrect() {
-        return correct;
     }
 }

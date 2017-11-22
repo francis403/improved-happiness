@@ -48,7 +48,6 @@ public class Tab1List extends Fragment {
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(mAdapter);
             //recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
-
             recyclerView.addOnItemTouchListener(new ItineraryCatalog().getTouchListener(recyclerView,this.getContext()));
         }
     }

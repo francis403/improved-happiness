@@ -16,6 +16,7 @@ import com.example.gamethetown.Catalogs.UserCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.HotspotAdapter;
 import com.example.gamethetown.adapters.SimpleItemTouchHelperCallback;
+import com.example.gamethetown.interfaces.ClickListener;
 import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
@@ -73,7 +74,7 @@ public class ConfirmHotspots extends App_Menu {
             touchHelper.attachToRecyclerView(recyclerView);
 
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ItineraryCatalog.ClickListener() {
+                    recyclerView, new ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
 

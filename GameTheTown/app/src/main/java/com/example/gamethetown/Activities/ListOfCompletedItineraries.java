@@ -11,6 +11,7 @@ import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
+import com.example.gamethetown.interfaces.ClickListener;
 import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.RecyclerTouchListener;
@@ -43,7 +44,7 @@ public class ListOfCompletedItineraries extends App_Menu {
             recyclerView.setAdapter(mAdapter);
             recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ItineraryCatalog.ClickListener() {
+                    recyclerView, new ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
                     Itinerary iten = itenList.get(position);

@@ -2,42 +2,24 @@ package com.example.gamethetown.Activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Movie;
-import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
-import com.example.gamethetown.adapters.ItineraryAdapter;
-import com.example.gamethetown.fragment.FilterFragment;
-import com.example.gamethetown.fragment.List_Test;
 import com.example.gamethetown.games.ImagePuzzle;
 import com.example.gamethetown.games.Quiz;
 import com.example.gamethetown.games.Race;
-import com.example.gamethetown.item.DividerItemDecoration;
+import com.example.gamethetown.interfaces.ClickListener;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.RecyclerTouchListener;
 import com.example.gamethetown.item.User;
 import com.google.android.gms.maps.model.LatLng;
-//import com.example.gamethetown.item.RecyclerTouchListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -153,11 +135,5 @@ public class ListOfIteneraries extends App_Menu {
         quiz.setAsw3("Resposta 3");
         quiz.setAsw4("Resposta 4");
         quiz.setCorrectAsw(2);
-    }
-
-    public interface ClickListener {
-        void onClick(View view, int position);
-
-        void onLongClick(View view, int position);
     }
 }

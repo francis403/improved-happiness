@@ -10,9 +10,16 @@
     <string name="action_profile">Profile</string>
     <string name="action_log_out">Logout</string>
 
+    <string name="cancel">Cancel</string>
+
     <!-- Strings related to login -->
 
     <!-- Teste Dos Arrays, Isto provavelmente vai sair daqui -->
+    <string-array name="itenerarios">
+        <item>Aventura pelo Monteiro Dos Jeronimos</item>
+        <item>Um Pequeno Passeio Pela Fcul</item>
+        <item>Um Passeio para a minha filha</item>
+    </string-array>
 
     <!-- Dificuldades De Itenerarios -->
     <string-array name="iten_dif">
