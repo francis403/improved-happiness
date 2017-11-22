@@ -10,8 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Catalogs.UserCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
+import com.example.gamethetown.item.User;
 
 public class onCompleteItinerary extends App_Menu {
 
@@ -22,18 +24,18 @@ public class onCompleteItinerary extends App_Menu {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_complete_itinerary);
-
         completedItinerary = user.getCurrentItinerary().getItinerary();
         //set view
         android.support.v7.app.ActionBar ab = getSupportActionBar();
         ab.setTitle(completedItinerary.getTitle());
+        score = user.getCurrentItinerary().getScore();
 
         ((TextView)findViewById(R.id.nameCreator))
                 .setText(completedItinerary.getCreator().getName());
         ((TextView)findViewById(R.id.nameCreator))
                 .setText(completedItinerary.getCreator().getName());
         ((TextView)findViewById(R.id.score))
-                .setText("Score: " + user.getCurrentItinerary().getScore());
+                .setText("Score: " + score);
         ((TextView)findViewById(R.id.time))
                 .setText("Duration: " + (user.getCurrentItinerary().getDuration()/1000) + "s");
 
@@ -51,12 +53,7 @@ public class onCompleteItinerary extends App_Menu {
     public void finishItinerary(View view){
         user.completeItinerary(score);
         user.addCompletedItinerary(completedItinerary);
+        //user.addExperience(score);
         finish();
-    }
-
-    @Override
-    public void finish(){
-        Log.e("LISTS","Size of completed: " + user.getCompletedItineraries().size());
-        super.finish();
     }
 }

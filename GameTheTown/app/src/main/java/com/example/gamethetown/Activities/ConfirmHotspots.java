@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Catalogs.ItineraryCatalog;
+import com.example.gamethetown.Catalogs.UserCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.HotspotAdapter;
 import com.example.gamethetown.adapters.SimpleItemTouchHelperCallback;
@@ -71,7 +73,7 @@ public class ConfirmHotspots extends App_Menu {
             touchHelper.attachToRecyclerView(recyclerView);
 
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ListOfIteneraries.ClickListener() {
+                    recyclerView, new ItineraryCatalog.ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
 
@@ -97,9 +99,19 @@ public class ConfirmHotspots extends App_Menu {
             isPressed = true;
             for(Hotspot h : preHotspots.values())
                 itenToCreate.addHotspot(h);
+            itenToCreate.setCreator(new UserCatalog().getCurrentUser());
             user.addCreatedItinerary(itenToCreate);
             Toast.makeText(getBaseContext(), "Created the Itinerary", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    /**
+     * TODO
+     * Sends this itinerary to the database
+     * @return if it was added, false if it failed to add
+     */
+    public boolean sendToDatabase(){
+        return false;
     }
 
 }

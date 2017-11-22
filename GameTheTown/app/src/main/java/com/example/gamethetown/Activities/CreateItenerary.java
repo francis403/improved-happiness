@@ -4,19 +4,26 @@ import android.Manifest;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
@@ -27,6 +34,9 @@ import com.example.gamethetown.games.CurrentGame;
 import com.example.gamethetown.games.Race;
 import com.example.gamethetown.item.Hotspot;
 import com.example.gamethetown.item.Itinerary;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -34,6 +44,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +54,7 @@ import java.util.List;
 public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
     private static final int GET_GAME_CODE = 1;
+    private static final int PICK_FROM_FILE = 2 ;
 
     private Itinerary createdIten;
     private Bundle extras;
@@ -51,6 +63,9 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     private HashMap<String,Hotspot> preHotspots = new HashMap<>();
     private GoogleMap mMap;
     private FloatingActionButton fab_rem; //prov posso tirar isto daqui nao?
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    private ImagePicker imgPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +74,17 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
         createdIten = new Itinerary();
         createdIten.setDate(new Date());
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        imgPicker = ImagePicker.create(this).returnAfterFirst(true)
+                .folderMode(true) // folder mode (false by default)
+                .folderTitle("Folder") // folder selection title
+                .imageTitle("Tap to select") // image selection title
+                .single() // single mode
+                .showCamera(true) // show camera or not (true by default)
+                .imageDirectory("Camera")
+                .enableLog(false);
 
         extras = getIntent().getExtras();
         if(extras != null && !extras.isEmpty()){
@@ -317,6 +343,19 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            mMap.moveCamera(CameraUpdateFactory.
+                                    newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14));
+                        }
+                    }
+                });
+
         mMap.setMyLocationEnabled(true);
     }
 
@@ -339,23 +378,36 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         String t = createdIten.getTitle(),d = createdIten.getDescription();
         if(t != null && !title.equals(""))
             title.setText(t);
-        if(d != null && !description.equals("")){
+        if(d != null && !description.equals(""))
             description.setText(d);
-        }
+    }
 
+    public void getImage(View view){
+        imgPicker.start(PICK_FROM_FILE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_OK)
+            return;
+
         // Check which request we're responding to
         if (requestCode == GET_GAME_CODE) {
             // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                CurrentGame game = (CurrentGame) data.getExtras().get("game");
-                String markerID = (String) data.getExtras().get("markerID");
-                Hotspot hot = preHotspots.get(markerID);
-                hot.setGame(game);
-            }
+
+            CurrentGame game = (CurrentGame) data.getExtras().get("game");
+            String markerID = (String) data.getExtras().get("markerID");
+            Hotspot hot = preHotspots.get(markerID);
+            hot.setGame(game);
+            return;
+        }
+        if(requestCode == PICK_FROM_FILE){
+            Bitmap bitmap;
+            String path = "";
+            ArrayList<Image> images = (ArrayList<Image>) ImagePicker.getImages(data);
+            Image image = images.get(0);
+            path = image.getPath();
+            createdIten.setImagePath(path);
         }
     }
 

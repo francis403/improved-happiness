@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.gamethetown.fragment.FilterFragment"
-    android:id="@+id/fragment_filter">
+    tools:context="com.example.gamethetown.fragment.FilterFragment">
     <LinearLayout
         android:background="#fff"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -32,7 +31,6 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/filter"
                 android:textSize="15sp"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
@@ -50,7 +48,6 @@
             android:layout_height="50dp"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/filter2"
                 android:textSize="15sp"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"

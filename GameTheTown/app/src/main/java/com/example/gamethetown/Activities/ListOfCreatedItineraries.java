@@ -9,13 +9,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.RecyclerTouchListener;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class ListOfCreatedItineraries extends App_Menu {
             recyclerView.setAdapter(mAdapter);
             recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ListOfIteneraries.ClickListener() {
+                    recyclerView, new ItineraryCatalog.ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
                     Itinerary iten = itenList.get(position);

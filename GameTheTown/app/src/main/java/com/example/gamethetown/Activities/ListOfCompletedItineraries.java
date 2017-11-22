@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.item.DividerItemDecoration;
@@ -16,7 +16,6 @@ import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.RecyclerTouchListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ListOfCompletedItineraries extends App_Menu {
@@ -27,7 +26,6 @@ public class ListOfCompletedItineraries extends App_Menu {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("LISTS","Size of completed: " + user.getCompletedItineraries().size());
         itenList = user.getCompletedItineraries();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_completed_itineraries);
@@ -45,7 +43,7 @@ public class ListOfCompletedItineraries extends App_Menu {
             recyclerView.setAdapter(mAdapter);
             recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    recyclerView, new ListOfIteneraries.ClickListener() {
+                    recyclerView, new ItineraryCatalog.ClickListener() {
                 //@Override
                 public void onClick(View view, int position) {
                     Itinerary iten = itenList.get(position);
@@ -57,23 +55,8 @@ public class ListOfCompletedItineraries extends App_Menu {
 
                 }
             }));
-
-            //prepareItenData();
         }
     }
 
-    private void prepareItenData() {
-
-        Itinerary iten = new Itinerary("Um passeio por Lisboa", new Date(2017,9,10));
-        itenList.add(iten);
-
-        iten = new Itinerary("Vamos Assaltar Palacio Chiado!", new Date(2017,7,12));
-        itenList.add(iten);
-
-        iten = new Itinerary("Sera que o Rio Tejo eh mesmo um Rio?", new Date(2017,7,12));
-        itenList.add(iten);
-
-        mAdapter.notifyDataSetChanged();
-    }
 
 }

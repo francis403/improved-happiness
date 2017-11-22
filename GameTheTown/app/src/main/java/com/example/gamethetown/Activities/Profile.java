@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,13 +32,12 @@ public class Profile extends App_Menu {
     @InjectView(R.id.name) TextView _nameText;
     @InjectView(R.id.level) TextView _levelText;
     @InjectView(R.id.profilePic) CircleImageView _profileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.inject(this);
-
-        user.setImageID(R.drawable.user_photo); //test with a user photo
 
         _nameText.setText("Name: " + user.getName());
         _levelText.setText("Level: " + user.getLevel());
@@ -52,6 +52,13 @@ public class Profile extends App_Menu {
     public void checkCompletedIten(View view){
         Intent intent = new Intent(this,ListOfCompletedItineraries.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onResume(){
+        //caso tenha subido de nivel
+        _levelText.setText("Level: " + user.getLevel());
+        super.onResume();
     }
 
 }

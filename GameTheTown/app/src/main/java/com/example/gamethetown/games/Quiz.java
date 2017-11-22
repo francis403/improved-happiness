@@ -23,6 +23,7 @@ public class Quiz extends CurrentGame {
     private String[] aws;
     private int correctAsw = -1;
     private int imageID;
+    private String imagePath;
 
     public Quiz(){
         super("Quiz");
@@ -67,4 +68,11 @@ public class Quiz extends CurrentGame {
     public String getAsw3(){return aws[2];}
     public String getAsw4(){return aws[3];}
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 }

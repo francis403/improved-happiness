@@ -8,11 +8,12 @@
     android:orientation="horizontal">
     <!--android:background="?android:attr/selectableItemBackground"-->
     <ImageView
+        android:adjustViewBounds="true"
         android:id="@+id/iten_image"
         android:layout_width="150dp"
         android:layout_height="match_parent" />
     <LinearLayout
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:orientation="vertical"

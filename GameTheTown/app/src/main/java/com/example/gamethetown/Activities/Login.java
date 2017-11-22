@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.gamethetown.Catalogs.UserCatalog;
 import com.example.gamethetown.R;
+import com.example.gamethetown.item.User;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -43,6 +45,9 @@ public class Login extends AppCompatActivity {
         //Check if everything is fine
         if(validate()) {
             Intent intent = new Intent(this, Profile.class);
+            User user = new User("Francis", "password1234");
+            user.setImageID(R.drawable.user_photo);
+            new UserCatalog().setCurrentUser(user);
             startActivity(intent);
         }
     }

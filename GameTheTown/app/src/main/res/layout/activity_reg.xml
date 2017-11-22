@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:id="@+id/register"
     android:background="@drawable/background2"
     tools:context="com.example.gamethetown.Activities.Reg">
 
@@ -120,7 +119,6 @@
         android:id="@+id/textInputLayout">
 
         <EditText
-            android:id="@+id/input_confirm_password"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -131,7 +129,6 @@
 
     <EditText
         android:textColorHint="@color/white"
-        android:id="@+id/input_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Name"
@@ -159,7 +156,6 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <RadioButton
-        android:id="@+id/explorer"
         android:layout_width="95dp"
         android:layout_height="27dp"
         android:layout_marginBottom="16dp"

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.gamethetown.R;
 import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
 
 import java.io.IOException;
@@ -24,7 +25,8 @@ public class ImagePuzzle extends CurrentGame {
     private static final double MAX_SCORE = 200;
     //for score purposes
     private int numberOfMoves;
-    private int imageID;
+    private int imageID = R.drawable.no_image;
+    private String imagePath;
     private ArrayList<Bitmap> chunkedImage;
 
     public ImagePuzzle(){
@@ -70,6 +72,10 @@ public class ImagePuzzle extends CurrentGame {
     }
 
     public int getImageID(){return imageID;}
+    public String getImagePath(){return imagePath;}
+
+    public void setImageID(int imageID){this.imageID = imageID;}
+    public void setImagePath(String imagePath){this.imagePath = imagePath;}
 
     /**
      * Splits the source image and show them all into a grid in a new activity
@@ -77,6 +83,7 @@ public class ImagePuzzle extends CurrentGame {
      * @param image
      *            The source image to split
      */
+    //TODO -> need to split the image well enough
     public void splitImage(ImageView image) {
         // Getting the scaled bitmap of the source image
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();

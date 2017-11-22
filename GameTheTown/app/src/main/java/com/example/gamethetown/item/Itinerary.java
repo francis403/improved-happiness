@@ -20,15 +20,12 @@ public class Itinerary implements Serializable{
 
     private String name;
     private int imageID;
+    private String imagePath; // por agora temos o image path so para caso
     private Date creatDate;
     private String description;
     private Enum<Difficulties> dif;
     private User creator;
     private List<Hotspot> hotspots = new ArrayList<>();
-
-    //TODO
-    //vai ter um LatLng para a imagem base,
-    //vai ter uma list de LatLng para todos os hotspots possiveis
 
     public Itinerary(){
         imageID = DEFAULT_IMAGE_ID;
@@ -97,6 +94,7 @@ public class Itinerary implements Serializable{
     public int getImageID(){return imageID;}
     public int getNumberOfHotspots(){return hotspots.size();}
     public Hotspot getFirstHotspot(){return hotspots.get(0);}
+    public String getImagePath(){return imagePath;}
     public List<Hotspot> getHotSpotList(){
         return Collections.unmodifiableList(hotspots);
     }
@@ -108,12 +106,14 @@ public class Itinerary implements Serializable{
     }
     public int numberOfHotspot(){return hotspots.size();}
 
+    public void setImagePath(String imagePath){this.imagePath = imagePath;}
     public void setCreator(User creator){this.creator = creator;}
     public void setDifficulty(Difficulties dif){this.dif = dif;}
     public void setTitle(String title){this.name = title;}
     public void setDescription(String description){this.description = description;}
     public void setDate(Date date){this.creatDate = date;}
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
+    public void setImageID(int imageID){this.imageID = imageID;}
 
 
 

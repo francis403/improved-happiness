@@ -3,6 +3,7 @@ package com.example.gamethetown.gameControllers;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,11 +52,18 @@ public class HotspotImagePuzzle extends HotspotDoerController {
 
         tx = (TextView) findViewById(R.id.moves);
 
+        //TODO -> passar para path
         if(extras != null) {
             imgPuzzle = (ImagePuzzle) extras.get("game");
             ImageView test = new ImageView(this);
             //test.setImageResource(R.drawable.background3);
-            test.setImageResource(imgPuzzle.getImageID());
+            String path = imgPuzzle.getImagePath();
+            if(path != null){
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+                test.setImageBitmap(bitmap);
+            }
+            else
+                test.setImageResource(imgPuzzle.getImageID());
             imgPuzzle.splitImage(test);
             seperatedImage = imgPuzzle.getChunkedImage();
             init();
@@ -93,6 +101,9 @@ public class HotspotImagePuzzle extends HotspotDoerController {
     }
 
     private static void swap(Context context, int currentPosition, int swap) {
+        //para caso que de bug
+        if(currentPosition + swap < 0 || currentPosition + swap >= tileList.length)
+            return;
         String newPosition = tileList[currentPosition + swap];
         tileList[currentPosition + swap] = tileList[currentPosition];
         tileList[currentPosition] = newPosition;

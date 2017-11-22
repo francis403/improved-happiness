@@ -4,6 +4,8 @@ package com.example.gamethetown.adapters;
  * Created by franc on 29/10/2017.
  */
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +63,13 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         holder.date.setText("Created: " + day + "/" + month + "/" + year);
-        holder.image.setImageResource(iten.getImageID());
+        String path = iten.getImagePath();
+        if(path != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(path);
+            holder.image.setImageBitmap(BitmapFactory.decodeFile(path));
+        }
+        else
+            holder.image.setImageResource(iten.getImageID());
         holder.dif.setText("Difficulty: " + iten.getDifficulty());
 
     }

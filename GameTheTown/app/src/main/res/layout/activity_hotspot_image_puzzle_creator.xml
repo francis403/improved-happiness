@@ -11,18 +11,18 @@
    <ImageView
        android:layout_weight="10"
        android:layout_width="wrap_content"
-       android:layout_height="0dp"
+       android:layout_height="wrap_content"
        android:id="@+id/image"
+       android:layout_gravity="center"
+       android:adjustViewBounds="true"
        android:src= "@drawable/no_image"/>
 
     <LinearLayout
-        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <android.support.design.widget.FloatingActionButton
             android:layout_weight="1"
-            android:id="@+id/fab_camera"
             android:layout_width="0dp"
             android:onClick="selectImage"
             android:layout_height="wrap_content"

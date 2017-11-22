@@ -2,6 +2,7 @@ package com.example.gamethetown.gameControllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Vibrator;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.games.Quiz;
@@ -29,10 +31,22 @@ public class HotspotQuiz extends HotspotDoerController {
     private int correct_question;
     private Quiz quiz;
     private Bundle extras;
+    private ImagePicker imgPicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotspot_quiz);
+
+        imgPicker = ImagePicker.create(this).returnAfterFirst(true)
+                .folderMode(true) // folder mode (false by default)
+                .folderTitle("Folder") // folder selection title
+                .imageTitle("Tap to select") // image selection title
+                .single() // single mode
+                .showCamera(true) // show camera or not (true by default)
+                .imageDirectory("Camera")
+                .enableLog(false);
+
         score = 0;
         isCorrect = false;
         answeared = false;
@@ -51,6 +65,10 @@ public class HotspotQuiz extends HotspotDoerController {
             ((TextView) findViewById(R.id.quest2)).setText(quiz.getAsw2());
             ((TextView) findViewById(R.id.quest3)).setText(quiz.getAsw3());
             ((TextView) findViewById(R.id.quest4)).setText(quiz.getAsw4());
+            String path;
+            if((path = quiz.getImagePath()) != null)
+                ((ImageView) findViewById(R.id.image)).
+                        setImageBitmap(BitmapFactory.decodeFile(path));
             switch (quiz.getCorrectAsw()){
                 case 0:
                     correct_question = R.id.quest1;

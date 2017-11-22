@@ -2,6 +2,7 @@ package com.example.gamethetown.item;
 
 import android.util.Log;
 
+import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.R;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class User {
     private String password;
     private int imageID;
     private int level;
+    private double exp;
     private CurrentItinerary currentItinerary;
 
     private List<Itinerary> completedItineraries =  new ArrayList<>();
@@ -49,10 +51,14 @@ public class User {
      * CurrentItinerary passa a null e eh adicionado a score ao utilizador
      */
     public void completeItinerary(Double score){
+        addExperience(score * 100);
         this.currentItinerary = null;
     }
     public void addCompletedItinerary(Itinerary i){completedItineraries.add(i);}
-    public void addCreatedItinerary(Itinerary i){createdItineraries.add(i);}
+    public void addCreatedItinerary(Itinerary i){
+        createdItineraries.add(i);
+        new ItineraryCatalog().addItineraryToDatabase(i);
+    }
     public void setCurrentItinerary(Itinerary itinerary){
         currentItinerary = new CurrentItinerary(itinerary);
     }
@@ -74,8 +80,15 @@ public class User {
 
     public void addScoreToItinerary(double score){currentItinerary.addScore(score);}
 
-    //TODO
-    public boolean levelUp(double experience){
-        return false;
+    public void addExperience(double exp){
+        this.exp += exp;
+        if(increasesLevel()){
+            this.exp = 0;
+            level++;
+        }
+    }
+
+    private boolean increasesLevel(){
+            return exp > level * 100;
     }
 }

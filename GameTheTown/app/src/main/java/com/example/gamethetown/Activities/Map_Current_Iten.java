@@ -13,12 +13,18 @@ import android.view.View;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Hotspot;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 //TODO -> Passar para o fuse
 public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener {
@@ -26,10 +32,15 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
 
     private static final float DISTANCE_TO_TARGET = 10000 ; //em metros
     private static final int END_OF_GAME = 1;
+    private static final int REQUEST_CHECK_SETTINGS = 0;
 
     private GoogleMap mMap;
     private Hotspot hot;
     private Boolean buzzed = false,closeEnough = false;
+
+    private LocationCallback mLocationCallback;
+    private LocationRequest mLocationRequest;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,7 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
         setContentView(R.layout.activity_map__current__iten);
         //setDefaultUser();
         View completedItin = getView(R.layout.layout_no_itinerary);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         hot = user.getCurrentHotspot();
         //nao temos nenhum intenerario entao
@@ -86,6 +98,20 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
             return;
         }
         mMap.setMyLocationEnabled(true);
+
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            mMap.moveCamera(CameraUpdateFactory.
+                                    newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 10));
+                        }
+                    }
+                });
+
+
         // use com.google.android.gms.location.FusedLocationProviderApi
         mMap.setOnMyLocationChangeListener(this);
     }

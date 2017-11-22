@@ -6,15 +6,15 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.gamethetown.Activities.ListOfIteneraries;
+import com.example.gamethetown.Catalogs.ItineraryCatalog;
 
 
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     private GestureDetector gestureDetector;
-    private ListOfIteneraries.ClickListener clickListener;
+    private ItineraryCatalog.ClickListener clickListener;
 
-    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ListOfIteneraries.ClickListener clickListener) {
+    public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ItineraryCatalog.ClickListener clickListener) {
         this.clickListener = clickListener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
