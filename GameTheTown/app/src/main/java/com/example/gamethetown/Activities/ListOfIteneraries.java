@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Dialogs.AlertDialogs.SelectItineraryDialog;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 import com.example.gamethetown.games.ImagePuzzle;
@@ -51,22 +52,7 @@ public class ListOfIteneraries extends App_Menu {
             //@Override
             public void onLongClick(View view, int position) {
                 final Itinerary iten = itenList.get(position);
-                AlertDialog.Builder aBuilder = new AlertDialog.Builder(c);
-                aBuilder.setMessage("Do you want to set this as the current Itinerary?");
-                aBuilder.setCancelable(false);
-                aBuilder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //confirm
-                        user.setCurrentItinerary(iten);
-                    }
-                });
-                aBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                AlertDialog.Builder aBuilder = new SelectItineraryDialog(getApplicationContext(), iten);
                 aBuilder.show();
             }
         });

@@ -108,16 +108,11 @@ public class App_Menu extends AppCompatActivity {
     }
 
     public void selectItenerary(View view){
-        if(findViewById(R.id.list_itenerary) == null) {
-            Intent intent = new Intent(this, SearchAllItineraries.class);
-            startActivity(intent);
-        }
-    }
 
-    public void addItineraryToDatabase(){
+        Intent intent = new Intent(this, SearchAllItineraries.class);
+        startActivity(intent);
 
     }
-
 
     //copia de um metodo que ja tinhamos antes, a ver se mudamos de sitio
     public View bottomSheetUp(int layoutID){

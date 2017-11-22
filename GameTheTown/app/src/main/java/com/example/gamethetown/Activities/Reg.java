@@ -15,7 +15,7 @@ public class Reg extends AppCompatActivity {
         setContentView(R.layout.activity_reg);
     }
 
-    public void GoToLogin(View view){
+    public void goToLogin(View view){
         Intent intent = new Intent(this,Login.class);
         startActivity(intent);
     }

@@ -88,7 +88,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:background="@color/super_light_sand"
+            android:background="@drawable/text_top"
             android:layout_marginLeft="7dp"
             android:layout_marginRight="7dp"
             android:id="@+id/name"
@@ -99,7 +99,7 @@
             android:text="Name: "
             />
         <TextView
-            android:background="@color/super_light_sand"
+            android:background="@drawable/text_bot"
             android:layout_marginLeft="7dp"
             android:layout_marginRight="7dp"
             android:id="@+id/level"
@@ -124,8 +124,9 @@
                 android:layout_marginRight="5sp"
                 android:layout_marginLeft="7dp"
                 android:layout_centerHorizontal="true"
-                android:background="@color/even_lighter_sand"
+                android:background="@drawable/button"
                 android:onClick="checkCreatedIten"
+                android:textColor="@color/white"
                 android:text="Created Itineraries" />
 
             <Button
@@ -135,7 +136,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginRight="7dp"
                 android:layout_marginLeft="5dp"
-                android:background="@color/even_lighter_sand"
+                android:background="@drawable/button"
+                android:textColor="@color/white"
                 android:onClick="checkCompletedIten"
                 android:text="Completed Itineraries" />
 

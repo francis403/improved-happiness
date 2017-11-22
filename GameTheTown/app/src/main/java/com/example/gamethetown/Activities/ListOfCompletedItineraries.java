@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.interfaces.ClickListener;

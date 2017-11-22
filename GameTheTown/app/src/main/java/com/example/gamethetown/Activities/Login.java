@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    public void GoToRegister(View view){
+    public void goToRegister(View view){
         Intent intent = new Intent(this,Reg.class);
         startActivity(intent);
     }

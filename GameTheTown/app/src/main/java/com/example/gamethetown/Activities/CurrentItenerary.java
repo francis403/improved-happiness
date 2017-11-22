@@ -3,6 +3,9 @@ package com.example.gamethetown.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -62,7 +65,14 @@ public class CurrentItenerary extends App_Menu {
             title.setText(iten.getTitle());
             description.setText(iten.getDescription());
             creatorImages.setImageResource(iten.getCreator().getImageID());
-            img.setBackgroundResource(iten.getImageID());
+            String path;
+            if((path = iten.getImagePath()) != null){
+                Drawable d = new BitmapDrawable(getResources(), BitmapFactory.decodeFile(path));
+                //img.setBackground(d);
+                img.setBackgroundResource(iten.getImageID());
+            }
+            else
+                img.setBackgroundResource(iten.getImageID());
         }
 
     }
