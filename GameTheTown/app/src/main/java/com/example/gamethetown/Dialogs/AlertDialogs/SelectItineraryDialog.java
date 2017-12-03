@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 
-import com.example.gamethetown.Catalogs.UserCatalog;
+import com.example.gamethetown.Catalogs.UserAuthentication;
 import com.example.gamethetown.item.Itinerary;
 
 public class SelectItineraryDialog extends AlertDialog.Builder {
@@ -19,7 +19,7 @@ public class SelectItineraryDialog extends AlertDialog.Builder {
             public void onClick(DialogInterface dialog, int which) {
                 //confirm
 
-                new UserCatalog().getCurrentUser()
+                new UserAuthentication().getCurrentUser()
                         .setCurrentItinerary(iten);
             }
         });

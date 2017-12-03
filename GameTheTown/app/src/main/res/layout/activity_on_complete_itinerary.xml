@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.gamethetown.Activities.onCompleteItinerary"
-    android:orientation="vertical"
-    android:background="@drawable/background2">
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"

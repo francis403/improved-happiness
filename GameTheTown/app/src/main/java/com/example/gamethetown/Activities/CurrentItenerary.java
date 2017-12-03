@@ -1,11 +1,14 @@
 package com.example.gamethetown.Activities;
 
 
+import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -32,6 +35,7 @@ public class CurrentItenerary extends App_Menu {
     @InjectView(R.id.user_profile_photo) CircleImageView creatorImages;
     @InjectView(R.id.imageOfItinerary) LinearLayout img;
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,12 +68,22 @@ public class CurrentItenerary extends App_Menu {
             iten = currIten.getCurrentItinerary();
             title.setText(iten.getTitle());
             description.setText(iten.getDescription());
+            //TODO -> vou ter de mudar para ir buscar a foto do utilizador
             creatorImages.setImageResource(iten.getCreator().getImageID());
+
+            //TODO -> ir buscar a imagem usando um bitmap
+            Bitmap bitmap;
+            if((bitmap = iten.getImageBitmap()) != null){
+                Drawable d = new BitmapDrawable(bitmap);
+                img.setBackground(d);
+                return;
+            }
+
             String path;
             if((path = iten.getImagePath()) != null){
                 Drawable d = new BitmapDrawable(getResources(), BitmapFactory.decodeFile(path));
-                //img.setBackground(d);
-                img.setBackgroundResource(iten.getImageID());
+                img.setBackground(d);
+                //img.setBackgroundResource(iten.getImageID());
             }
             else
                 img.setBackgroundResource(iten.getImageID());

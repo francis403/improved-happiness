@@ -2,25 +2,21 @@ package com.example.gamethetown.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.R;
-import com.example.gamethetown.adapters.ItineraryAdapter;
-import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Itinerary;
-import com.example.gamethetown.item.RecyclerTouchListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -38,20 +34,69 @@ public class Profile extends App_Menu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.inject(this);
-
+        //String name = new UserAuthentication().getUser().getDisplayName();
         _nameText.setText("Name: " + user.getName());
         _levelText.setText("Level: " + user.getLevel());
         _profileImage.setImageResource(user.getImageID());
     }
 
+    // TODO -> preciso de ir buscar os itinerarios
     public void checkCreatedIten(View view){
-        Intent intent = new Intent(this,ListOfCreatedItineraries.class);
-        startActivity(intent);
+
+        ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
+        idc.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Itinerary> itens = new ArrayList<>();
+
+                for(String s : user.getCrtItin()){
+                    //nao sei porque esta isto a acontecer
+                    if(s != null) {
+                        DataSnapshot mItin = dataSnapshot.child(s);
+                        itens.add(new Itinerary(mItin));
+                    }
+                }
+                user.setCreatedItin(itens);
+
+                Intent intent = new Intent(Profile.this,ListOfCreatedItineraries.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void checkCompletedIten(View view){
-        Intent intent = new Intent(this,ListOfCompletedItineraries.class);
-        startActivity(intent);
+
+        ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
+        idc.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Itinerary> itens = new ArrayList<>();
+
+                for(String s : user.getCompletedItin()){
+                    //nao sei porque esta isto a acontecer
+                    if(s != null) {
+                        DataSnapshot mItin = dataSnapshot.child(s);
+                        itens.add(new Itinerary(mItin));
+                    }
+                }
+                user.setCompletedItin(itens);
+
+                Intent intent = new Intent(Profile.this,ListOfCompletedItineraries.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

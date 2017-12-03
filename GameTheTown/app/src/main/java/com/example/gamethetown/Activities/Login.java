@@ -1,19 +1,27 @@
 package com.example.gamethetown.Activities;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.gamethetown.Catalogs.UserCatalog;
+import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.UserDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -44,11 +52,54 @@ public class Login extends AppCompatActivity {
 
         //Check if everything is fine
         if(validate()) {
-            Intent intent = new Intent(this, Profile.class);
-            User user = new User("Francis", "password1234");
-            user.setImageID(R.drawable.user_photo);
-            new UserCatalog().setCurrentUser(user);
-            startActivity(intent);
+            Task<AuthResult> task = new UserAuthentication().loginCheck(_emailText.getText().toString(),
+                    _passwordText.getText().toString(),null);
+
+            task.addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        String userID = new UserAuthentication().getUser().getUid();
+                        DatabaseReference mUserRef = new UserDatabaseConnection
+                                (userID).getReference().child(userID);
+
+                        //vamos buscar os valores do user
+                        mUserRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User tst = new User(dataSnapshot);
+                                User user = new User(new UserAuthentication().getUser().getUid());
+                                user.setImageID(R.drawable.user_photo);
+                                new UserAuthentication().setCurrentUser(tst);
+                                Intent intent = new Intent(Login.this, Profile.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                        /**
+                        Intent intent = new Intent(Login.this, Profile.class);
+                        User user = new User(new UserAuthentication().getUser().getUid());
+                        user.setImageID(R.drawable.user_photo);
+                        new UserAuthentication().setCurrentUser(user);
+                        startActivity(intent);
+                         **/
+                        //FirebaseUser user = mAuth.getCurrentUser();
+                        //updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w("FB:Login exception", "signInWithEmail:failure", task.getException());
+                        Toast.makeText(Login.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                        //updateUI(null);
+                    }
+                }
+            });
+
         }
     }
 

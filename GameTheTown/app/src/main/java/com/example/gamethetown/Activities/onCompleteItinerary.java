@@ -1,19 +1,14 @@
 package com.example.gamethetown.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.UserCatalog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
-import com.example.gamethetown.item.User;
 
 public class onCompleteItinerary extends App_Menu {
 

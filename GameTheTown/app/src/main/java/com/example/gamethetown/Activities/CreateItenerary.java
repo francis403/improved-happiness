@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -225,10 +226,22 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
         //TODO -> Vou ter de por o metodo para ele ir buscar os valores
         Spinner spinner = (Spinner) sView.findViewById(R.id.type_of_game);
+        //TODO -> add the too spines
+        Hotspot h = preHotspots.get(marker.getId());
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.games, android.R.layout.simple_list_item_1);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
+
+        //TODO mudar, nao gosto disto assim
+        if(h.getGame() != null){
+            if(h.getGame().getGameName().equals("Quiz"))
+                spinner.setSelection(0);
+            else if(h.getGame().getGameName().equals("Race"))
+                spinner.setSelection(1);
+            else
+                spinner.setSelection(2);
+        }
 
         hotspotInfoConfirm(marker,sView,spinner);
     }
@@ -407,6 +420,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
             ArrayList<Image> images = (ArrayList<Image>) ImagePicker.getImages(data);
             Image image = images.get(0);
             path = image.getPath();
+            //vamos sempre precisar de guardar o path tambem
             createdIten.setImagePath(path);
         }
     }

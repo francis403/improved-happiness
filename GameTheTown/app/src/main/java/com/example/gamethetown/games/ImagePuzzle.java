@@ -8,9 +8,9 @@ import android.widget.ImageView;
 
 import com.example.gamethetown.R;
 import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -69,6 +69,18 @@ public class ImagePuzzle extends CurrentGame {
             return MAX_SCORE * 0.5;
 
         return MAX_SCORE * 0.2;
+    }
+
+    @Override
+    public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
+        DatabaseReference gameRef = parentRef.child("game");
+        gameRef.child("type").setValue(getGameName());
+        //TODO -> meter a imagem
+    }
+    //TODO
+    @Override
+    public void getValueInDatabase(DataSnapshot snap, Object obj) {
+
     }
 
     public int getImageID(){return imageID;}

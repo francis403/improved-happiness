@@ -1,33 +1,55 @@
 package com.example.gamethetown.item;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
-import android.widget.ImageView;
 
+import com.example.gamethetown.Catalogs.StorageDatabase;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
+import com.example.gamethetown.interfaces.InTheDatabase;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-public class Itinerary implements Serializable{
+public class Itinerary implements Serializable,InTheDatabase{
 
     private static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
+    //preciso de guardar o id de quem criou
+    private String userID;
+    //id do itinerario em si
+    private String itenID;
+
 
     private String name;
+
+    //tenho que meter isto a usar um bitmap
+    private Bitmap image;
     private int imageID;
     private String imagePath; // por agora temos o image path so para caso
+
     private Date creatDate;
     private String description;
     private Enum<Difficulties> dif;
     private User creator;
     private List<Hotspot> hotspots = new ArrayList<>();
 
+    //acho que posso tirar daqui
     public Itinerary(){
+        imageID = DEFAULT_IMAGE_ID;
+    }
+    //usado para ir buscar os valores da base de dados
+    public Itinerary(DataSnapshot snap){
+        getValueInDatabase(snap,null);
         imageID = DEFAULT_IMAGE_ID;
     }
 
@@ -76,6 +98,10 @@ public class Itinerary implements Serializable{
                 && description != null && creatDate != null && dif != null;
     }
 
+    public String getItenID(){
+        return itenID;
+    }
+
     //tem de haver pelo menos um hotspot no itinerario
     public boolean isComplete(){
         for(Hotspot h : hotspots)
@@ -99,6 +125,7 @@ public class Itinerary implements Serializable{
         return Collections.unmodifiableList(hotspots);
     }
     public String getDescription(){return description;}
+    public Bitmap getImageBitmap(){return image;}
     public String getDifficulty(){
         if(dif == null)
             return null;
@@ -107,6 +134,7 @@ public class Itinerary implements Serializable{
     public int numberOfHotspot(){return hotspots.size();}
 
     public void setImagePath(String imagePath){this.imagePath = imagePath;}
+    public void setImageBitmap(Bitmap image){this.image = image;}
     public void setCreator(User creator){this.creator = creator;}
     public void setDifficulty(Difficulties dif){this.dif = dif;}
     public void setTitle(String title){this.name = title;}
@@ -116,5 +144,80 @@ public class Itinerary implements Serializable{
     public void setImageID(int imageID){this.imageID = imageID;}
 
 
+    //TODO -> falta meter a imagem
+    //estou a pensar nao meter isto no create e fazer simplesmente do id
+    /**
+     *
+     * @param parentRef -> Reference to where the new reference should be made
+     * @param obj
+     *
+     */
+    @Override
+    public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
+        itenID = parentRef.push().getKey();
 
+        DatabaseReference itenRef = parentRef.child(itenID);
+
+        itenRef.child("name").setValue(name);
+        itenRef.child("description").setValue(description);
+        itenRef.child("date").setValue(creatDate);
+        itenRef.child("dif").setValue(getDifficulty());
+        if(userID != null && !userID.equals("")) //aqui so por causa dos que ja estao criados
+            itenRef.child("creatorID").setValue(userID);
+
+        DatabaseReference hotspotRef = itenRef.child("hotspots");
+        int i = 1;
+        for(Hotspot h : getHotSpotList()){
+            h.setValueInDatabase(hotspotRef,i);
+            i++;
+        }
+
+        //set the photo
+
+        StorageDatabase sb = new StorageDatabase();
+        //Bitmap bit = BitmapFactory.decodeFile(imagePath);
+        if(image != null)
+            sb.setItenPhoto(itenID,image);
+
+    }
+    //TODO -> Dificuldade
+    //TODO -> Photo
+    @Override
+    public void getValueInDatabase(DataSnapshot snap, Object obj) {
+        //get basic values
+        this.itenID = snap.getKey();
+        this.itenID = snap.child("creatorID").getValue(String.class);
+        this.name = snap.child("name").getValue(String.class);
+        this.description = snap.child("description").getValue(String.class);
+
+        //TODO
+        //this.dif = Difficulties.valueOf(snap.child("dif").getValue(String.class));
+        this.dif = Difficulties.EASY;
+        //nao sei se funciona
+        this.creatDate = snap.child("date").getValue(Date.class);
+
+        //get hotspots
+        DataSnapshot hotRef = snap.child("hotspots");
+        for(DataSnapshot s : hotRef.getChildren()){
+            hotspots.add(new Hotspot(s));
+        }
+
+        //get photo
+        StorageDatabase sb = new StorageDatabase();
+        sb.getItenPhoto(itenID).addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                //nao sei se funciona
+                image = BitmapFactory.decodeFile(uri.getPath());
+            }
+        });
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 }

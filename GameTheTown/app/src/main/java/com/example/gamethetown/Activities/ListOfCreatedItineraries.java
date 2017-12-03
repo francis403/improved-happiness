@@ -64,18 +64,4 @@ public class ListOfCreatedItineraries extends App_Menu {
         }
     }
 
-    private void prepareItenData() {
-
-        Itinerary iten = new Itinerary("Um passeio por Lisboa", new Date(2017,9,10));
-        itenList.add(iten);
-
-        iten = new Itinerary("Vamos Assaltar Palacio Chiado!", new Date(2017,7,12));
-        itenList.add(iten);
-
-        iten = new Itinerary("Sera que o Rio Tejo eh mesmo um Rio?", new Date(2017,7,12));
-        itenList.add(iten);
-
-        mAdapter.notifyDataSetChanged();
-    }
-
 }

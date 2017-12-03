@@ -1,23 +1,24 @@
 package com.example.gamethetown.games;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
 
 import com.example.gamethetown.R;
-import com.example.gamethetown.interfaces.Game;
-import com.example.gamethetown.item.Itinerary;
+import com.example.gamethetown.interfaces.InTheDatabase;
+import com.google.firebase.database.DataSnapshot;
 
 import java.io.Serializable;
-
-/**
- * Created by franc on 05/11/2017.
- */
+//TODO -> Retirar daqui a activity
 //TODO -> mudar o nome, nao sei se necessario
-public abstract class CurrentGame extends Activity implements Serializable {
+public abstract class CurrentGame extends Activity implements Serializable,InTheDatabase {
 
     protected static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
+
+    //cada um dos jogos vai ter isto
+    //TODO -> Ideia, nao sei se funciona
+    public CurrentGame(DataSnapshot snap,String name){
+        getValueInDatabase(snap,null );
+        this.name = name;
+    }
 
     private String name;
 
@@ -32,4 +33,5 @@ public abstract class CurrentGame extends Activity implements Serializable {
     public abstract Class getGameClass();
     public abstract boolean isComplete();
     public abstract Double getScore();
+
 }

@@ -25,4 +25,5 @@ public enum Difficulties {
     public String toString() {
         return this.name;
     }
+
 }

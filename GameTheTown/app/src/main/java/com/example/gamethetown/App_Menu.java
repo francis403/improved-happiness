@@ -14,12 +14,8 @@ import com.example.gamethetown.Activities.CurrentItenerary;
 import com.example.gamethetown.Activities.Login;
 import com.example.gamethetown.Activities.Profile;
 import com.example.gamethetown.Activities.SearchAllItineraries;
-import com.example.gamethetown.Catalogs.UserCatalog;
-import com.example.gamethetown.item.Itinerary;
+import com.example.gamethetown.Catalogs.UserAuthentication;
 import com.example.gamethetown.item.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by franc on 21/10/2017.
@@ -28,7 +24,7 @@ import java.util.List;
 
 public class App_Menu extends AppCompatActivity {
 
-    protected static User user = new UserCatalog().getCurrentUser();
+    protected static User user = new UserAuthentication().getCurrentUser();
     protected BottomSheetDialog bsd;
 
     @Override
@@ -101,10 +97,11 @@ public class App_Menu extends AppCompatActivity {
     }
 
     public void log_out(View view){
-        if(findViewById(R.id.login) == null) {
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-        }
+        new UserAuthentication().log_out();
+
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+
     }
 
     public void selectItenerary(View view){

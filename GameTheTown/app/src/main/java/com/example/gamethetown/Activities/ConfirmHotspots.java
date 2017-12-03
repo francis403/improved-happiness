@@ -1,5 +1,6 @@
 package com.example.gamethetown.Activities;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.ItineraryCatalog;
-import com.example.gamethetown.Catalogs.UserCatalog;
+import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.HotspotAdapter;
 import com.example.gamethetown.adapters.SimpleItemTouchHelperCallback;
@@ -49,6 +50,9 @@ public class ConfirmHotspots extends App_Menu {
 
 
         itenToCreate = (Itinerary) extras.get("itinerary");
+        itenToCreate.setImageBitmap(BitmapFactory.
+                decodeFile(itenToCreate.getImagePath()));
+        //TODO -> mudar aqui o do id para o bitmap
         ((ImageView) findViewById(R.id.image)).setImageResource(itenToCreate.getImageID());
         ((TextView) findViewById(R.id.description)).setText(itenToCreate.getDescription());
         ((TextView) findViewById(R.id.dist)).setText("Distance: aprox"
@@ -72,7 +76,7 @@ public class ConfirmHotspots extends App_Menu {
                     new SimpleItemTouchHelperCallback(mAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
             touchHelper.attachToRecyclerView(recyclerView);
-
+            recyclerView.setHasFixedSize(true);
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
                     recyclerView, new ClickListener() {
                 //@Override
@@ -100,19 +104,11 @@ public class ConfirmHotspots extends App_Menu {
             isPressed = true;
             for(Hotspot h : preHotspots.values())
                 itenToCreate.addHotspot(h);
-            itenToCreate.setCreator(new UserCatalog().getCurrentUser());
+            itenToCreate.setCreator(new UserAuthentication().getCurrentUser());
+            itenToCreate.setUserID(new UserAuthentication().getUser().getUid());
             user.addCreatedItinerary(itenToCreate);
             Toast.makeText(getBaseContext(), "Created the Itinerary", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    /**
-     * TODO
-     * Sends this itinerary to the database
-     * @return if it was added, false if it failed to add
-     */
-    public boolean sendToDatabase(){
-        return false;
     }
 
 }

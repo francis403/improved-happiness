@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -25,9 +26,18 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //firebase
+    compile "com.google.firebase:firebase-auth:11.0.4"
+    compile 'com.google.firebase:firebase-storage:11.0.4'
+    compile 'com.google.firebase:firebase-database:11.0.4'
+    //compile 'com.google.firebase:firebase-firestore:11.0.4'
+
+    //outside libs
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.github.esafirm.android-image-picker:imagepicker:1.7.5'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.jakewharton:butterknife:6.1.0'
+    annotationProcessor 'com.jakewharton:butterknife:6.1.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
@@ -39,3 +49,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
 }
+apply plugin: 'com.google.gms.google-services'

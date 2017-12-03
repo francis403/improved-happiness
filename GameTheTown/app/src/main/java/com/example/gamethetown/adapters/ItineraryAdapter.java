@@ -63,6 +63,11 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         holder.date.setText("Created: " + day + "/" + month + "/" + year);
+        holder.dif.setText("Difficulty: " + iten.getDifficulty());
+        Bitmap bit;
+        if((bit = iten.getImageBitmap()) != null){
+
+        }
         String path = iten.getImagePath();
         if(path != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(path);
@@ -70,7 +75,6 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         }
         else
             holder.image.setImageResource(iten.getImageID());
-        holder.dif.setText("Difficulty: " + iten.getDifficulty());
 
     }
 

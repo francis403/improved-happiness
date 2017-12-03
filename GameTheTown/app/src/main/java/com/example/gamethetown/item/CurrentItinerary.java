@@ -1,10 +1,10 @@
 package com.example.gamethetown.item;
 
-/**
- * Created by franc on 10/11/2017.
- */
+import com.example.gamethetown.interfaces.InTheDatabase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
-public class CurrentItinerary {
+public class CurrentItinerary implements InTheDatabase{
 
     private Itinerary currentItinerary;
     private int currentHotspotIndice;
@@ -13,7 +13,7 @@ public class CurrentItinerary {
 
 
     public CurrentItinerary(Itinerary iten){
-        currentItinerary = iten;
+        currentItinerary = iten; //nao consigo por coisas complexas como estas
         currentHotspotIndice = 0;
         score = 0;
         startTime = System.currentTimeMillis(); //isto so vai dar se for sempre no mesmo dispositivo
@@ -43,5 +43,25 @@ public class CurrentItinerary {
 
     public Itinerary getItinerary(){return currentItinerary;}
     public double getScore(){return score;}
+    public int getIndice(){return currentHotspotIndice;}
+    public long getStartTime(){return startTime;}
 
+    @Override
+    public void setValueInDatabase(DatabaseReference parentRef,Object obj) {
+        DatabaseReference currItenRef = parentRef.child("currIten");
+        //set basic info
+        currItenRef.child("indice").setValue(currentHotspotIndice);
+        currItenRef.child("score").setValue(score);
+        currItenRef.child("startTime").setValue(startTime);
+
+        //set harder information
+        currItenRef.child("id").setValue(currentItinerary.getItenID());
+        //currentItinerary.setValueInDatabase(currItenRef,false);
+
+    }
+    //TODO
+    @Override
+    public void getValueInDatabase(DataSnapshot snap, Object obj) {
+
+    }
 }

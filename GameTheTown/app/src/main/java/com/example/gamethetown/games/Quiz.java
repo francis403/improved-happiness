@@ -1,14 +1,12 @@
 package com.example.gamethetown.games;
 
-import android.content.Intent;
+import android.content.SyncStatusObserver;
 import android.util.Log;
-import android.view.View;
 
+import com.example.gamethetown.Database.DBConstants;
 import com.example.gamethetown.gameControllers.HotspotQuiz;
-import com.example.gamethetown.interfaces.Game;
-import com.example.gamethetown.item.Hotspot;
-
-import java.io.Serializable;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * Created by franc on 05/11/2017.
@@ -21,13 +19,18 @@ public class Quiz extends CurrentGame {
 
     private String question;
     private String[] aws;
-    private int correctAsw = -1;
+    private int correctAsw;
     private int imageID;
     private String imagePath;
 
     public Quiz(){
         super("Quiz");
         aws = new String[NUMBER_OF_QUESTIONS];
+        imageID = DEFAULT_IMAGE_ID;
+    }
+
+    public Quiz(DataSnapshot snap){
+        super(snap,"Quiz");
         imageID = DEFAULT_IMAGE_ID;
     }
 
@@ -49,6 +52,36 @@ public class Quiz extends CurrentGame {
     @Override
     public Double getScore() {
         return CORRECT_SCORE;
+    }
+
+    @Override
+    public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
+        DatabaseReference gameRef = parentRef.child("game");
+        gameRef.child("type").setValue("Quiz");
+        //TODO -> Arranjar melhor maneira
+        gameRef.child("asw_0").setValue(aws[0]);
+        gameRef.child("asw_1").setValue(aws[1]);
+        gameRef.child("asw_2").setValue(aws[2]);
+        gameRef.child("asw_3").setValue(aws[3]);
+        gameRef.child("question").setValue(question);
+        //TODO -> meter a imagem
+        gameRef.child("correct_ans").setValue(correctAsw);
+        //quizRef.setValue(this);
+
+    }
+    //TODO
+    @Override
+    public void getValueInDatabase(DataSnapshot snap, Object obj) {
+        DataSnapshot gameSnap = snap.child(DBConstants.REFERENCE_GAME);
+        this.question = gameSnap.child("question").getValue(String.class);
+        if(aws == null)
+            aws = new String[NUMBER_OF_QUESTIONS];
+        for(int i = 0 ; i < aws.length ; i++) {
+            aws[i] = gameSnap.child("asw_" + i).getValue(String.class);
+            Log.e("DES",aws[i]);
+        }
+        this.correctAsw = gameSnap.child("correct_ans").getValue(Integer.class);
+        this.imageID = DEFAULT_IMAGE_ID; //preciso de ir buscar os dados TODO
     }
 
     public int getImageID(){return imageID;}

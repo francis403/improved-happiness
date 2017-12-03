@@ -1,7 +1,9 @@
 package com.example.gamethetown.games;
 
+import com.example.gamethetown.Database.DBConstants;
 import com.example.gamethetown.gameControllers.HotspotRace;
-import com.example.gamethetown.item.Hotspot;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 
 import java.text.DecimalFormat;
 
@@ -21,8 +23,13 @@ public class Race extends CurrentGame {
         super("Race");
     }
 
+    public Race(DataSnapshot snap){
+        super(snap,"Race");
+    }
+
     @Override
     public void startGame() {
+        //meter o startTime na base de dados
         startTime = System.currentTimeMillis();
     }
 
@@ -49,5 +56,18 @@ public class Race extends CurrentGame {
         return Double.parseDouble(new DecimalFormat("##.##").format(1000/(getTime() + 1)));
         //every second is a point
 
+    }
+
+    @Override
+    public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
+        DatabaseReference gameRef = parentRef.child("game");
+        gameRef.child("type").setValue("Race");
+        gameRef.child("startTime").setValue(startTime); // so vai ser feito mais tarde
+    }
+    //TODO
+    @Override
+    public void getValueInDatabase(DataSnapshot snap, Object obj) {
+        DataSnapshot gameSnap = snap.child(DBConstants.REFERENCE_GAME);
+        this.startTime = gameSnap.child("startTime").getValue(Long.class);
     }
 }
