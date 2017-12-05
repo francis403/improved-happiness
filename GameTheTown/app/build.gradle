@@ -38,14 +38,19 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.jakewharton:butterknife:6.1.0'
     annotationProcessor 'com.jakewharton:butterknife:6.1.0'
+
+    //more natural ones
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    //google
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.google.android.gms:play-services-location:11.0.4'
+    compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/CircleImageView-master/gradle/wrapper/gradle-wrapper.jar')
 }

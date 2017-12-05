@@ -1,11 +1,15 @@
 package com.example.gamethetown.item;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.example.gamethetown.interfaces.InTheDatabase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
 public class CurrentItinerary implements InTheDatabase{
 
+    private String itenID;
     private Itinerary currentItinerary;
     private int currentHotspotIndice;
     private double score;
@@ -13,13 +17,20 @@ public class CurrentItinerary implements InTheDatabase{
 
 
     public CurrentItinerary(Itinerary iten){
-        currentItinerary = iten; //nao consigo por coisas complexas como estas
+        currentItinerary = iten;
         currentHotspotIndice = 0;
+        this.itenID = iten.getItenID();
         score = 0;
         startTime = System.currentTimeMillis(); //isto so vai dar se for sempre no mesmo dispositivo
     }
 
+    public CurrentItinerary(DataSnapshot currItenSnap){
+        getValueInDatabase(currItenSnap,null);
+    }
+
+    public String getCurrentItineraryID(){return itenID;}
     public Itinerary getCurrentItinerary(){return currentItinerary;}
+    public void setCurrentItinerary(Itinerary iten){this.currentItinerary = iten;}
     public Hotspot getCurrentHotspot(){
         if(currentItinerary != null && currentHotspotIndice > -1)
             return currentItinerary.getHotSpotList().get(currentHotspotIndice);
@@ -49,6 +60,7 @@ public class CurrentItinerary implements InTheDatabase{
     @Override
     public void setValueInDatabase(DatabaseReference parentRef,Object obj) {
         DatabaseReference currItenRef = parentRef.child("currIten");
+        Log.e("SETVALUEINDATABASE","Estamos a meter o valor na base de dados");
         //set basic info
         currItenRef.child("indice").setValue(currentHotspotIndice);
         currItenRef.child("score").setValue(score);
@@ -61,7 +73,11 @@ public class CurrentItinerary implements InTheDatabase{
     }
     //TODO
     @Override
-    public void getValueInDatabase(DataSnapshot snap, Object obj) {
-
+    public void getValueInDatabase(@NonNull DataSnapshot snap, Object obj) {
+        //Esta a dar erro
+        this.currentHotspotIndice = snap.child("indice").getValue(Integer.class);
+        this.score = snap.child("score").getValue(Double.class);
+        this.startTime = snap.child("startTime").getValue(Long.class);
+        this.itenID = snap.child("id").getValue(String.class);
     }
 }

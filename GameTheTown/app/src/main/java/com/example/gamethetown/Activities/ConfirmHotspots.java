@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Catalogs.UserAuthentication;
-import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.HotspotAdapter;
 import com.example.gamethetown.adapters.SimpleItemTouchHelperCallback;
@@ -58,8 +57,8 @@ public class ConfirmHotspots extends App_Menu {
         ((TextView) findViewById(R.id.dist)).setText("Distance: aprox"
                 + mAdapter.getTotalWalkingDistance() + " meters");
         android.support.v7.app.ActionBar ab = getSupportActionBar();
-        String title = itenToCreate.getTitle();
-        ab.setTitle(itenToCreate.getTitle());
+        String title = itenToCreate.getName();
+        ab.setTitle(itenToCreate.getName());
 
         setData();
     }
@@ -102,12 +101,24 @@ public class ConfirmHotspots extends App_Menu {
     public void userFinish(View view){
         if(!isPressed) {
             isPressed = true;
-            for(Hotspot h : preHotspots.values())
+            for(Hotspot h : preHotspots.values()) {
                 itenToCreate.addHotspot(h);
+            }
             itenToCreate.setCreator(new UserAuthentication().getCurrentUser());
             itenToCreate.setUserID(new UserAuthentication().getUser().getUid());
+
+            //TODO -> preciso de adicionar as fotos respetivas ao jogo
+
             user.addCreatedItinerary(itenToCreate);
             Toast.makeText(getBaseContext(), "Created the Itinerary", Toast.LENGTH_SHORT).show();
+
+            //adicionar as fotos ha base de dados
+            int i = 1;
+            for(Hotspot h : itenToCreate.getHotSpotList()){
+                h.getGame().setPhoto(itenToCreate.getItenID(),i);
+                i++;
+            }
+
         }
     }
 

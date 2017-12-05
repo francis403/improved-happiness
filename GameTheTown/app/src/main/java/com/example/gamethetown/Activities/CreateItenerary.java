@@ -5,18 +5,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,7 +24,6 @@ import com.esafirm.imagepicker.model.Image;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
-import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
 import com.example.gamethetown.gameControllers.HotspotImagePuzzleCreator;
 import com.example.gamethetown.gameControllers.Hotspot_Quiz_Creator;
 import com.example.gamethetown.games.CurrentGame;
@@ -46,7 +42,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -388,7 +383,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     private void itenData(View sView){
         TextView title = (TextView) sView.findViewById(R.id.title);
         TextView description = (TextView) sView.findViewById(R.id.description);
-        String t = createdIten.getTitle(),d = createdIten.getDescription();
+        String t = createdIten.getName(),d = createdIten.getDescription();
         if(t != null && !title.equals(""))
             title.setText(t);
         if(d != null && !description.equals(""))

@@ -1,8 +1,9 @@
 package com.example.gamethetown.games;
 
-import android.content.SyncStatusObserver;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.Database.DBConstants;
 import com.example.gamethetown.gameControllers.HotspotQuiz;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,13 @@ public class Quiz extends CurrentGame {
     public Quiz(DataSnapshot snap){
         super(snap,"Quiz");
         imageID = DEFAULT_IMAGE_ID;
+    }
+
+    @Override
+    public void setPhoto(String itenID, int i) {
+        //TODO -> to test
+        StorageDatabase storage = new StorageDatabase();
+        storage.setHotspotPhoto(itenID,i, BitmapFactory.decodeFile(imagePath));
     }
 
     @Override

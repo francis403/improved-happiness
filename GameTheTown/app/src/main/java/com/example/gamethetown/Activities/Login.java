@@ -65,12 +65,11 @@ public class Login extends AppCompatActivity {
                                 (userID).getReference().child(userID);
 
                         //vamos buscar os valores do user
-                        mUserRef.addValueEventListener(new ValueEventListener() {
+                        mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                Log.e("login a ser feito","LOGIN FOI FEITO");
                                 User tst = new User(dataSnapshot);
-                                User user = new User(new UserAuthentication().getUser().getUid());
-                                user.setImageID(R.drawable.user_photo);
                                 new UserAuthentication().setCurrentUser(tst);
                                 Intent intent = new Intent(Login.this, Profile.class);
                                 startActivity(intent);
@@ -81,15 +80,6 @@ public class Login extends AppCompatActivity {
 
                             }
                         });
-                        /**
-                        Intent intent = new Intent(Login.this, Profile.class);
-                        User user = new User(new UserAuthentication().getUser().getUid());
-                        user.setImageID(R.drawable.user_photo);
-                        new UserAuthentication().setCurrentUser(user);
-                        startActivity(intent);
-                         **/
-                        //FirebaseUser user = mAuth.getCurrentUser();
-                        //updateUI(user);
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("FB:Login exception", "signInWithEmail:failure", task.getException());

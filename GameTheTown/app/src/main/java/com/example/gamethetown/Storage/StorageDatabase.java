@@ -1,14 +1,25 @@
-package com.example.gamethetown.Catalogs;
+package com.example.gamethetown.Storage;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.gamethetown.Database.DBConstants;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 /**
  * A way of communicating with the Storage in Firebase
@@ -17,6 +28,8 @@ public class StorageDatabase {
 
     private StorageReference imagesRef;
     private StorageReference itensRef;
+
+    private Bitmap helper;
 
     public StorageDatabase(){
         imagesRef = FirebaseStorage.getInstance().getReference().child("images");

@@ -107,6 +107,8 @@ public class User implements InTheDatabase{
     public void completeItinerary(Double score){
         addExperience(score * 100);
         this.currentItinerary = null;
+        //this.currentItinerary.setDefault();
+        new UserDatabaseConnection(userID).removeCurrentItinerary();
     }
     public void addCompletedItinerary(Itinerary i){
         completedItineraries.add(i);
@@ -123,7 +125,12 @@ public class User implements InTheDatabase{
     }
     //TODO -> o que estamos a fazer
     public void setCurrentItinerary(Itinerary itinerary){
-        this.currentItinerary = new CurrentItinerary(itinerary);
+        //this.currentItinerary = new CurrentItinerary(itinerary);
+        if(currentItinerary != null)
+            this.currentItinerary.setCurrentItinerary(itinerary);
+        else
+            currentItinerary = new CurrentItinerary(itinerary);
+        Log.e("SETCURRENTITINERARY","Estamos no setCurrentItinerary");
         udc.setCurrentItinerary(currentItinerary); //teste
     }
 
@@ -155,6 +162,7 @@ public class User implements InTheDatabase{
         if(increasesLevel()){
             this.exp = 0;
             level++;
+            udc.setLevelInDatabase(level);
         }
     }
 
@@ -184,6 +192,13 @@ public class User implements InTheDatabase{
                 .getValue(Double.class);
 
         //buscar o current Itinerary
+        //TODO -> esta a dar mal
+        DataSnapshot currItenRef = snap.child(DBConstants.REFERENCE_CURRENT_ITINERARY);
+        if(currItenRef != null && currItenRef.exists()) {
+            currentItinerary = new CurrentItinerary(currItenRef);
+            Log.e("Pedido CurrentItinerary","" + currentItinerary.getCurrentItineraryID());
+        }
+
 
         //buscar a lista de criados
         DataSnapshot crtSnaps = snap.child(DBConstants.REFERENCE_CREATED_ITEN);

@@ -57,7 +57,7 @@ public class Tab2Map extends Fragment implements OnMapReadyCallback {
 
         for(Itinerary i : itineraries){
             Hotspot h  = i.getFirstHotspot();
-            Marker m = mMap.addMarker(new MarkerOptions().position(h.getPosition()).title(i.getTitle()));
+            Marker m = mMap.addMarker(new MarkerOptions().position(h.getPosition()).title(i.getName()));
             mapItineraries.put(m.getId(),i);
         }
 

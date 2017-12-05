@@ -22,7 +22,7 @@ public class onCompleteItinerary extends App_Menu {
         completedItinerary = user.getCurrentItinerary().getItinerary();
         //set view
         android.support.v7.app.ActionBar ab = getSupportActionBar();
-        ab.setTitle(completedItinerary.getTitle());
+        ab.setTitle(completedItinerary.getName());
         score = user.getCurrentItinerary().getScore();
 
         ((TextView)findViewById(R.id.nameCreator))

@@ -97,6 +97,11 @@ public class UserDatabaseConnection extends DatabaseConnection{
                 .setValue(null);
     }
 
+    public void setLevelInDatabase(int level){
+        mUserRef.child(DBConstants.REFERENCE_LEVEL)
+                .setValue(level);
+    }
+
     public void addCreatedIten(Itinerary iten){
         mUserRef.child(DBConstants.REFERENCE_CREATED_ITEN)
                 .child(iten.getItenID()).setValue(true); //created

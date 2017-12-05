@@ -2,18 +2,16 @@ package com.example.gamethetown.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -73,16 +71,17 @@ public class Profile extends App_Menu {
     public void checkCompletedIten(View view){
 
         ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
-        idc.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
+        idc.getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Itinerary> itens = new ArrayList<>();
-
+                StorageDatabase sd = new StorageDatabase();
                 for(String s : user.getCompletedItin()){
                     //nao sei porque esta isto a acontecer
                     if(s != null) {
                         DataSnapshot mItin = dataSnapshot.child(s);
-                        itens.add(new Itinerary(mItin));
+                        Itinerary iten = new Itinerary(mItin);
+                        itens.add(iten);
                     }
                 }
                 user.setCompletedItin(itens);

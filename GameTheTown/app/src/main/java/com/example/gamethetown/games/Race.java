@@ -28,6 +28,11 @@ public class Race extends CurrentGame {
     }
 
     @Override
+    public void setPhoto(String itenID, int i) {
+        //do nothing -> races have no photos
+    }
+
+    @Override
     public void startGame() {
         //meter o startTime na base de dados
         startTime = System.currentTimeMillis();

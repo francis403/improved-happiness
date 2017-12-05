@@ -12,6 +12,7 @@ import java.io.Serializable;
 public abstract class CurrentGame extends Activity implements Serializable,InTheDatabase {
 
     protected static final int DEFAULT_IMAGE_ID = R.drawable.no_image;
+    private String name;
 
     //cada um dos jogos vai ter isto
     //TODO -> Ideia, nao sei se funciona
@@ -20,9 +21,14 @@ public abstract class CurrentGame extends Activity implements Serializable,InThe
         this.name = name;
     }
 
-    private String name;
-
     public CurrentGame(String name){this.name = name;}
+
+    /**
+     * Sets the photo of the specific game
+     * @param itenID
+     * @param i
+     */
+    public abstract void setPhoto(String itenID, int i);
 
     public String getGameName() {
         return name;

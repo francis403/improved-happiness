@@ -46,19 +46,19 @@ public class ItineraryCatalog extends App_Menu {
 
     //tODO -> retirar daqui
     public RecyclerView.OnItemTouchListener getTouchListener(
-            RecyclerView recyclerView,final Context c){
+            RecyclerView recyclerView,final Context c,final List<Itinerary> itens){
         RecyclerTouchListener result = new RecyclerTouchListener(c,
                 recyclerView, new ClickListener() {
             //@Override
             public void onClick(View view, int position) {
 
-                Itinerary iten = itenList.get(position);
-                Toast.makeText(c, iten.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+                Itinerary iten = itens.get(position);
+                Toast.makeText(c, iten.getName() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             //@Override
             public void onLongClick(View view, int position) {
-                final Itinerary iten = itenList.get(position);
+                final Itinerary iten = itens.get(position);
                 AlertDialog.Builder aBuilder = new SelectItineraryDialog(c,iten);
                 aBuilder.show();
             }
@@ -80,7 +80,7 @@ public class ItineraryCatalog extends App_Menu {
         }
 
         for(Itinerary i : itenList){
-            if(i.getTitle().contains(searchString) ||
+            if(i.getName().contains(searchString) ||
                     i.getCreator().getName().contains(searchString)){
                 itenList.add(i);
             }
@@ -144,13 +144,16 @@ public class ItineraryCatalog extends App_Menu {
         list3.add(hot2);list3.add(hot1); list3.add(hot3);
         Itinerary iten1 = new Itinerary("Preciso de boleio pelo espaco academico",new Date(),list1, Difficulties.HARD);
         iten1.setCreator(creator);
+        iten1.setItenID("Teste1");
         iten1.setDescription("TEste da descricao");
         Itinerary iten2 = new Itinerary("O restaurante no fim da fcul",new Date(),list2,Difficulties.MEDIUM);
         iten2.setCreator(creator);
+        iten2.setItenID("Teste2");
         iten2.setImageID(R.drawable.cantinavelha);
         iten2.setDescription("Uma visita pelos restaurantes todos da cidade Universitaria. Termina no mini-campus para conseguirem descansar");
         Itinerary iten3 = new Itinerary("Adeus e obrigado por todos os exames",new Date(),list3,Difficulties.EASY);
         iten3.setCreator(creator);
+        iten1.setItenID("Teste3");
         iten3.setDescription("TEste da descricao");
 
         itenList.add(iten1);itenList.add(iten2);itenList.add(iten3);

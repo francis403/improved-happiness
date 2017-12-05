@@ -3,6 +3,7 @@ package com.example.gamethetown.gameControllers;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Vibrator;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +20,12 @@ import android.widget.Toast;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
+import com.example.gamethetown.Storage.ImageHotspotGetter;
+import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.games.Quiz;
 import com.example.gamethetown.interfaces.Game;
+import com.example.gamethetown.item.Itinerary;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +37,7 @@ public class HotspotQuiz extends HotspotDoerController {
     private Quiz quiz;
     private Bundle extras;
     private ImagePicker imgPicker;
+    private ImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +64,22 @@ public class HotspotQuiz extends HotspotDoerController {
             String title = quiz.getGameName();
             ab.setTitle(title);
 
-            ((ImageView) findViewById(R.id.image)).setImageResource(quiz.getImageID());
+            imgView = ((ImageView) findViewById(R.id.image));
+            imgView.setImageResource(quiz.getImageID());
+
+            //TODO -> mudar para o numero correto
+            //TODO -> ideia, currentHotspotIndice + 1
+            //ImageHotspotGetter ihg = new ImageHotspotGetter(imgView);
+            //TODO -> to test
+            StorageDatabase sd = new StorageDatabase();
+            Itinerary iten = user.getCurrentItinerary().getCurrentItinerary();
+            sd.getHotspotPhoto(iten.getItenID(),user.getCurrentItinerary().getIndice() + 1).
+                    addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri o) {
+                    new ImageHotspotGetter(imgView).execute(o.toString());
+                }
+            });
 
             ((TextView) findViewById(R.id.question)).setText(quiz.getQuestion());
             ((TextView) findViewById(R.id.quest1)).setText(quiz.getAsw1());

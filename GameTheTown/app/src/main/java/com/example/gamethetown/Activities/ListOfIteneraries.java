@@ -1,7 +1,6 @@
 package com.example.gamethetown.Activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -38,6 +37,8 @@ public class ListOfIteneraries extends App_Menu {
         itenList = getItinerariesFromDatabase();
     }
 
+    public void setList(List<Itinerary> itens){this.itenList = itens;}
+
     public RecyclerView.OnItemTouchListener getTouchListener(
             RecyclerView recyclerView,final Context c){
         RecyclerTouchListener result = new RecyclerTouchListener(c,
@@ -46,7 +47,7 @@ public class ListOfIteneraries extends App_Menu {
             public void onClick(View view, int position) {
 
                 Itinerary iten = itenList.get(position);
-                Toast.makeText(c, iten.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(c, iten.getName() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
             //@Override

@@ -1,11 +1,13 @@
 package com.example.gamethetown.games;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.R;
 import com.example.gamethetown.gameControllers.HotspotImagePuzzle;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +43,13 @@ public class ImagePuzzle extends CurrentGame {
     public void incrementMoves(){numberOfMoves++;}
     public void setDefaultMoves(){numberOfMoves = 0;}
     public int getMoves(){return numberOfMoves;}
+
+    @Override
+    public void setPhoto(String itenID, int i) {
+        //TODO -> to test
+        StorageDatabase storage = new StorageDatabase();
+        storage.setHotspotPhoto(itenID,i, BitmapFactory.decodeFile(imagePath));
+    }
 
     @Override
     public void startGame() {

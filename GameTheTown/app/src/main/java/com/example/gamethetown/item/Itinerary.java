@@ -1,15 +1,12 @@
 package com.example.gamethetown.item;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 
-import com.example.gamethetown.Catalogs.StorageDatabase;
+import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 import com.example.gamethetown.interfaces.InTheDatabase;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
@@ -19,7 +16,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public class Itinerary implements Serializable,InTheDatabase{
 
@@ -32,6 +28,7 @@ public class Itinerary implements Serializable,InTheDatabase{
 
     private String name;
 
+    //TODO -> meter isto a usar o bitmap
     //tenho que meter isto a usar um bitmap
     private Bitmap image;
     private int imageID;
@@ -115,7 +112,7 @@ public class Itinerary implements Serializable,InTheDatabase{
         return imageID != DEFAULT_IMAGE_ID;
     }
     public User getCreator(){return creator;}
-    public String getTitle(){return name;}
+    public String getName(){return name;}
     public Date getCreationDate(){return creatDate;}
     public int getImageID(){return imageID;}
     public int getNumberOfHotspots(){return hotspots.size();}
@@ -142,8 +139,8 @@ public class Itinerary implements Serializable,InTheDatabase{
     public void setDate(Date date){this.creatDate = date;}
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
     public void setImageID(int imageID){this.imageID = imageID;}
-
-
+    //so aqui para testes, apagar depois //TODO
+    public void setItenID(String itenID){this.itenID = itenID;}
     //TODO -> falta meter a imagem
     //estou a pensar nao meter isto no create e fazer simplesmente do id
     /**
@@ -186,14 +183,14 @@ public class Itinerary implements Serializable,InTheDatabase{
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
         //get basic values
         this.itenID = snap.getKey();
-        this.itenID = snap.child("creatorID").getValue(String.class);
+        this.userID = snap.child("creatorID").getValue(String.class);
         this.name = snap.child("name").getValue(String.class);
         this.description = snap.child("description").getValue(String.class);
 
         //TODO
         //this.dif = Difficulties.valueOf(snap.child("dif").getValue(String.class));
         this.dif = Difficulties.EASY;
-        //nao sei se funciona
+
         this.creatDate = snap.child("date").getValue(Date.class);
 
         //get hotspots
@@ -202,15 +199,22 @@ public class Itinerary implements Serializable,InTheDatabase{
             hotspots.add(new Hotspot(s));
         }
 
+        /**
+        //estou a pensar meter isto de fora
         //get photo
         StorageDatabase sb = new StorageDatabase();
         sb.getItenPhoto(itenID).addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                //nao sei se funciona
-                image = BitmapFactory.decodeFile(uri.getPath());
+                Log.e("SUCESS","Sucess in getting the photo!");
+                Log.e("Image URL ", "URL = " + uri.getPath());
+                //nao funciona
+                //image = BitmapFactory.decodeFile(uri.getPath());
+                //deve funcionar
+                //image = MediaStore.Images.Media.getBitmap(Itinerary.this.getContentResolver(),uri);
             }
         });
+        **/
     }
 
     public String getUserID() {

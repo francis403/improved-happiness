@@ -7,6 +7,7 @@ package com.example.gamethetown.adapters;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,7 @@ import android.widget.TextView;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyViewHolder> {
@@ -45,6 +43,9 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         this.itineraryList = moviesList;
     }
 
+    public void setList(List<Itinerary> itineraryList){this.itineraryList = itineraryList;}
+
+    public List<Itinerary> getList(){return itineraryList;}
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -56,7 +57,7 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Itinerary iten = itineraryList.get(position);
-        holder.title.setText(iten.getTitle());
+        holder.title.setText(iten.getName());
         Calendar cal = Calendar.getInstance();
         cal.setTime(iten.getCreationDate());
         int year = cal.get(Calendar.YEAR);
@@ -66,8 +67,12 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         holder.dif.setText("Difficulty: " + iten.getDifficulty());
         Bitmap bit;
         if((bit = iten.getImageBitmap()) != null){
-
+            Log.e("IMAGE","NOT NULL");
+            holder.image.setImageBitmap(bit);
+            return;
         }
+        else
+            Log.e("IMAGE","NULL");
         String path = iten.getImagePath();
         if(path != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(path);
@@ -75,7 +80,6 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         }
         else
             holder.image.setImageResource(iten.getImageID());
-
     }
 
     @Override
