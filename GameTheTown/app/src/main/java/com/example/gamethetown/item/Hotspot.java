@@ -70,33 +70,30 @@ public class Hotspot implements Serializable,InTheDatabase{
         lg = position.longitude;
     }
 
-    //TODO
     @Override
     public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
-        int i = (int) obj; //todo o itinerario pode ter mais do que um hotspot
+        int i = (int) obj;
         DatabaseReference hotRef = parentRef.child(String.valueOf(i));
         hotRef.child("name").setValue(name);
-        //TODO -> falta meter a imagem
         hotRef.child("position").setValue(new LatLng(lt,lg));
         game.setValueInDatabase(hotRef,null);
     }
-    //TODO
+
     @Override
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
-        //o hotspot desejado
         //get name
         this.name = snap.child("name").getValue(String.class);
-        //TODO -> get game, tenho que passar o type para traz
         DataSnapshot gameSnap = snap.child("game");
         String type = gameSnap.child("type").getValue(String.class);
         //get game
+
         //TODO -> nao gosto desta maneira, provavelmente consigo usar um factory para fazer isto
         if(type.equals("Quiz"))
             game = new Quiz(snap);
         else if(type.equals("Race"))
             game = new Race(snap);
         else
-            game = new ImagePuzzle(); //TODO
+            game = new ImagePuzzle();
 
         //get position
         DataSnapshot posSnap = snap.child(DBConstants.REFERENCE_POSTION);

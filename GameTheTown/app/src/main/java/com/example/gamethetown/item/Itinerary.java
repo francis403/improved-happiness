@@ -24,12 +24,9 @@ public class Itinerary implements Serializable,InTheDatabase{
     private String userID;
     //id do itinerario em si
     private String itenID;
-
-
     private String name;
-
-    //TODO -> meter isto a usar o bitmap
-    //tenho que meter isto a usar um bitmap
+    private float rating;
+    private int times_completed; //default value
     private Bitmap image;
     private int imageID;
     private String imagePath; // por agora temos o image path so para caso
@@ -38,6 +35,8 @@ public class Itinerary implements Serializable,InTheDatabase{
     private String description;
     private Enum<Difficulties> dif;
     private User creator;
+
+    private boolean hasPhoto = true;
     private List<Hotspot> hotspots = new ArrayList<>();
 
     //acho que posso tirar daqui
@@ -81,6 +80,11 @@ public class Itinerary implements Serializable,InTheDatabase{
         hotspots = list;
     }
 
+    public float getRating(){return rating;}
+    public int getTimesCompleted(){return times_completed;}
+
+    public boolean hasPhoto(){return hasPhoto;}
+    public void setHasPhoto(boolean hasPhoto){this.hasPhoto = hasPhoto;}
     /**
      * Verifica se funciona com a lista de preHotspots
      * @param preHotspots -> hotspots ainda nao confirmados
@@ -90,7 +94,6 @@ public class Itinerary implements Serializable,InTheDatabase{
         for(Hotspot h : preHotspots)
             if(!h.isComplete())
                 return false;
-        Log.d("teste","todos os hotspots estao completos");
         return preHotspots.size() >= 1 && name != null
                 && description != null && creatDate != null && dif != null;
     }
@@ -139,10 +142,7 @@ public class Itinerary implements Serializable,InTheDatabase{
     public void setDate(Date date){this.creatDate = date;}
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
     public void setImageID(int imageID){this.imageID = imageID;}
-    //so aqui para testes, apagar depois //TODO
-    public void setItenID(String itenID){this.itenID = itenID;}
-    //TODO -> falta meter a imagem
-    //estou a pensar nao meter isto no create e fazer simplesmente do id
+
     /**
      *
      * @param parentRef -> Reference to where the new reference should be made
@@ -158,7 +158,8 @@ public class Itinerary implements Serializable,InTheDatabase{
         itenRef.child("name").setValue(name);
         itenRef.child("description").setValue(description);
         itenRef.child("date").setValue(creatDate);
-        itenRef.child("dif").setValue(getDifficulty());
+        itenRef.child("dif").setValue(dif);
+
         if(userID != null && !userID.equals("")) //aqui so por causa dos que ja estao criados
             itenRef.child("creatorID").setValue(userID);
 
@@ -169,7 +170,8 @@ public class Itinerary implements Serializable,InTheDatabase{
             i++;
         }
 
-        //set the photo
+        itenRef.child("rating").setValue(rating);
+        itenRef.child("completed").setValue(times_completed);
 
         StorageDatabase sb = new StorageDatabase();
         //Bitmap bit = BitmapFactory.decodeFile(imagePath);
@@ -177,8 +179,7 @@ public class Itinerary implements Serializable,InTheDatabase{
             sb.setItenPhoto(itenID,image);
 
     }
-    //TODO -> Dificuldade
-    //TODO -> Photo
+
     @Override
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
         //get basic values
@@ -187,34 +188,22 @@ public class Itinerary implements Serializable,InTheDatabase{
         this.name = snap.child("name").getValue(String.class);
         this.description = snap.child("description").getValue(String.class);
 
-        //TODO
-        //this.dif = Difficulties.valueOf(snap.child("dif").getValue(String.class));
-        this.dif = Difficulties.EASY;
+        this.dif = Difficulties.valueOf(snap.child("dif").getValue(String.class));
 
         this.creatDate = snap.child("date").getValue(Date.class);
 
         //get hotspots
         DataSnapshot hotRef = snap.child("hotspots");
-        for(DataSnapshot s : hotRef.getChildren()){
+        for(DataSnapshot s : hotRef.getChildren())
             hotspots.add(new Hotspot(s));
-        }
 
-        /**
-        //estou a pensar meter isto de fora
-        //get photo
-        StorageDatabase sb = new StorageDatabase();
-        sb.getItenPhoto(itenID).addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.e("SUCESS","Sucess in getting the photo!");
-                Log.e("Image URL ", "URL = " + uri.getPath());
-                //nao funciona
-                //image = BitmapFactory.decodeFile(uri.getPath());
-                //deve funcionar
-                //image = MediaStore.Images.Media.getBitmap(Itinerary.this.getContentResolver(),uri);
-            }
-        });
-        **/
+        //Rating
+        DataSnapshot ratRef = snap.child("rating");
+        if(ratRef.exists())
+            this.rating = ratRef.getValue(Float.class);
+        else
+            this.rating = 0;
+        this.times_completed = snap.child("completed").getValue(Integer.class);
     }
 
     public String getUserID() {

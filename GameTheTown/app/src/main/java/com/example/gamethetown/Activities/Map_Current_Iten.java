@@ -8,9 +8,11 @@ import android.location.Location;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gamethetown.App_Menu;
+import com.example.gamethetown.Database.UserDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Hotspot;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,7 +29,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 //TODO -> Passar para o fuse
-public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, GoogleMap.OnMyLocationChangeListener {
+public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback,
+        GoogleMap.OnMyLocationChangeListener {
 
 
     private static final float DISTANCE_TO_TARGET = 10000 ; //em metros
@@ -57,7 +60,8 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
         else
             hot.getGame().startGame();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
 
@@ -156,7 +160,6 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
             mMap.addMarker(new MarkerOptions().position(hot.getPosition()).title(hot.getTitle()));
             hot.getGame().startGame();
         } else {
-            //View endOfIten = bottomSheetUp(R.layout.layout_no_itinerary);
             completeIten();
         }
         bsd.hide();
@@ -164,12 +167,16 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("Finished game","Finished game");
         // Check which request we're responding to
         Bundle extras = data.getExtras();
         if (requestCode == END_OF_GAME) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                boolean passed = extras.getBoolean("passed"),answeared = extras.getBoolean("answeared");
+                Log.e("Finished game","Everything went ok");
+                boolean passed = extras.getBoolean("passed"),
+                        answeared = extras.getBoolean("answeared");
+                Log.e("answeard game","Answeard = " + answeared);
                 buzzed = false;
                 if(answeared) {
                     if(passed) {
@@ -183,6 +190,7 @@ public class Map_Current_Iten extends App_Menu implements OnMapReadyCallback, Go
                     if (hot != null) {
                         mMap.addMarker(new MarkerOptions().position(hot.getPosition()).title(hot.getTitle()));
                         hot.getGame().startGame();
+
                     } else
                         completeIten();
                 }

@@ -11,7 +11,7 @@ import java.net.URL;
 /**
  * Created by franc on 04/12/2017.
  */
-
+//TODO -> eh possivel juntar todos estes num so?
 public class ImageGetter extends AsyncTask<String, Void, Bitmap> {
 
     private Exception exception;

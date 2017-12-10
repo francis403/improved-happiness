@@ -16,13 +16,20 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.ItineraryCatalog;
+import com.example.gamethetown.Database.ItineraryDatabaseConnection;
+import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 
 public class SearchAllItineraries extends App_Menu {
+
+    private static Tab1List tab1;
+    private static Tab2Map tab2;
+    private int maxDistance;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -61,19 +68,37 @@ public class SearchAllItineraries extends App_Menu {
         final View sView = getLayoutInflater().inflate(R.layout.layout_filter,null);
         bsd.setContentView(sView);
         BottomSheetBehavior bsb = BottomSheetBehavior.from((View) sView.getParent());
+        //BottomSheetBehavior bsb = BottomSheetBehavior.from(new Filter().getView());
         bsb.setPeekHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300, getResources().getDisplayMetrics()));
         bsd.show();
 
-        Spinner spinner = (Spinner) sView.findViewById(R.id.spinner_dif);
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,
-                R.array.iten_dif, android.R.layout.simple_list_item_1);
+        final Spinner spinnerDif = (Spinner) sView.findViewById(R.id.spinner_dif);
+        final TextView filterText = (TextView) sView.findViewById(R.id.textProx);
+        SeekBar seekBar = (SeekBar) sView.findViewById(R.id.seekBar);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                maxDistance = progress;
+                if(maxDistance == 0)
+                    filterText.setText("Max distance: No Max");
+                else
+                    filterText.setText("Max distance: " + maxDistance + "km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        ArrayAdapter adapter = new ArrayAdapter<Difficulties>(this,
+                android.R.layout.simple_list_item_1,Difficulties.values());
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
-        spinner = (Spinner) sView.findViewById(R.id.spinner_prox);
-        adapter = ArrayAdapter.createFromResource(this,
-                R.array.iten_prox, android.R.layout.simple_list_item_1);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner.setAdapter(adapter);
+        spinnerDif.setAdapter(adapter);
 
         Button confirmSearch = (Button) sView.findViewById(R.id.search);
         confirmSearch.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +106,13 @@ public class SearchAllItineraries extends App_Menu {
             public void onClick(View v) {
                 String search = ((EditText) sView.findViewById(R.id.paramFilter))
                         .getText().toString();
-                new ItineraryCatalog().filterItinerarieList(search,null);
+                Difficulties selectedDif = (Difficulties) spinnerDif.getSelectedItem();
+                if(tab1 != null && tab2 != null){
+                    ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
+                    idc.filterItineraries(tab1.getmAdapter(),tab2.getMap(),
+                            tab2.getMapList(),search,selectedDif,
+                            maxDistance,tab2.getLocation());
+                }
                 bsd.hide();
             }
         });
@@ -107,13 +138,12 @@ public class SearchAllItineraries extends App_Menu {
 
         @Override
         public Fragment getItem(int position) {
-
             switch(position){
                 case 0:
-                    Tab1List tab1 = new Tab1List();
+                    tab1 = new Tab1List();
                     return tab1;
                 case 1:
-                    Tab2Map tab2 = new Tab2Map();
+                    tab2 = new Tab2Map();
                     return tab2;
                 default:
                     return null;

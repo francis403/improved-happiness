@@ -43,11 +43,6 @@ public class CurrentItinerary implements InTheDatabase{
         return null;
     }
 
-    //uma ideia para o complete (mas duvido que va funcionar)
-    public void complete(){
-        currentHotspotIndice = -1;
-    }
-
     public long getDuration(){return System.currentTimeMillis() - startTime;}
     public void addScore(double score){this.score += score;}
 
@@ -60,7 +55,6 @@ public class CurrentItinerary implements InTheDatabase{
     @Override
     public void setValueInDatabase(DatabaseReference parentRef,Object obj) {
         DatabaseReference currItenRef = parentRef.child("currIten");
-        Log.e("SETVALUEINDATABASE","Estamos a meter o valor na base de dados");
         //set basic info
         currItenRef.child("indice").setValue(currentHotspotIndice);
         currItenRef.child("score").setValue(score);
@@ -71,7 +65,7 @@ public class CurrentItinerary implements InTheDatabase{
         //currentItinerary.setValueInDatabase(currItenRef,false);
 
     }
-    //TODO
+
     @Override
     public void getValueInDatabase(@NonNull DataSnapshot snap, Object obj) {
         //Esta a dar erro

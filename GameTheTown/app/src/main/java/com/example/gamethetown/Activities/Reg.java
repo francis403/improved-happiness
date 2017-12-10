@@ -1,10 +1,10 @@
 package com.example.gamethetown.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +37,6 @@ public class Reg extends AppCompatActivity {
         but_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO, preciso de validar os dados
                 final String em = email.getEditText().getText().toString();
                 final String pas_1 = password_1.getEditText().getText().toString();
                 final String n = name.getEditText().getText().toString();
@@ -52,13 +51,15 @@ public class Reg extends AppCompatActivity {
                                 Toast.makeText(Reg.this, "Registration successfull.",
                                         Toast.LENGTH_SHORT).show();
 
+                                /**
                                 User user = new User(ua.getUser().getUid());
-
                                 ua.setCurrentUser(user); //returar
+                                **/
                                 Task upd = ua.updateUserName(n); //meter isto para traz
                                 while(!upd.isComplete()){}
-                                //quero retirar isto daqui tambem nao?
-                                User created = new User(ua.getUser().getUid());
+                                User created = new User(ua.getUser().getUid(),n);
+                                ua.setCurrentUser(created);
+
                                 new UserDatabaseConnection(created.getUserID()).setUser(created);
                                 Intent intent = new Intent(Reg.this,Profile.class);
                                 startActivity(intent);

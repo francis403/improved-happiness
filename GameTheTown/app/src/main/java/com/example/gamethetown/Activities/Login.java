@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.gamethetown.Catalogs.UserAuthentication;
 import com.example.gamethetown.Database.UserDatabaseConnection;
+import com.example.gamethetown.Dialogs.AlertDialogs.LoadingDialog;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -52,7 +53,11 @@ public class Login extends AppCompatActivity {
 
         //Check if everything is fine
         if(validate()) {
-            Task<AuthResult> task = new UserAuthentication().loginCheck(_emailText.getText().toString(),
+            final LoadingDialog ld = new LoadingDialog(
+                    Login.this,getString(R.string.loading_user));
+            ld.show();
+            Task<AuthResult> task = new UserAuthentication()
+                    .loginCheck(_emailText.getText().toString(),
                     _passwordText.getText().toString(),null);
 
             task.addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
@@ -63,24 +68,26 @@ public class Login extends AppCompatActivity {
                         String userID = new UserAuthentication().getUser().getUid();
                         DatabaseReference mUserRef = new UserDatabaseConnection
                                 (userID).getReference().child(userID);
-
                         //vamos buscar os valores do user
                         mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                Log.e("login a ser feito","LOGIN FOI FEITO");
+                                //o login foir feito
+                                ld.hide();
                                 User tst = new User(dataSnapshot);
                                 new UserAuthentication().setCurrentUser(tst);
                                 Intent intent = new Intent(Login.this, Profile.class);
                                 startActivity(intent);
+                                finish();
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
+                                ld.hide();
                             }
                         });
                     } else {
+                        ld.hide();
                         // If sign in fails, display a message to the user.
                         Log.w("FB:Login exception", "signInWithEmail:failure", task.getException());
                         Toast.makeText(Login.this, "Authentication failed.",

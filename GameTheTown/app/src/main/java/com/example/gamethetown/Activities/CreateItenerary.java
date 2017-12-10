@@ -182,10 +182,9 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         setHotspotInfoWindow(marker,sView);
     }
 
-    //TODO -> falta meter a foto
     private void setHotspotInfoWindow(final Marker marker, View sView){
         fab_rem = (FloatingActionButton) sView.findViewById(R.id.remove);
-        //haver se mudo isto de sitio so para fazer isto uma vez TODO
+
         fab_rem.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -219,9 +218,8 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
             }
         });
 
-        //TODO -> Vou ter de por o metodo para ele ir buscar os valores
         Spinner spinner = (Spinner) sView.findViewById(R.id.type_of_game);
-        //TODO -> add the too spines
+
         Hotspot h = preHotspots.get(marker.getId());
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getApplicationContext(),
                 R.array.games, android.R.layout.simple_list_item_1);
@@ -278,7 +276,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         //meter o butao para ir ver o jogo
         fab = (FloatingActionButton)
                 v.findViewById(R.id.marker_info);
-        //TODO -> here is where we add the game
+        //onde adicionamos o jogo
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

@@ -5,25 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.gamethetown.Activities.onCompleteItinerary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background2">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/image"
         android:src="@drawable/no_image"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nameCreator"
-        android:textSize="20sp"
-        android:text="Creators name"/>
 
     <LinearLayout
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/text_top">
         <TextView
             android:layout_weight="1"
             android:id="@+id/score"
@@ -44,7 +40,8 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/text_bot">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -73,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rate"/>
             <RatingBar
+                android:id="@+id/rating"
                 style="@style/Widget.AppCompat.RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,16 +78,18 @@
         </LinearLayout>
     </LinearLayout>
 
+
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- TODO
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="Rating list" />
-
+        -->
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"

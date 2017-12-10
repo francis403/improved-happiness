@@ -18,6 +18,7 @@ import com.example.gamethetown.Activities.SearchAllItineraries;
 import com.example.gamethetown.Catalogs.UserAuthentication;
 import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.Database.UserDatabaseConnection;
+import com.example.gamethetown.Dialogs.AlertDialogs.LoadingDialog;
 import com.example.gamethetown.item.Itinerary;
 import com.example.gamethetown.item.User;
 import com.google.firebase.database.DataSnapshot;
@@ -25,13 +26,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * Created by franc on 21/10/2017.
  * An activity that will use our menu has to extend this class
  */
 
 public class App_Menu extends AppCompatActivity {
 
-    protected static User user = new UserAuthentication().getCurrentUser();
+
+    //TODO -> tirar todos os new e passar para um lado onde estao sempre
+
+    protected static UserAuthentication ua = new UserAuthentication();
+    protected static ItineraryDatabaseConnection idc =
+            new ItineraryDatabaseConnection();
+    protected static User user = ua.getCurrentUser();
     protected BottomSheetDialog bsd;
 
     @Override
@@ -115,66 +121,51 @@ public class App_Menu extends AppCompatActivity {
             //caso ja o tenhamos nao vale a pena ir buscar novamente
             if(iten != null){
                 Log.e("iten","iten != null");
-                setUserInItinerary(iten);
+                Intent intent = new Intent(App_Menu.this, CurrentItenerary.class);
+                startActivity(intent);
+                //setUserInItinerary(iten);
                 return;
             }
-            Log.e("iten","iten == null");
+
+            final LoadingDialog ld = new LoadingDialog(
+                    App_Menu.this,"Loading Current Itinerary");
+
             //ir bucasr caso tenhamos mas nao o tenhamos escolhido
-            //TODO -> preciso de ir buscar o itinerario
             ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
-            idc.getReference().addValueEventListener(new ValueEventListener() {
+            idc.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.e("estamos a buscar iten","antes de o criar");
                     Itinerary iten = new Itinerary(dataSnapshot.child(itenID));
                     Log.e("ChegaAqui","Chega aqui!");
                     setUserInItinerary(iten);
+                    ld.hide();
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    ld.hide();
                 }
             });
             //setUserInItinerary(iten);
 
         }
     }
-
+    //TODO -> acho que nao preciso disto
+    //meto apenas a fotos
     private void setUserInItinerary(final Itinerary iten){
         //caso tenhamos sido nos nao vale a pena ir buscar novamente
-        if(iten.getUserID().equals(user.getUserID())) {
-            iten.setCreator(user);
-            user.setCurrentItinerary(iten);
-            Intent intent = new Intent(App_Menu.this, CurrentItenerary.class);
-            startActivity(intent);
-            return;
-        }
-        //da mal aqui
-        UserDatabaseConnection udc = new UserDatabaseConnection(iten.getUserID());
-        udc.getReference().addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("UserID",dataSnapshot.toString());
-                User user = new User(dataSnapshot);
-                iten.setCreator(user);
-                user.setCurrentItinerary(iten);
-                Intent intent = new Intent(App_Menu.this, CurrentItenerary.class);
-                startActivity(intent);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        user.setCurrentItinerary(iten);
+        Intent intent = new Intent(App_Menu.this, CurrentItenerary.class);
+        startActivity(intent);
     }
 
     public void log_out(View view){
         new UserAuthentication().log_out();
 
         Intent intent = new Intent(this, Login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-
     }
 
     public void selectItenerary(View view){

@@ -32,7 +32,6 @@ public class UserAuthentication {
         return auth.getCurrentUser();
     }
 
-    // todo -> precisa de adicionar fotos
     /**
      * @requires valid passoword and email
      * @param email -> email given to add the user
@@ -42,9 +41,6 @@ public class UserAuthentication {
     public Task<AuthResult> addUser(String email, String password, String name,
                               final Activity activity) {
         Task<AuthResult> task = auth.createUserWithEmailAndPassword(email,password);
-        //FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Create a storage reference from our app
-        //Not sure if accurate
         return task;
     }
 
@@ -79,8 +75,11 @@ public class UserAuthentication {
                 Builder().setPhotoUri(uri).build();
     }
 
+    //TODO -> Im pretty sure it aint working
     public void log_out(){
+        currentUser = null;
         FirebaseAuth.getInstance().signOut();
+        auth = null;
     }
 
 }

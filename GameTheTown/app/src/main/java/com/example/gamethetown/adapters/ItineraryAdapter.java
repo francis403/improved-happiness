@@ -12,11 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.Itinerary;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -27,14 +30,18 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, date;
         public ImageView image;
-        public int numHospots;
+        public RatingBar ratingBar; //TODO
         public TextView dif;
+        public RelativeLayout loader;
+
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             date = (TextView) view.findViewById(R.id.date);
             image = (ImageView) view.findViewById(R.id.iten_image);
             dif = (TextView) view.findViewById(R.id.dif);
+            loader = (RelativeLayout) view.findViewById(R.id.loading);
+            ratingBar = (RatingBar) view.findViewById(R.id.rating);
         }
     }
 
@@ -65,25 +72,25 @@ public class ItineraryAdapter extends RecyclerView.Adapter<ItineraryAdapter.MyVi
         int day = cal.get(Calendar.DAY_OF_MONTH);
         holder.date.setText("Created: " + day + "/" + month + "/" + year);
         holder.dif.setText("Difficulty: " + iten.getDifficulty());
+
+        holder.ratingBar.setRating(iten.getRating());
+
         Bitmap bit;
         if((bit = iten.getImageBitmap()) != null){
-            Log.e("IMAGE","NOT NULL");
             holder.image.setImageBitmap(bit);
+            holder.loader.setVisibility(View.GONE);
             return;
         }
-        else
-            Log.e("IMAGE","NULL");
-        String path = iten.getImagePath();
-        if(path != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            holder.image.setImageBitmap(BitmapFactory.decodeFile(path));
-        }
-        else
+        if(!iten.hasPhoto()){
             holder.image.setImageResource(iten.getImageID());
+            holder.loader.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
+        if(itineraryList == null)
+            return 0;
         return itineraryList.size();
     }
 }

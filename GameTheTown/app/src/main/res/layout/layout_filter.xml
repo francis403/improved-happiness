@@ -44,17 +44,21 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
+
         <TextView
-            android:textSize="15sp"
+            android:id="@+id/textProx"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="Filter By Proximity"
-            android:textColor="@color/black" />
+            android:text="Max Distance: No Max"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
-        <Spinner
-            android:id="@+id/spinner_prox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
     </LinearLayout>
 
     <LinearLayout

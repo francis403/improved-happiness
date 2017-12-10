@@ -1,5 +1,6 @@
 package com.example.gamethetown.Activities;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -51,8 +52,13 @@ public class ConfirmHotspots extends App_Menu {
         itenToCreate = (Itinerary) extras.get("itinerary");
         itenToCreate.setImageBitmap(BitmapFactory.
                 decodeFile(itenToCreate.getImagePath()));
-        //TODO -> mudar aqui o do id para o bitmap
-        ((ImageView) findViewById(R.id.image)).setImageResource(itenToCreate.getImageID());
+
+        Bitmap bitmap;
+        if((bitmap = itenToCreate.getImageBitmap()) != null)
+            ((ImageView) findViewById(R.id.image)).setImageBitmap(bitmap);
+        else
+            ((ImageView) findViewById(R.id.image)).setImageResource
+                    (itenToCreate.getImageID());
         ((TextView) findViewById(R.id.description)).setText(itenToCreate.getDescription());
         ((TextView) findViewById(R.id.dist)).setText("Distance: aprox"
                 + mAdapter.getTotalWalkingDistance() + " meters");
@@ -106,8 +112,6 @@ public class ConfirmHotspots extends App_Menu {
             }
             itenToCreate.setCreator(new UserAuthentication().getCurrentUser());
             itenToCreate.setUserID(new UserAuthentication().getUser().getUid());
-
-            //TODO -> preciso de adicionar as fotos respetivas ao jogo
 
             user.addCreatedItinerary(itenToCreate);
             Toast.makeText(getBaseContext(), "Created the Itinerary", Toast.LENGTH_SHORT).show();

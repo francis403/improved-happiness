@@ -61,6 +61,7 @@ public class ListOfIteneraries extends App_Menu {
     }
 
 
+    //TODO -> apagar
     public List<Itinerary> getItinerariesFromDatabase(){
         User creator = new User("Joao Leal","123321");
         Hotspot hot1 = new Hotspot(),hot2 = new Hotspot(),

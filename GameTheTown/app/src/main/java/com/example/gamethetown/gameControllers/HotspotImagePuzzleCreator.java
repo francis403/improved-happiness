@@ -26,10 +26,6 @@ import com.example.gamethetown.games.ImagePuzzle;
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by franc on 13/11/2017.
- */
-
 public class HotspotImagePuzzleCreator extends App_Menu {
 
     private static final int PICK_FROM_CAMERA = 1 ;
@@ -85,20 +81,7 @@ public class HotspotImagePuzzleCreator extends App_Menu {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(which == 0){
-
-                    /**
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File file = new File(Environment.getExternalStorageDirectory(),"tmp_avatar" +
-                            String.valueOf(System.currentTimeMillis() + ".jpg"));
-                    imageCaptureUri = Uri.fromFile(file);
-                    try{
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageCaptureUri);
-                        intent.putExtra("return data",true);
-                        startActivityForResult(intent,PICK_FROM_CAMERA);
-                    }catch (Exception e){
-
-                    }
-                    **/
+                    //TODO -> remove
                 }
                 else{
                     imgPicker.start(PICK_FROM_FILE);
@@ -121,32 +104,6 @@ public class HotspotImagePuzzleCreator extends App_Menu {
         super.finish();
     }
 
-    //meter isto num controler //TODO
-    //TODO esta a dar erro, a imagem nao aparece
-    private Bitmap getPath(Uri uri) {
-
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        int column_index = cursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String filePath = cursor.getString(column_index);
-        //cursor.close();
-        // Convert file path into bitmap image using below line.
-        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-
-        return bitmap;
-    }
-
-    public String getPathFromUri(Uri uri){
-        String []proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(uri, proj, null, null, null);
-        if(cursor == null) return null;
-        int colum_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        return cursor.getString(colum_index);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,19 +119,15 @@ public class HotspotImagePuzzleCreator extends App_Menu {
             ArrayList<Image> images = (ArrayList<Image>) ImagePicker.getImages(data);
             Image image = images.get(0);
             path = image.getPath();
-            /**
-            imageCaptureUri = data.getData();
-            if(getPath(imageCaptureUri) == null)
-                Log.e("ERROR", "Nao esta a encontrar mesmo a imagem");
-            path = getPathFromUri(imageCaptureUri);
-             **/
             if(path == null) {
                 Log.e("ERROR", "Path esta a dar null");
                 path = imageCaptureUri.getPath();
+                game.setHasPhoto(true);
             }
             if(path != null) {
                 Log.e("Path", "Path: " + path);
                 bitmap = BitmapFactory.decodeFile(path);
+                game.setHasPhoto(true);
             }
 
         }

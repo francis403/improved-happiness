@@ -14,8 +14,7 @@ public interface InTheDatabase {
 
     /**
      * @param parentRef -> Reference to where the new reference should be made
-     * @param obj -> Object passed in case we need something from there
-     *               not sure if needed ^
+     * @param obj -> extra data if needed
      */
     void setValueInDatabase(DatabaseReference parentRef,Object obj);
 
@@ -29,5 +28,4 @@ public interface InTheDatabase {
      */
     void getValueInDatabase(DataSnapshot snap, Object obj);
 
-    //ideia -> enviar o id especifico dele
 }

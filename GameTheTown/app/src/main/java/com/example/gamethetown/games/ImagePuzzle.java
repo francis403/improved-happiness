@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//// TODO: 11/11/2017 -> class is incomplete
 public class ImagePuzzle extends CurrentGame {
 
+    private boolean hasPhoto = false;
     private static final int ROWS = 3;
     private static final int COLUMNS = 3;
     private static final int DIMENSIONS = COLUMNS * COLUMNS;
@@ -30,7 +30,8 @@ public class ImagePuzzle extends CurrentGame {
     private int imageID = R.drawable.no_image;
     private String imagePath;
     private ArrayList<Bitmap> chunkedImage;
-
+    private int chunkWideLength;
+    private int chunkSideLength;
     public ImagePuzzle(){
         super("ImagePuzzle");
     }
@@ -46,7 +47,7 @@ public class ImagePuzzle extends CurrentGame {
 
     @Override
     public void setPhoto(String itenID, int i) {
-        //TODO -> to test
+        hasPhoto = true;
         StorageDatabase storage = new StorageDatabase();
         storage.setHotspotPhoto(itenID,i, BitmapFactory.decodeFile(imagePath));
     }
@@ -61,10 +62,9 @@ public class ImagePuzzle extends CurrentGame {
         return HotspotImagePuzzle.class;
     }
 
-    //TODO -> Tenho que verificar que tem uma imagem
     @Override
     public boolean isComplete() {
-        return true;
+        return hasPhoto;
     }
 
     @Override
@@ -84,12 +84,12 @@ public class ImagePuzzle extends CurrentGame {
     public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
         DatabaseReference gameRef = parentRef.child("game");
         gameRef.child("type").setValue(getGameName());
-        //TODO -> meter a imagem
     }
-    //TODO
+
     @Override
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
-
+        //a iamgem nao vai ser buscado ao database mas ao storage por isso aqui
+        //nao fazemos nada
     }
 
     public int getImageID(){return imageID;}
@@ -104,7 +104,7 @@ public class ImagePuzzle extends CurrentGame {
      * @param image
      *            The source image to split
      */
-    //TODO -> need to split the image well enough
+    //talvez passar o max e divir isso por 3?
     public void splitImage(ImageView image) {
         // Getting the scaled bitmap of the source image
         Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
@@ -112,8 +112,8 @@ public class ImagePuzzle extends CurrentGame {
         // To store all the small image chunks in bitmap format in this list
         chunkedImage = new ArrayList<Bitmap>(ROWS * COLUMNS);
 
-        int chunkSideLength =bitmap.getHeight()/ROWS;
-        int chunkWideLength = bitmap.getWidth()/COLUMNS;
+        chunkSideLength = bitmap.getHeight()/ROWS;
+        chunkWideLength = bitmap.getWidth()/COLUMNS;
         // picture perfectly splits into square chunks
         int yCoord = 0;
         for (int y = 0; y < ROWS; ++y) {
@@ -125,6 +125,9 @@ public class ImagePuzzle extends CurrentGame {
             yCoord += chunkSideLength;
         }
     }
+
+    public int getChunkWideLength(){return chunkWideLength;}
+    public int getChunkSideLength(){return chunkSideLength;}
 
     public void setMoves(int numberOfMoves){this.numberOfMoves = numberOfMoves;}
 
@@ -138,4 +141,7 @@ public class ImagePuzzle extends CurrentGame {
         return new BitmapDrawable(chunkedImage.get(random.nextInt(9)));
     }
 
+    public void setHasPhoto(boolean hasPhoto) {
+        this.hasPhoto = hasPhoto;
+    }
 }

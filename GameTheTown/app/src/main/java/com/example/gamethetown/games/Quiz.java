@@ -9,10 +9,6 @@ import com.example.gamethetown.gameControllers.HotspotQuiz;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
-/**
- * Created by franc on 05/11/2017.
- */
-//TODO -> ainda a pensar como implementar
 public class Quiz extends CurrentGame {
 
     private static final double CORRECT_SCORE = 50;
@@ -37,7 +33,6 @@ public class Quiz extends CurrentGame {
 
     @Override
     public void setPhoto(String itenID, int i) {
-        //TODO -> to test
         StorageDatabase storage = new StorageDatabase();
         storage.setHotspotPhoto(itenID,i, BitmapFactory.decodeFile(imagePath));
     }
@@ -66,18 +61,12 @@ public class Quiz extends CurrentGame {
     public void setValueInDatabase(DatabaseReference parentRef, Object obj) {
         DatabaseReference gameRef = parentRef.child("game");
         gameRef.child("type").setValue("Quiz");
-        //TODO -> Arranjar melhor maneira
-        gameRef.child("asw_0").setValue(aws[0]);
-        gameRef.child("asw_1").setValue(aws[1]);
-        gameRef.child("asw_2").setValue(aws[2]);
-        gameRef.child("asw_3").setValue(aws[3]);
-        gameRef.child("question").setValue(question);
-        //TODO -> meter a imagem
+        for(int i = 0 ; i < NUMBER_OF_QUESTIONS; i++)
+            gameRef.child("asw_" + i).setValue(aws[i]);
         gameRef.child("correct_ans").setValue(correctAsw);
-        //quizRef.setValue(this);
-
+        gameRef.child("question").setValue(question);
     }
-    //TODO
+
     @Override
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
         DataSnapshot gameSnap = snap.child(DBConstants.REFERENCE_GAME);
@@ -89,7 +78,7 @@ public class Quiz extends CurrentGame {
             Log.e("DES",aws[i]);
         }
         this.correctAsw = gameSnap.child("correct_ans").getValue(Integer.class);
-        this.imageID = DEFAULT_IMAGE_ID; //preciso de ir buscar os dados TODO
+        this.imageID = DEFAULT_IMAGE_ID;
     }
 
     public int getImageID(){return imageID;}

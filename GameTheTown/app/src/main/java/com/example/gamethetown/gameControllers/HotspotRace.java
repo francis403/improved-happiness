@@ -1,25 +1,24 @@
 package com.example.gamethetown.gameControllers;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gamethetown.R;
 import com.example.gamethetown.games.Race;
 
-public class HotspotRace extends AppCompatActivity {
+public class HotspotRace extends HotspotDoerController {
 
     Race race;
     private Bundle extras;
-    private boolean isCorrect = true,answeared = true; //estes vao ser sempre true
     double score;
-    //TODO -> BUG, not adding score
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotspot_race);
+
+        setIsCorrect(true);
+        setAnsweared(true);
 
         extras = getIntent().getExtras();
         if(extras != null) {
@@ -36,12 +35,7 @@ public class HotspotRace extends AppCompatActivity {
     }
 
     @Override
-    public void finish(){
-        Intent data = new Intent();
-        data.putExtra("answeared",answeared);
-        data.putExtra("passed",isCorrect);
-        data.putExtra("score",score);
-        setResult(RESULT_OK,data);
-        super.finish();
+    public void start(Object o) {
+        //Do nothing yet
     }
 }

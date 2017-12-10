@@ -1,21 +1,20 @@
 package com.example.gamethetown.Activities;
 
-/**
- * Created by franc on 31/10/2017.
- */
-
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.Dialogs.AlertDialogs.SelectItineraryDialog;
+import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.interfaces.ClickListener;
@@ -30,13 +29,15 @@ public class Tab1List extends Fragment {
     private List<Itinerary> itenList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ItineraryAdapter mAdapter;
+    private ItineraryDatabaseConnection idc = new ItineraryDatabaseConnection();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        Log.e("View was created","Created");
         View rootView = inflater.inflate(R.layout.tab1list, container, false);
 
-        //itenList = new ItineraryCatalog().getItinerariesFromDatabase();
         setData(rootView);
         return rootView;
 
@@ -65,12 +66,12 @@ public class Tab1List extends Fragment {
                 }
             }));
 
-            ItineraryDatabaseConnection dbc = new ItineraryDatabaseConnection();
-            dbc.allItineraries(mAdapter);
+            idc.allItineraries(mAdapter);
 
         }
     }
 
+    public ItineraryAdapter getmAdapter(){return mAdapter;}
 
 
 }

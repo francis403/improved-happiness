@@ -6,7 +6,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.gamethetown.Catalogs.ItineraryCatalog;
 import com.example.gamethetown.interfaces.ClickListener;
 
 

@@ -1,57 +1,34 @@
 package com.example.gamethetown.gameControllers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Vibrator;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.esafirm.imagepicker.features.ImagePicker;
-import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
-import com.example.gamethetown.Storage.ImageHotspotGetter;
-import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.games.Quiz;
-import com.example.gamethetown.interfaces.Game;
-import com.example.gamethetown.item.Itinerary;
-import com.google.android.gms.tasks.OnSuccessListener;
 
-import org.w3c.dom.Text;
-
-//TODO -> receber a informacao toda do MapcurrentItinerary
 public class HotspotQuiz extends HotspotDoerController {
 
     private RadioGroup rg;
     private int correct_question;
     private Quiz quiz;
     private Bundle extras;
-    private ImagePicker imgPicker;
     private ImageView imgView;
+    private RelativeLayout loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotspot_quiz);
 
-        imgPicker = ImagePicker.create(this).returnAfterFirst(true)
-                .folderMode(true) // folder mode (false by default)
-                .folderTitle("Folder") // folder selection title
-                .imageTitle("Tap to select") // image selection title
-                .single() // single mode
-                .showCamera(true) // show camera or not (true by default)
-                .imageDirectory("Camera")
-                .enableLog(false);
+        loading = (RelativeLayout) findViewById(R.id.loading);
 
         score = 0;
         isCorrect = false;
@@ -65,21 +42,9 @@ public class HotspotQuiz extends HotspotDoerController {
             ab.setTitle(title);
 
             imgView = ((ImageView) findViewById(R.id.image));
-            imgView.setImageResource(quiz.getImageID());
+            //imgView.setImageResource(quiz.getImageID());
 
-            //TODO -> mudar para o numero correto
-            //TODO -> ideia, currentHotspotIndice + 1
-            //ImageHotspotGetter ihg = new ImageHotspotGetter(imgView);
-            //TODO -> to test
-            StorageDatabase sd = new StorageDatabase();
-            Itinerary iten = user.getCurrentItinerary().getCurrentItinerary();
-            sd.getHotspotPhoto(iten.getItenID(),user.getCurrentItinerary().getIndice() + 1).
-                    addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri o) {
-                    new ImageHotspotGetter(imgView).execute(o.toString());
-                }
-            });
+            setPhoto(imgView,loading,null);
 
             ((TextView) findViewById(R.id.question)).setText(quiz.getQuestion());
             ((TextView) findViewById(R.id.quest1)).setText(quiz.getAsw1());
@@ -116,7 +81,6 @@ public class HotspotQuiz extends HotspotDoerController {
                 if(checkedId == correct_question){
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(500);
-                    //TODO -> Do Something
                     Toast.makeText(getApplicationContext(), "Correct!", Toast.LENGTH_SHORT).show();
                     isCorrect = true;
                     score = quiz.getScore();
@@ -137,4 +101,8 @@ public class HotspotQuiz extends HotspotDoerController {
     }
 
 
+    @Override
+    public void start(Object o) {
+        //do nothing
+    }
 }

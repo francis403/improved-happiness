@@ -8,6 +8,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,11 @@ public class HotspotImagePuzzle extends HotspotDoerController {
     private static final int DIMENSIONS = COLUMNS * COLUMNS;
     private static ImagePuzzle imgPuzzle;
     private static TextView tx;
+    private static RelativeLayout loader;
+
+    private static int maxHeight;
+    private static int wideLenght;
+    private static int sideLength;
 
     private static List<Bitmap> seperatedImage;
     private static GestureDetectGridView mGridView;
@@ -50,27 +58,32 @@ public class HotspotImagePuzzle extends HotspotDoerController {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotspot_image_puzzle);
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        maxHeight = displayMetrics.heightPixels;
+
+        loader = (RelativeLayout) findViewById(R.id.loading);
         tx = (TextView) findViewById(R.id.moves);
 
-        //TODO -> passar para path
         if(extras != null) {
             imgPuzzle = (ImagePuzzle) extras.get("game");
             ImageView test = new ImageView(this);
-            //test.setImageResource(R.drawable.background3);
-            String path = imgPuzzle.getImagePath();
-            if(path != null){
-                Bitmap bitmap = BitmapFactory.decodeFile(path);
-                test.setImageBitmap(bitmap);
-            }
-            else
-                test.setImageResource(imgPuzzle.getImageID());
-            imgPuzzle.splitImage(test);
-            seperatedImage = imgPuzzle.getChunkedImage();
-            init();
-            scramble();
-            display(getApplicationContext());
+
+            setPhoto(test,loader,this);
         }
 
+    }
+
+    @Override
+    public void start(Object o){
+        ImageView img = (ImageView) o;
+        imgPuzzle.splitImage(img);
+        wideLenght = imgPuzzle.getChunkWideLength();
+        sideLength = imgPuzzle.getChunkSideLength();
+        seperatedImage = imgPuzzle.getChunkedImage();
+        init();
+        scramble();
+        display(getApplicationContext());
     }
 
     private void init() {
@@ -240,8 +253,17 @@ public class HotspotImagePuzzle extends HotspotDoerController {
         @Override
         public View getView(int position,View convertView,ViewGroup parent){
             ImageView imageView = new ImageView(mContext);
+            Log.e("Max Height: " , "maxHeight = " + maxHeight);
+            Log.e("Side length: " , "side = " + sideLength);
             imageView.setImageDrawable(new BitmapDrawable(chunkedImage.get(position)));
-            imageView.setAdjustViewBounds(true);
+            if(sideLength > wideLenght) {
+                int side = (maxHeight - 500) / 3;
+                imageView.setMinimumHeight(side);
+                imageView.setMaxHeight(side);
+            }
+            else
+                imageView.setAdjustViewBounds(true);
+
             return imageView;
         }
 

@@ -1,14 +1,9 @@
 package com.example.gamethetown.Database;
 
-import android.provider.ContactsContract;
-
 import com.example.gamethetown.interfaces.InTheDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/*
- * TODO -> As outras classes vao todas extender esta
- */
 
 public class DatabaseConnection {
 

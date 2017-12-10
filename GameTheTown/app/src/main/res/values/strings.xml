@@ -56,8 +56,9 @@
 
     <string name="title_activity_map__current__iten">Map</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_list_of_created_itineraries">ListOfCreatedItineraries</string>
-    <string name="title_activity_search_all_itineraries">SearchAllItineraries</string>
+    <string name="title_activity_list_of_created_itineraries">Created Itineraries</string>
+    <string name="title_activity_search_all_itineraries">All Itineraries</string>
     <string name="iten_name">Iten Name</string>
+    <string name="loading_user">Loading User Information</string>
+    <string name="Level">Level:</string>
 </resources>

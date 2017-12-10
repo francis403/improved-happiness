@@ -7,10 +7,6 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.text.DecimalFormat;
 
-/**
- * Created by franc on 11/11/2017.
- */
-
 public class Race extends CurrentGame {
 
     private long startTime;
@@ -36,6 +32,7 @@ public class Race extends CurrentGame {
     public void startGame() {
         //meter o startTime na base de dados
         startTime = System.currentTimeMillis();
+        //TODO -> meter na base de dados o tempo de inicio
     }
 
     @Override
@@ -69,7 +66,7 @@ public class Race extends CurrentGame {
         gameRef.child("type").setValue("Race");
         gameRef.child("startTime").setValue(startTime); // so vai ser feito mais tarde
     }
-    //TODO
+
     @Override
     public void getValueInDatabase(DataSnapshot snap, Object obj) {
         DataSnapshot gameSnap = snap.child(DBConstants.REFERENCE_GAME);

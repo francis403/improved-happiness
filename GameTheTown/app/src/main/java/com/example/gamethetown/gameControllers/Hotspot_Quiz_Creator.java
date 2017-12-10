@@ -1,16 +1,11 @@
 package com.example.gamethetown.gameControllers;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Vibrator;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,14 +16,9 @@ import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.games.CurrentGame;
 import com.example.gamethetown.games.Quiz;
-import com.example.gamethetown.interfaces.Game;
-import com.example.gamethetown.item.Hotspot;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-//TODO -> devolver os dados
 public class Hotspot_Quiz_Creator extends App_Menu {
 
     private static final int PICK_FROM_FILE = 1;
@@ -132,7 +122,7 @@ public class Hotspot_Quiz_Creator extends App_Menu {
     public void onButtonFinish(View view){
         if(checked != -1)
             game.setCorrectAsw(checked);
-        if(question != null && !question.equals(""))
+        if(question != null && !question.getText().equals(""))
             game.setQuestion(question.getText().toString());
         if(asw1 != null && !asw1.equals(""))
             game.setAsw1(asw1.getText().toString());
