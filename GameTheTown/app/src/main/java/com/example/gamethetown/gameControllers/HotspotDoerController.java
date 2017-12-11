@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.R;
 import com.example.gamethetown.Storage.ImageHotspotGetter;
 import com.example.gamethetown.Storage.StorageDatabase;
 import com.example.gamethetown.games.CurrentGame;
+import com.example.gamethetown.games.Race;
 import com.example.gamethetown.interfaces.GameController;
 import com.example.gamethetown.item.Itinerary;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,9 +34,11 @@ public abstract class HotspotDoerController extends App_Menu
     protected static boolean isCorrect = false,answeared = false;
     protected static double score;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         extras = getIntent().getExtras();
     }
 

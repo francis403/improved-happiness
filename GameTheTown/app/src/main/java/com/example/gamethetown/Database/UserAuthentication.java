@@ -1,4 +1,4 @@
-package com.example.gamethetown.Catalogs;
+package com.example.gamethetown.Database;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -16,8 +16,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class UserAuthentication {
 
     private static FirebaseAuth auth;
-
-    //ideia -> usamos isto e metemos um construtor que vai buscar os dados todos da bd
     private static User currentUser;
 
     public UserAuthentication(){

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.UserAuthentication;
 import com.example.gamethetown.Database.UserDatabaseConnection;
 import com.example.gamethetown.R;
 import com.example.gamethetown.item.User;

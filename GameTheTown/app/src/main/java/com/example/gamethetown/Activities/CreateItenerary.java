@@ -24,6 +24,7 @@ import com.esafirm.imagepicker.model.Image;
 import com.example.gamethetown.App_Menu;
 import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
+import com.example.gamethetown.gameControllers.HotspotDoerController;
 import com.example.gamethetown.gameControllers.HotspotImagePuzzleCreator;
 import com.example.gamethetown.gameControllers.Hotspot_Quiz_Creator;
 import com.example.gamethetown.games.CurrentGame;
@@ -58,7 +59,7 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     //os hotspots antes de serem confirmados
     private HashMap<String,Hotspot> preHotspots = new HashMap<>();
     private GoogleMap mMap;
-    private FloatingActionButton fab_rem; //prov posso tirar isto daqui nao?
+    private FloatingActionButton fab_rem;
     private FusedLocationProviderClient mFusedLocationClient;
 
     private ImagePicker imgPicker;
@@ -84,10 +85,8 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
         extras = getIntent().getExtras();
         if(extras != null && !extras.isEmpty()){
-            //get data from arleady existing itinerary and list of preHotspots
             Itinerary iten = (Itinerary) extras.get("hotList");
             receivedHotspots = iten.getHotSpotList();
-            //tenho que meter os dados do itinerario
         }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -148,27 +147,16 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final View sView = bottomSheetUp(R.layout.layout_confirm_creation);
-                FloatingActionButton confirm = (FloatingActionButton)
-                        sView.findViewById(R.id.confirm);
-                confirm.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        if(createdIten.preCompleted(preHotspots.values())){
-                            //se ja estiver tudo bem e completo
-                            Intent intent = new Intent(v.getContext(),
-                                    ConfirmHotspots.class);
-                            intent.putExtra("itinerary",createdIten);
-                            intent.putExtra("preList",preHotspots);
-                            startActivity(intent);
-                        }
-                        else{
-                            bottomSheetUp(R.layout.layout_error_creating_itinerary);
-                        }
-                    }
-                });
-                itenData(sView);
+                if(createdIten.preCompleted(preHotspots.values())){
+                    //se ja estiver tudo bem e completo
+                    Intent intent = new Intent(view.getContext(),
+                            ConfirmHotspots.class);
+                    intent.putExtra("itinerary",createdIten);
+                    intent.putExtra("preList",preHotspots);
+                    startActivity(intent);
+                }
+                else
+                    bottomSheetUp(R.layout.layout_error_creating_itinerary);
             }
         });
 
@@ -183,14 +171,14 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
     }
 
     private void setHotspotInfoWindow(final Marker marker, View sView){
-        fab_rem = (FloatingActionButton) sView.findViewById(R.id.remove);
 
+        fab_rem = (FloatingActionButton) sView.findViewById(R.id.remove);
         fab_rem.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
                 marker.setVisible(false);
-                Snackbar snackbar = Snackbar.make(v,"Deleted marker.", Snackbar.LENGTH_SHORT).
+                Snackbar snackbar = Snackbar.make(v,"Deleted marker.",
+                        Snackbar.LENGTH_SHORT).
                         setAction("Undo", new View.OnClickListener() {
 
                             @Override
@@ -201,7 +189,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                 snackbar.addCallback(new Snackbar.Callback() {
                     @Override
                     public void onDismissed(Snackbar snackbar, int event) {
-                        //see Snackbar.Callback docs for event details
                         if(!marker.isVisible()) {
                             preHotspots.remove(marker.getId());
                             marker.remove();
@@ -228,9 +215,10 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
 
         //TODO mudar, nao gosto disto assim
         if(h.getGame() != null){
-            if(h.getGame().getGameName().equals("Quiz"))
+            String gameName = h.getGame().getGameName();
+            if(gameName.equals("Quiz"))
                 spinner.setSelection(0);
-            else if(h.getGame().getGameName().equals("Race"))
+            else if(gameName.equals("Race"))
                 spinner.setSelection(1);
             else
                 spinner.setSelection(2);
@@ -270,7 +258,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
             }
 
         });
-        //ao voltar
         if(name != null && !name.equals(""))
             title.setText(name);
         //meter o butao para ir ver o jogo
@@ -280,28 +267,25 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Intent intent = null;
+                String selectedGame = spinner.getSelectedItem().toString();
 
-                Intent intent;
-                if(spinner.getSelectedItem().toString().equals("Quiz")) {
+                if(selectedGame.equals("Quiz"))
                     intent = new Intent(v.getContext(), Hotspot_Quiz_Creator.class);
-                    intent.putExtra("currentGame",hot.getGame());
-                    intent.putExtra("markerID",marker.getId());
-                    startActivityForResult(intent,GET_GAME_CODE);
-                }
-                if(spinner.getSelectedItem().toString().equals("Race")){
+
+                else if(selectedGame.equals("Race")){
                     Race game = new Race();
                     hot.setGame(game);
                     Toast.makeText(getBaseContext(), "Race added", Toast.LENGTH_SHORT).show();
                 }
-                if(spinner.getSelectedItem().toString().equals("ImagePuzzle")) {
+                else if(selectedGame.equals("ImagePuzzle"))
                     intent = new Intent(v.getContext(), HotspotImagePuzzleCreator.class);
+                if(intent != null){
                     intent.putExtra("currentGame",hot.getGame());
                     intent.putExtra("markerID",marker.getId());
                     startActivityForResult(intent,GET_GAME_CODE);
                 }
-
             }
-
         });
 
     }
@@ -357,7 +341,8 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             mMap.moveCamera(CameraUpdateFactory.
-                                    newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14));
+                                    newLatLngZoom(new LatLng(location.getLatitude(),
+                                            location.getLongitude()), 14));
                         }
                     }
                 });
@@ -400,7 +385,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
         // Check which request we're responding to
         if (requestCode == GET_GAME_CODE) {
             // Make sure the request was successful
-
             CurrentGame game = (CurrentGame) data.getExtras().get("game");
             String markerID = (String) data.getExtras().get("markerID");
             Hotspot hot = preHotspots.get(markerID);

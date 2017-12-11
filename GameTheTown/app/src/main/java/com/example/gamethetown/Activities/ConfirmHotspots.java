@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gamethetown.App_Menu;
-import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.UserAuthentication;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.HotspotAdapter;
 import com.example.gamethetown.adapters.SimpleItemTouchHelperCallback;

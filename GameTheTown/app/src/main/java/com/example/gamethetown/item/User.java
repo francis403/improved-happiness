@@ -1,6 +1,6 @@
 package com.example.gamethetown.item;
 
-import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.UserAuthentication;
 import com.example.gamethetown.Database.DBConstants;
 import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.Database.UserDatabaseConnection;
@@ -26,7 +26,6 @@ public class User implements InTheDatabase{
 
     private static CurrentItinerary currentItinerary;
 
-    //ate agora
     private List<String> createdItin;
     private List<String> completedItin;
 
@@ -56,9 +55,6 @@ public class User implements InTheDatabase{
         this.userID = userID;
         this.level = 1;
         createdItin = new ArrayList<>();
-        completedItin = new ArrayList<>();
-        //createdItineraries =  new ArrayList<>();
-        //this.level = udc.getUserLvl();
         imageID = R.drawable.profile;
     }
 
@@ -70,7 +66,6 @@ public class User implements InTheDatabase{
     public void completeItinerary(Double score){
         addExperience(score * 100);
         this.currentItinerary = null;
-        //this.currentItinerary.setDefault();
         new UserDatabaseConnection(userID).removeCurrentItinerary();
     }
     public void addCompletedItinerary(Itinerary i){

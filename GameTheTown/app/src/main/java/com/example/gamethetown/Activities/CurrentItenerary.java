@@ -116,6 +116,12 @@ public class CurrentItenerary extends App_Menu {
                     iig.setLoader(loading);
                     iig.execute(o.toString());
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    img.setBackgroundResource(R.drawable.no_image);
+                    loading.setVisibility(View.GONE);
+                }
             });
         }
 

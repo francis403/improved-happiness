@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.gamethetown.Catalogs.UserAuthentication;
+import com.example.gamethetown.Database.UserAuthentication;
 import com.example.gamethetown.Database.UserDatabaseConnection;
 import com.example.gamethetown.Dialogs.AlertDialogs.LoadingDialog;
 import com.example.gamethetown.R;

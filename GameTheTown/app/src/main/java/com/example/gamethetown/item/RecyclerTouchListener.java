@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.example.gamethetown.interfaces.ClickListener;
 
-
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     private GestureDetector gestureDetector;

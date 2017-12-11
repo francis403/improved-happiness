@@ -26,10 +26,10 @@ public class Itinerary implements Serializable,InTheDatabase{
     private String itenID;
     private String name;
     private float rating;
-    private int times_completed; //default value
+    private int times_completed;
     private Bitmap image;
     private int imageID;
-    private String imagePath; // por agora temos o image path so para caso
+    private String imagePath;
 
     private Date creatDate;
     private String description;
@@ -56,29 +56,6 @@ public class Itinerary implements Serializable,InTheDatabase{
         imageID = DEFAULT_IMAGE_ID;
     }
 
-    public Itinerary(String name,Date creatDate,List<Hotspot> list,Difficulties dif){
-        this.name = name;
-        this.creatDate = creatDate;
-        hotspots = list;
-        this.dif = dif;
-        imageID = DEFAULT_IMAGE_ID;
-    }
-
-    public Itinerary(String name,Date creatDate,int imageID){
-        hotspots = new ArrayList<>();
-        this.name = name;
-        this.imageID = imageID;
-        this.creatDate = creatDate;
-    }
-
-    //facilita os testes
-    public Itinerary(String name,Date creatDate,int imageID,List<Hotspot> list){
-        hotspots = new ArrayList<>();
-        this.name = name;
-        this.imageID = imageID;
-        this.creatDate = creatDate;
-        hotspots = list;
-    }
 
     public float getRating(){return rating;}
     public int getTimesCompleted(){return times_completed;}
@@ -131,7 +108,6 @@ public class Itinerary implements Serializable,InTheDatabase{
             return null;
         return dif.toString();
     }
-    public int numberOfHotspot(){return hotspots.size();}
 
     public void setImagePath(String imagePath){this.imagePath = imagePath;}
     public void setImageBitmap(Bitmap image){this.image = image;}
@@ -141,7 +117,6 @@ public class Itinerary implements Serializable,InTheDatabase{
     public void setDescription(String description){this.description = description;}
     public void setDate(Date date){this.creatDate = date;}
     public void addHotspot(Hotspot hotspot){hotspots.add(hotspot);}
-    public void setImageID(int imageID){this.imageID = imageID;}
 
     /**
      *
