@@ -14,7 +14,7 @@ import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.interfaces.ClickListener;
 import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Itinerary;
-import com.example.gamethetown.item.RecyclerTouchListener;
+import com.example.gamethetown.Dialogs.AlertDialogs.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,5 @@
 package com.example.gamethetown.adapters;
 
-/**
- * Created by franc on 29/10/2017.
- */
-
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

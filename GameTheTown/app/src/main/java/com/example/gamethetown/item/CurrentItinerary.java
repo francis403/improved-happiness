@@ -46,6 +46,11 @@ public class CurrentItinerary implements InTheDatabase{
     public long getDuration(){return System.currentTimeMillis() - startTime;}
     public void addScore(double score){this.score += score;}
 
+    public void setDefaultValues(){
+        currentHotspotIndice = 0;
+        score = 0;
+        startTime = System.currentTimeMillis();
+    }
 
     public Itinerary getItinerary(){return currentItinerary;}
     public double getScore(){return score;}
@@ -63,7 +68,6 @@ public class CurrentItinerary implements InTheDatabase{
         //set harder information
         currItenRef.child("id").setValue(currentItinerary.getItenID());
         //currentItinerary.setValueInDatabase(currItenRef,false);
-
     }
 
     @Override

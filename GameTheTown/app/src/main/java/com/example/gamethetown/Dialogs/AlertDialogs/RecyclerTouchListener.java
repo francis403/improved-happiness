@@ -1,4 +1,4 @@
-package com.example.gamethetown.item;
+package com.example.gamethetown.Dialogs.AlertDialogs;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -64,6 +64,7 @@ public class SearchAllItineraries extends App_Menu {
     }
 
     public void onFilter(View view){
+        maxDistance = 0;
         final BottomSheetDialog bsd = new BottomSheetDialog(this);
         final View sView = getLayoutInflater().inflate(R.layout.layout_filter,null);
         bsd.setContentView(sView);

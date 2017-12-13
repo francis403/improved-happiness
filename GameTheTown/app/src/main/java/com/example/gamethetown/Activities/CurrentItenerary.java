@@ -39,6 +39,7 @@ public class CurrentItenerary extends App_Menu {
 
     @InjectView(R.id.title) TextView title;
     @InjectView(R.id.description) TextView description;
+    @InjectView(R.id.score) TextView score;
     @InjectView(R.id.user_profile_photo) CircleImageView creatorImages;
     @InjectView(R.id.imageOfItinerary) LinearLayout img;
     @InjectView(R.id.loading) RelativeLayout loading;
@@ -75,15 +76,11 @@ public class CurrentItenerary extends App_Menu {
             aBuilder.show();
         }
         else{
-            //TODO -> preciso de ir buscar o itinerario
-
             iten = currIten.getCurrentItinerary();
             title.setText(iten.getName());
             description.setText(iten.getDescription());
+            score.setText(getString(R.string.Score) + user.getCurrentItinerary().getScore());
 
-            //TODO -> vou ter de mudar para ir buscar a foto do utilizador
-            //creatorImages.setImageResource(iten.getCreator().getImageID());
-            //buscar a foto do util
             StorageDatabase storageDatabase = new StorageDatabase();
             storageDatabase.getUserPhoto(iten.getUserID()).
                     addOnSuccessListener(new OnSuccessListener<Uri>() {

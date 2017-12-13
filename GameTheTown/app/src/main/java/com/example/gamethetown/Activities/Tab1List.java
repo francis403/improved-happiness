@@ -1,6 +1,5 @@
 package com.example.gamethetown.Activities;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -14,12 +13,12 @@ import android.view.ViewGroup;
 
 import com.example.gamethetown.Database.ItineraryDatabaseConnection;
 import com.example.gamethetown.Dialogs.AlertDialogs.SelectItineraryDialog;
-import com.example.gamethetown.Enums.Difficulties;
 import com.example.gamethetown.R;
 import com.example.gamethetown.adapters.ItineraryAdapter;
 import com.example.gamethetown.interfaces.ClickListener;
+import com.example.gamethetown.item.DividerItemDecoration;
 import com.example.gamethetown.item.Itinerary;
-import com.example.gamethetown.item.RecyclerTouchListener;
+import com.example.gamethetown.Dialogs.AlertDialogs.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class Tab1List extends Fragment {
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
             recyclerView.setAdapter(mAdapter);
-            //recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
+            recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
             recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getContext(), recyclerView, new ClickListener() {
                 @Override
                 public void onClick(View view, int position) {

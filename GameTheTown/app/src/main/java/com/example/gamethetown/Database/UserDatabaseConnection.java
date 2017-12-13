@@ -8,24 +8,13 @@ import com.google.firebase.database.DatabaseReference;
 
 public class UserDatabaseConnection extends DatabaseConnection{
 
-    private static String name = "name";
-    private static String level = "level";
-    private static String exp = "exp";
-
-    //estou a pensar por o email do user porque assim garantimos que nao ha ninguem igual
-    private String userID;
-    private int lvlHelper;
     private DatabaseReference usersRef;
     private DatabaseReference mUserRef;
-    private DatabaseReference lvlReference;
 
     // oara ouder comecar a fazer a lista de itineraruios
     public UserDatabaseConnection(String userID){
-        this.userID = userID;
         usersRef = rootRef.child(DBConstants.REFERENCE_USERS);
         mUserRef = usersRef.child(userID);
-        lvlReference = mUserRef.child(level);
-
     }
 
     @Override
@@ -41,11 +30,6 @@ public class UserDatabaseConnection extends DatabaseConnection{
                 .child("score").setValue(oldScore + newScore);
     }
 
-    public void setUserLvl(int level){
-        DatabaseReference lvlReference = mUserRef.child(DBConstants.REFERENCE_LEVEL);
-        lvlReference.setValue(level);
-    }
-
     public void setUser(User user){
         user.setValueInDatabase(usersRef,null);
     }
@@ -55,6 +39,7 @@ public class UserDatabaseConnection extends DatabaseConnection{
         DatabaseReference currItenRef = mUserRef.child(DBConstants.REFERENCE_CURRENT_ITINERARY);
         currItenRef.setValue(null); //apagar o que tiver la antes
         //set basic info
+        currIten.setDefaultValues();
         currIten.setValueInDatabase(mUserRef,null);
     }
 
@@ -76,11 +61,5 @@ public class UserDatabaseConnection extends DatabaseConnection{
     public void addCompletedIten(Itinerary iten){
         mUserRef.child(DBConstants.REFERENCE_COMPLETED_ITEN)
                 .child(iten.getItenID()).setValue(true); //created
-    }
-
-
-    public void setExpInDatabase(double exp) {
-        mUserRef.child(DBConstants.REFERENCE_EXP)
-                .setValue(exp);
     }
 }

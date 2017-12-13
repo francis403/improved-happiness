@@ -51,6 +51,11 @@ public class Login extends AppCompatActivity {
      */
     public void onLoginPress(View view){
 
+        if(new UserAuthentication().getUser() != null) {
+            Log.e("LogedIN", "User is still logged in");
+            Log.e("Name",new UserAuthentication().getUser().getDisplayName());
+        }
+
         //Check if everything is fine
         if(validate()) {
             final LoadingDialog ld = new LoadingDialog(
@@ -64,6 +69,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        Log.e("Was successful","Login was successful");
                         // Sign in success, update UI with the signed-in user's information
                         String userID = new UserAuthentication().getUser().getUid();
                         DatabaseReference mUserRef = new UserDatabaseConnection
@@ -73,7 +79,7 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 //o login foir feito
-                                ld.hide();
+                                ld.dismiss();
                                 User tst = new User(dataSnapshot);
                                 new UserAuthentication().setCurrentUser(tst);
                                 Intent intent = new Intent(Login.this, Profile.class);
@@ -83,7 +89,7 @@ public class Login extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-                                ld.hide();
+                                ld.dismiss();
                             }
                         });
                     } else {

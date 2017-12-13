@@ -75,6 +75,7 @@ public class UserAuthentication {
 
     //TODO -> Im pretty sure it aint working
     public void log_out(){
+        Log.e("Error","User is gonna log out");
         currentUser = null;
         FirebaseAuth.getInstance().signOut();
         auth = null;

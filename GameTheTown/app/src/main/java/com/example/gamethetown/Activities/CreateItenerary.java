@@ -111,32 +111,13 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
                 rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                        switch (checkedId){
-                            case R.id.justTravel:
-                                createdIten.setDifficulty(Difficulties.JUST_TRAVEL);
-                                break;
-                            case R.id.easy:
-                                createdIten.setDifficulty(Difficulties.EASY);
-                                break;
-                            case R.id.medium:
-                                createdIten.setDifficulty(Difficulties.MEDIUM);
-                                break;
-                            case R.id.hard:
-                                createdIten.setDifficulty(Difficulties.HARD);
-                                break;
-                        }
+                        createdIten.setDifficulty(Difficulties.getDifFromID(checkedId));
                     }
                 });
                 String dif = createdIten.getDifficulty();
                 if(dif != null) {
-                    if(dif.equals(Difficulties.JUST_TRAVEL.toString()))
-                        rg.check(R.id.justTravel);
-                    else if(dif.equals(Difficulties.EASY.toString()))
-                        rg.check(R.id.easy);
-                    else if(dif.equals(Difficulties.MEDIUM.toString()))
-                        rg.check(R.id.medium);
-                    else if(dif.equals(Difficulties.HARD.toString()))
-                        rg.check(R.id.hard);
+                    Difficulties d = Difficulties.valueOf(dif);
+                    rg.check(Difficulties.getID(d));
                 }
                 itenData(sView);
 
@@ -392,7 +373,6 @@ public class CreateItenerary extends App_Menu implements OnMapReadyCallback {
             return;
         }
         if(requestCode == PICK_FROM_FILE){
-            Bitmap bitmap;
             String path = "";
             ArrayList<Image> images = (ArrayList<Image>) ImagePicker.getImages(data);
             Image image = images.get(0);

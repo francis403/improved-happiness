@@ -19,7 +19,7 @@
 
     <TextView
         android:textColor="@color/black"
-        android:background="@color/white"
+        android:background="@drawable/text_single"
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -40,7 +40,7 @@
 
     <TextView
         android:textColor="@color/black"
-        android:background="@color/white"
+        android:background="@drawable/text_single"
         android:id="@+id/dist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

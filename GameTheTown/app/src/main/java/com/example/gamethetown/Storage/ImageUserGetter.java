@@ -33,12 +33,10 @@ public class ImageUserGetter extends ImageGetter {
      * @ensures imageView has image
      */
     protected void onPostExecute(Bitmap feed) {
-        Log.e("Acabou","Acabou de ir buscar a foto");
         if(imageView != null)
             imageView.setImageBitmap(feed); //set the image
-        if(loading != null){
+        if(loading != null)
             loading.setVisibility(View.GONE);
-        }
     }
 
 }

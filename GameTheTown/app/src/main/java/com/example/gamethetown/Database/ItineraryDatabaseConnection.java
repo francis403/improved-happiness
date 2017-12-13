@@ -51,8 +51,6 @@ public class ItineraryDatabaseConnection extends DatabaseConnection {
         iten.setValueInDatabase(itensRef,true);
     }
 
-    public List<Itinerary> getLocalList(){return localList;}
-
     public void allItinerariesIntoMap(@NonNull final GoogleMap mMap,@ NonNull final Map mapItineraries){
 
         itensRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,7 +106,7 @@ public class ItineraryDatabaseConnection extends DatabaseConnection {
 
         List<Itinerary> filtered = new ArrayList<>();
         for(Itinerary i : localList){
-            if(i.getName().contains(searchString)) {
+            if(i.getName().toLowerCase().contains(searchString.toLowerCase())) {
                 if(selDif.equalsName("ALL") ||
                         i.getDifficulty().equals(selDif.name())) {
                     boolean closeEnough = userLocation.distanceTo(
@@ -122,25 +120,6 @@ public class ItineraryDatabaseConnection extends DatabaseConnection {
                     }
                 }
             }
-        }
-        ia.setList(filtered);
-        ia.notifyDataSetChanged();
-    }
-
-    public void filterItinerariesIntoAdapter(
-            ItineraryAdapter ia, String searchString,
-            Difficulties selDif, int maxDist,Location userLocation){
-        List<Itinerary> filtered = new ArrayList<>();
-        for(Itinerary i : localList){
-                if(i.getName().contains(searchString)) {
-                    if(selDif.equalsName("ALL") ||
-                            i.getDifficulty().equals(selDif.name())) {
-                        boolean closeEnough = userLocation.distanceTo(
-                                i.getFirstHotspot().getLocation()) < maxDist * 1000;
-                        if(maxDist == 0 || closeEnough)
-                            filtered.add(i);
-                    }
-                }
         }
         ia.setList(filtered);
         ia.notifyDataSetChanged();

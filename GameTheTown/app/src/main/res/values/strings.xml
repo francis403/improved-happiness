@@ -61,4 +61,8 @@
     <string name="iten_name">Iten Name</string>
     <string name="loading_user">Loading User Information</string>
     <string name="Level">Level:</string>
+    <string name="Score">Score:</string>
+    <string name="gps_network_not_enabled">Location Not Enabled</string>
+    <string name="open_location_settings">Open Location Settings</string>
+    <string name="Cancel">Cancel</string>
 </resources>

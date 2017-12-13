@@ -51,10 +51,6 @@ public class Reg extends AppCompatActivity {
                                 Toast.makeText(Reg.this, "Registration successfull.",
                                         Toast.LENGTH_SHORT).show();
 
-                                /**
-                                User user = new User(ua.getUser().getUid());
-                                ua.setCurrentUser(user); //returar
-                                **/
                                 Task upd = ua.updateUserName(n); //meter isto para traz
                                 while(!upd.isComplete()){}
                                 User created = new User(ua.getUser().getUid(),n);
